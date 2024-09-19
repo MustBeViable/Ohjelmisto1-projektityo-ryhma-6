@@ -1,9 +1,11 @@
 import random
 #funtion parametreiks syötetään pelaajan rahat, mitä tuplaa ja monesko tuplaus menossa
+#HUOM! Voidaan halutessa tuoda muuttuva lukuarvo muuttujan avulla, jolla kerrannoidaan, kuinka mahdollisuudet putoo.
+#itse suosittelen 5 tai 10.
 def tuplaus(amount, times):
     luckynumber = random.randint(1, 100)
     print(luckynumber)
-    #Tässä määritän voittavan mahiksen suoraa random generaattorista ja jokaisella uudella tuplauskerralla vähennän 10
+    #Tässä määritän voittavan mahiksen suoraa random generaattorista ja jokaisella uudella tuplauskerralla vähennän 5
     #jotta tuplaus vaikeutuisi
     chance1 = luckynumber - (times * 5)
     print(chance1)
