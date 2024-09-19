@@ -8,16 +8,19 @@ def tuplaus(amount, times):
     #Tässä määritän voittavan mahiksen suoraa random generaattorista ja jokaisella uudella tuplauskerralla vähennän 5
     #jotta tuplaus vaikeutuisi
     chance1 = luckynumber - (times * 5)
+    # Tämä on testi printti poista valmiiseen ohjelmaan
     print(chance1)
     #Tässä määritän "kolikon" toisen puolen. Se on maximi (100, määritetty randintisä) - randomoitu tulos ja lisätään
     # siihen tuo mahdollinen uusien tuplauksien vaikutus
     chance2 = 100 - luckynumber + (times * 5)
+    # Tämä on testi printti poista valmiiseen ohjelmaan
     print(chance2)
     #tässä tarkistetaan saiko käyttäjä yli 50, eli 50/50 mahdollisuus ekalla tuplausyrityksellä. Jos tämä onnistuu
     #tuplaan rahat eli amount*2
     if chance1 >= chance2:
         print("Tuplaus onnistui!")
         amount = amount * 2
+        # Tämä on testi printti poista valmiiseen ohjelmaan tai muokkaa kertomaan pelaajan sen hetkiset voitot
         print(amount)
         return amount
     else:
@@ -32,6 +35,7 @@ def tuplataanko(answer, winnings):
         while answer == "KYLLÄ" and winnings > 0:
             if answer == "KYLLÄ":
                 winnings = tuplaus(winnings, times)
+                #Tämä on testi printti poista valmiiseen ohjelmaan
                 print(winnings)
                 times += 1
                 #Tässä tarkistetaa tuplauskierroksen tulos. Jos pelaaja häviää, ohjelma ei kysy haluaako hän tuplata
