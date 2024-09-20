@@ -1,3 +1,2 @@
 print("Moro!")
-
-print("Heii!")
+print("makkara")
