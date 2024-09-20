@@ -53,3 +53,4 @@ def tuplataanko(answer, winnings):
 vastaus = input("Vastaus: ").upper()
 maara = int(input("Maara: "))
 tuplataanko(vastaus,maara)
+print("makkara2")
