@@ -1,1 +1,2 @@
 print("Moro!")
+print("Moi")
