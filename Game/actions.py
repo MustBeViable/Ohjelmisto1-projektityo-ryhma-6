@@ -1,6 +1,5 @@
-# All the commands that the user can give and all the texts that the user can see
-# are stored as string variables in game_texts.
-# All commands and texts are imported to this file.
+# All the commands that the user can give and all the texts that the user can see are stored
+# as string variables in game_texts. They are all imported to this file.
 from Game.game_texts import *
 
 # The function asks for a command from the user with the prompt given to it as a parameter.
@@ -9,12 +8,17 @@ from Game.game_texts import *
 # After executing the commmand, the function repeats itself asking for a new commmand. (Should it?)
 
 def pick_action(prompt):
-    action = input(prompt)
+    action = input(prompt).upper()
     if action == ask_help:
         print(give_help)
         pass
     else:
-        pass
+        print(not_command)
     pick_action(give_commmand)
     return
+
+
+# Testi
+test_prompt = give_commmand
+pick_action(test_prompt)
 
