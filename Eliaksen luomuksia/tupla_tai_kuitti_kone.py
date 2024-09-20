@@ -17,6 +17,7 @@ def tuplaus(amount, times):
     print(chance2)
     #tässä tarkistetaan saiko käyttäjä yli 50, eli 50/50 mahdollisuus ekalla tuplausyrityksellä. Jos tämä onnistuu
     #tuplaan rahat eli amount*2
+    #Sakke olen täällä
     if chance1 >= chance2:
         print("Tuplaus onnistui!")
         amount = amount * 2

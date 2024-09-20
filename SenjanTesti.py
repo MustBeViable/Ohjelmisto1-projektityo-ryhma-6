@@ -1,2 +1,3 @@
 print("Moro!")
-print("Moi")
+print("makkara")
+print("MOII")
