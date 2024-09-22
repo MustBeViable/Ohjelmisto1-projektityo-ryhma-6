@@ -69,9 +69,3 @@ def distance(next_place):
     #print(dist)
     return dist
 airportselection()
-#ICAO1 = input("Insert first ICAO code: ")
-#ICAO2 = input("Insert second ICAO code: ")
-#airport1 = cordinate(ICAO1)
-#airport2 = cordinate(ICAO2)
-#dist = distance.distance(airport1, airport2).km
-#print(f"Lentokenttien etäisyys on {dist:.2f} km.")
