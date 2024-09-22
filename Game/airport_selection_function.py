@@ -16,8 +16,9 @@ def airportselection():
            f" from airport, country "
            f" where country.iso_country = airport.iso_country"
            f" and airport.type = 'large_airport'"
+           f" and airport.name not like 'CLICK%'"
            f" order by rand()"
-           f" limit 20 ")
+           f" limit 50 ")
     #kursori = yhteys.cursor(dictionary=true), muuttaa tuplen sijasta dictionaryks. Eli lista, jonka sisällä dictionary
     #kantsii käyttä jos useampi select (vaikka select name, ident, id...) ja muuttamalla select arvoja ei muuta printtiä
     #näi voi callaa avaimilla mm result['name']
