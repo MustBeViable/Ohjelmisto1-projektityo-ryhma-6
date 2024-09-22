@@ -12,9 +12,10 @@ yhteys = mysql.connector.connect(
          )
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
 def airportselection():
-    sql = (f" Select name, iso_country "
-           f" from airport "
-           f" where type = 'large_airport'"
+    sql = (f" Select airport.name as name, country.name as country "
+           f" from airport, country "
+           f" where country.iso_country = airport.iso_country"
+           f" and airport.type = 'large_airport'"
            f" order by rand()"
            f" limit 20 ")
     #kursori = yhteys.cursor(dictionary=true), muuttaa tuplen sijasta dictionaryks. Eli lista, jonka sisällä dictionary
@@ -42,10 +43,10 @@ def airportselection():
     # 1 ja päättymään 20. Enamurate lisää iterointiin indeksin, jossa sit käydään listan elementtejä läpi (jossa airport
     # on elementti) läpi i indeksin avulla. Samalla saadaan ulos elementin että indeksin. (1 sanakirja= erillisen
     # lentokentän nimi, maakoodi ja etäisyys avain/arvo pareina).
-    print(result_sorted)
+    print("Seuraavat lähdöt: (lennon nro, maa, lentokenttä, hinta (€):")
     for i, airport in enumerate(result_sorted):
         #print(f"{i + 1}. {airport['name']}: ({airport['distance']:.1f} km)")
-        print(f"{i + 1}. {airport['name']} {airport['iso_country']}: ({(i + 1) * 100} €)")
+        print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({(i + 1) * 100} €)")
     next_airport = int(input("Next airport: "))
     next_airport = result_sorted[next_airport-1]["name"]
     print(next_airport)
