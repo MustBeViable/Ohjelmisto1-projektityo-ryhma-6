@@ -1,37 +1,40 @@
 # All the commands that the user can give.
-ask_help = "ohje"
-komento = "komento"
-toinen_komento = "toinen_komento"
 
-# Dictionary of commands and their help texts.
+yes = "KYLLÄ"
+no = "EI"
+
+help_command = "ohje"
+fly_command = "lennä"
+
+# Dictionary of commands that are normally available and their help texts.
 command_and_helptext = {
-    ask_help: "Näyttää ohjeen.",
-    komento: "Tekee jotain.",
-    toinen_komento: "Tekee jotain muuta."
+    help_command: "Näyttää ohjeen.",
+    fly_command: "Avaa valikon, josta voit valita, mille lentokentälle lennät seuraavaksi.",
 }
 
+
 # All game texts
-give_commmand = 'Anna komento: '
+give_commmand_str = 'Anna komento: '
 
-not_command = ('Tuo ei  ollut komento. '
-               'Komennolla "ohje" näet kaikki mahdolliset komennot. ')
+not_command_str = (' ei  ole komento. '
+                   'Komennolla "ohje" näet kaikki mahdolliset komennot. ')
 
-game_instruction = (f'PELIN OHJE\n'
-                    f'Kirjoita haluamasi komento ja paina enter. \n')
+game_instruction_str = (f'PELIN OHJE\n'
+                        f'Kirjoita konsoliin haluamasi komento ja paina enter. \n')
 
-game_goal = (f'PELIN TAVOITE\n'
-            f'Pelin tavoite on kerätä mahdollisimman paljon makkaroita.\n'
-            f'Erilaisista makkaroista saa enemmän pisteitä.\n'
-            f'Peli päättyy, kun rahasi loppuvat tai käytät lopetuskomentoa.\n')
+game_goal_str = (f'PELIN TAVOITE\n'
+                 f'Pelin tavoite on kerätä mahdollisimman paljon makkaroita.\n'
+                 f'Erilaisista makkaroista saa enemmän pisteitä.\n'
+                 f'Peli päättyy, kun rahasi loppuvat tai käytät lopetuskomentoa.\n')
 
-
-commands = f'KOMENNOT\n'
+# String of commands and what they do
+commands_str = f'KOMENNOT\n'
 
 for com in command_and_helptext.keys():
-    commands += f'{com}: {command_and_helptext[com]}\n'
+    commands_str += f'{com}: {command_and_helptext[com]}\n'
 
-give_help = (f"\n"
-             f"{game_instruction}\n"
-             f"{commands}\n"
-             f"{game_goal}"
-             )
+# Combines all instructions to one manual.
+give_help_str = (f"\n"
+                 f"{game_instruction_str}\n"
+                 f"{commands_str}\n"
+                 f"{game_goal_str}")
