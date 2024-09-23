@@ -1,3 +1,4 @@
+
 import mysql.connector
 
 
@@ -45,15 +46,19 @@ def airportselection():
     # on elementti) läpi i indeksin avulla. Samalla saadaan ulos elementin että indeksin. (1 sanakirja= erillisen
     # lentokentän nimi, maakoodi ja etäisyys avain/arvo pareina).
     print("Seuraavat lähdöt: (lennon nro, maa, lentokenttä, hinta (€):")
+    price_multiplier = 50
     for i, airport in enumerate(result_sorted):
         #print(f"{i + 1}. {airport['name']}: ({airport['distance']:.1f} km)")
-        print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({50 + i  * 50} €)")
+        print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
     print(result_sorted)
-    next_airport = int(input("Next airport: "))
+    next_airport = int(input("Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku: "))
+    price = price_multiplier + next_airport * price_multiplier
+    rahan_vahennus(price)
     next_airport = result_sorted[next_airport-1]["ident"]
-    print(next_airport)
-
-    return next_airport
+    new_location = current_coordinates(next_airport)
+    global location
+    location = new_location
+    return new_location
 
 #tää funktio saa ylemmän funktion lentokenttien nimet ja laskee sen etäisyyden nykyiseen lentokenttään (käytin baselinenä
 #nummelan lentokenttää. Ei tartte ku laittaa päivittää current_airport pelaajan nykyisee sijaintii.
@@ -66,9 +71,21 @@ def distance(next_place):
     kursori.execute(sql)
     result = kursori.fetchall()
     #nummelan tilalle laitetaa se kenttä mis pelaaja o sil hetkel.
-    current_airport = (60.3339, 24.2964)
+    current_airport = currne()
+    #current_airport = (60.3339, 24.2964)
 
     dist = distance.distance(current_airport, result[0]).km
     #print(dist)
     return dist
 airportselection()
+def current_coordinates(chosen_ICAO):
+    sql = (f" select latitude_deg, longitude_deg "
+           f" from airport "
+           f" where ident = '{chosen_ICAO}'")
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    result = kursori.fetchall()
+    return result[0]
+current_airport("EFNU")
+
+locatio = current_coordinates("EFNU")
