@@ -11,6 +11,6 @@ yhteys = mysql.connector.connect(
          collation="utf8mb4_general_ci"
          )
 
-# def fetch_makkara():
-#    sql = (f"SELECT makkara.name, iso_country"
+# def fetch_makkara(iso_country):
+#    sql = (f"SELECT makkara.name"
 #           f" FROM makkara INNER JOIN country")

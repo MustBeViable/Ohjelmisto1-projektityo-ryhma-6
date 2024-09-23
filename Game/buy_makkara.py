@@ -2,6 +2,11 @@ from Game.player_profile import own_money, own_makkaras
 
 country_makkara="country makkara"
 
+def buy(price):
+    global own_money, own_makkaras
+    own_money = own_money - price
+    return own_money
+
 #Jos törmäät outoon bugiin tuo parametreinä ei globaaleina muutujat.
 def buy_makkara(price):
     global own_money, own_makkaras
@@ -12,4 +17,5 @@ def buy_makkara(price):
 makkara_price=500
 player_money=10000
 
+print(buy(20))
 print(buy_makkara(makkara_price))
