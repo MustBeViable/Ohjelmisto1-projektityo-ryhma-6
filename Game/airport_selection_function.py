@@ -12,7 +12,7 @@ yhteys = mysql.connector.connect(
          )
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
 def airportselection():
-    sql = (f" Select airport.name as name, country.name as country "
+    sql = (f" Select airport.name as name, country.name as country, ident "
            f" from airport, country "
            f" where country.iso_country = airport.iso_country"
            f" and airport.type = 'large_airport'"
@@ -28,7 +28,7 @@ def airportselection():
     #tää for loop käy jokaisen dictionaryn listan sisältä ja ajaa distance funktion (selvittää etäisyyttä ks. alempaa)
     # Kun se o saanu etäisyyden se lisää arvon avaimeen 'distance'.
     for i in range(len(result)):
-        dist = distance(result[i]['name'])
+        dist = distance(result[i]['ident'])
         result[i]['distance'] = dist
         #print(i + 1)
         #print(result[i]["name"])
@@ -48,8 +48,9 @@ def airportselection():
     for i, airport in enumerate(result_sorted):
         #print(f"{i + 1}. {airport['name']}: ({airport['distance']:.1f} km)")
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({50 + i  * 50} €)")
+    print(result_sorted)
     next_airport = int(input("Next airport: "))
-    next_airport = result_sorted[next_airport-1]["name"]
+    next_airport = result_sorted[next_airport-1]["ident"]
     print(next_airport)
 
     return next_airport
@@ -60,7 +61,7 @@ def distance(next_place):
     from geopy import distance
     sql = (f" select latitude_deg, longitude_deg "
            f" from airport "
-           f" where name = '{next_place}'")
+           f" where ident = '{next_place}'")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     result = kursori.fetchall()
