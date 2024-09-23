@@ -28,12 +28,13 @@ def tuplaus(amount, times):
         return 0
 #HUOM! Vaatii ylemmän funktion toimiakseen!
 #funktio tallentaa iteroi montako kertaa pelaaja on jo tuplannut. Se myös tarkistaa onko pelaaja jo hävinnyt
+#funktio palauttaa tuplauksesta voittaman rahan tai jos häviää niin 0:n (integer)
 def tuplataanko(answer, winnings):
         times = 0
         #Tässä tarkistetaa halusiko pelaaja tuplata ja oliko pelaaja jo hävinnyt rahansa lisäksi alhaalla seurataa
         #monesko tuplaus kerta menossa
-        while answer == "KYLLÄ" and winnings > 0:
-            if answer == "KYLLÄ":
+        while answer == "k" and winnings > 0:
+            if answer == "k":
                 winnings = tuplaus(winnings, times)
                 #Tämä on testi printti poista valmiiseen ohjelmaan
                 print(winnings)
@@ -43,13 +44,14 @@ def tuplataanko(answer, winnings):
                 if winnings > 0:
                     answer = input(
                         "Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"
-                        " Mitä vastaat? (Kyllä/Ei): ").upper()
+                        " Mitä vastaat? (K/E): ").lower()
                 else:
                     print("Tuplaus epäonnistui!")
                     break
         return winnings
 
 #Testailin alhaalla että funktiot toimii halutulla tavalla
-vastaus = input("Vastaus: ").upper()
+vastaus = input("Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"
+                " Mitä vastaat? (K/E): ").upper()
 maara = int(input("Maara: "))
 tuplataanko(vastaus,maara)

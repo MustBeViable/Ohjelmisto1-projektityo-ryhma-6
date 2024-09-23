@@ -47,7 +47,7 @@ def airportselection():
     print("Seuraavat lähdöt: (lennon nro, maa, lentokenttä, hinta (€):")
     for i, airport in enumerate(result_sorted):
         #print(f"{i + 1}. {airport['name']}: ({airport['distance']:.1f} km)")
-        print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({(i + 1) * 100} €)")
+        print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({50 + i  * 50} €)")
     next_airport = int(input("Next airport: "))
     next_airport = result_sorted[next_airport-1]["name"]
     print(next_airport)
