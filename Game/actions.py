@@ -12,15 +12,16 @@ def faulty_command(command):
     print(f'"{command}"{not_command_str}')
     pick_action()
 
-# Joku tällanen tulee tähän mut katotaan sit sit myöhemmin tää oli vaan esimerkki
+# Joku tällanen tulee tähän mut katotaan sitä sit myöhemmin tää oli vaan esimerkki
 def show_airports():
-    pass
+    print("Toiminto ei ole käytössä. Anna uusi komento.")
+    pick_action()
 
 # The function asks for a command from the user with the prompt given to the function as a parameter.
 # The prompt can be for example "Olet Nummelan lentokentällä. Mitä haluat tehdä?"
 # The function executes the action connected to the command and returns ??? pitäs varmaan palauttaa jotain
 def pick_action():
-    command = input("").lower()
+    command = input().lower()
     if command == help_command:
         give_help()
     elif command == fly_command:
@@ -32,6 +33,5 @@ def pick_action():
 
 
 # Test
-test_prompt = give_commmand_str
 print("Peli on käynnissä. Aloita antamalla ensimmäinen komento.")
 pick_action()

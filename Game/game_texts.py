@@ -16,7 +16,7 @@ command_and_helptext = {
 # All game texts
 give_commmand_str = 'Anna komento: '
 
-not_command_str = (' ei  ole komento. '
+not_command_str = (' ei  ole komento, syötä jokin tunnistettava komento. '
                    'Komennolla "ohje" näet kaikki mahdolliset komennot. ')
 
 game_instruction_str = (f'PELIN OHJE\n'
@@ -24,6 +24,7 @@ game_instruction_str = (f'PELIN OHJE\n'
 
 game_goal_str = (f'PELIN TAVOITE\n'
                  f'Pelin tavoite on kerätä mahdollisimman paljon makkaroita.\n'
+                 f'Makkaroita voi ostaa lentokenttien Tax free -myymälöistä. Kullakin maalla on oma makkaransa.\n'
                  f'Erilaisista makkaroista saa enemmän pisteitä.\n'
                  f'Peli päättyy, kun rahasi loppuvat tai käytät lopetuskomentoa.\n')
 
