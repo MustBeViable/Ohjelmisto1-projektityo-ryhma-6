@@ -1,4 +1,8 @@
 import random
+
+from Game.game_texts import yes, no
+
+
 #funtion parametreiks syötetään pelaajan rahat, mitä tuplaa ja monesko tuplaus menossa
 #HUOM! Voidaan halutessa tuoda muuttuva lukuarvo muuttujan avulla, jolla kerrannoidaan, kuinka mahdollisuudet putoo.
 #itse suosittelen 5 tai 10.
@@ -33,8 +37,8 @@ def tuplataanko(answer, winnings):
         times = 0
         #Tässä tarkistetaa halusiko pelaaja tuplata ja oliko pelaaja jo hävinnyt rahansa lisäksi alhaalla seurataa
         #monesko tuplaus kerta menossa
-        while answer == "KYLLÄ" and winnings > 0:
-            if answer == "KYLLÄ":
+        while answer == yes and winnings > 0:
+            if answer == yes:
                 winnings = tuplaus(winnings, times)
                 #Tämä on testi printti poista valmiiseen ohjelmaan
                 print(winnings)
@@ -42,15 +46,15 @@ def tuplataanko(answer, winnings):
                 #Tässä tarkistetaa tuplauskierroksen tulos. Jos pelaaja häviää, ohjelma ei kysy haluaako hän tuplata
                 #hävityt rahat.
                 if winnings > 0:
-                    answer = input(
-                        "Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"
-                        " Mitä vastaat? (Kyllä/Ei): ").upper()
+                    answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"
+                        f" Mitä vastaat? ({yes}/{no}): ").lower()
                 else:
                     print("Tuplaus epäonnistui!")
                     break
         return winnings
 
 #Testailin alhaalla että funktiot toimii halutulla tavalla
-vastaus = input("Vastaus: ").upper()
+vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"
+                        f" Mitä vastaat? ({yes}/{no}): ").lower()
 maara = int(input("Maara: "))
 tuplataanko(vastaus,maara)
