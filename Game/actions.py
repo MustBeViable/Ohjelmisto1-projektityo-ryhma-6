@@ -35,3 +35,7 @@ def pick_action():
 # Test
 print("Peli on käynnissä. Aloita antamalla ensimmäinen komento.")
 pick_action()
+
+
+
+#monke
