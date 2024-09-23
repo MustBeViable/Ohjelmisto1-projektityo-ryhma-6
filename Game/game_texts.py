@@ -1,7 +1,7 @@
 # All the commands that the user can give.
 
-yes = "KYLLÄ"
-no = "EI"
+yes = "k"
+no = "e"
 
 help_command = "ohje"
 fly_command = "lennä"
