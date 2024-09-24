@@ -1,6 +1,6 @@
 
 import mysql.connector
-
+from Game.Playthrough import test_playthrough
 
 yhteys = mysql.connector.connect(
          host='localhost',
@@ -55,9 +55,10 @@ def airportselection(ident):
     #price = price_multiplier + next_airport * price_multiplier
     next_airport = result_sorted[next_airport-1]["ident"]
     print(next_airport)
-    #tähän mitö oliota halutaa muokkaa
-    new_location = current_coordinates(next_airport)
-    return new_location
+    # tähän mitö oliota halutaa muokkaa
+    test_playthrough.location = next_airport
+
+    return next_airport
 
 #tää funktio saa ylemmän funktion lentokenttien nimet ja laskee sen etäisyyden nykyiseen lentokenttään (käytin baselinenä
 #nummelan lentokenttää. Ei tartte ku laittaa päivittää current_airport pelaajan nykyisee sijaintii.
@@ -84,5 +85,9 @@ def current_coordinates(chosen_ICAO):
     kursori.execute(sql)
     result = kursori.fetchall()
     return result
-player_location = (60.3339, 24.2964)
-airportselection("EFNU")
+#player_location = (60.3339, 24.2964)
+airportselection(test_playthrough.location)
+
+print(test_playthrough.location)
+airportselection(test_playthrough.location)
+print(test_playthrough.location)
