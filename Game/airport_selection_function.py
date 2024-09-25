@@ -1,16 +1,8 @@
 
 import mysql.connector
 from Game.Playthrough import test_playthrough
+from game_texts import yhteys
 
-yhteys = mysql.connector.connect(
-         host='localhost',
-         port=3306,
-         database='flight_game',
-         user='eliasellu',
-         password='Koira123',
-         autocommit=True,
-         collation="utf8mb4_general_ci"
-         )
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
 def airportselection(ident):
     sql = (f" Select airport.name as name, country.name as country, ident "

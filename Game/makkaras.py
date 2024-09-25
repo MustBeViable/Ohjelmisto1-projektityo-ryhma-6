@@ -1,6 +1,6 @@
-from venv import create
-
 import mysql.connector
+
+from game_texts import yhteys
 
 #Tehty toimimaan mun tietokantaan, eli pitäs lisätä funktio mikä antaa oikeudet aina kun pelataan eri koneella
 # (eli pitää luoda funktio joka luo käyttäjän, hakee tietokannan ja antaa oikeudet). Toi kannattaa tarkistaa opelta
@@ -12,15 +12,7 @@ import mysql.connector
 #tämän koodin tomiakseen pitää antaa KAIKKI oikeudet tehdä muutoksia flight_game databasee
 #esim käyttäen tietokantaa nimeltä flight_game "GRANT ALL ON flight_game.* TO (käyttäjänimi)@localhost;" Ja sit
 #"flush privileges"
-yhteys = mysql.connector.connect(
-         host='localhost',
-         port=3306,
-         database='flight_game',
-         user='eliasellu',
-         password='Koira123',
-         autocommit=True,
-         collation="utf8mb4_general_ci"
-         )
+
 
 
 def table_check():
@@ -35,16 +27,18 @@ def table_check():
         print("Makkarat löytyy.")
     else:
         testilista = ["Veggienakki", "HK_sininen", "keisarinakki"]
-        create_makkara()
+        create_tables()
         for i in range(len(testilista)):
             add_makkara(i)
     return
 
 #Luo käyttäjälle makkara tablen. Toimii vain jos käyttäjälle on annettu luvat. Ohjeet ylempänä.
-def create_makkara():
-    sql = (f"CREATE TABLE if not exists makkara (makkara_name VARCHAR(255) NOT NULL)")
+def create_tables():
+    sql = (f"CREATE TABLE makkara (name VARCHAR(255) NOT NULL)")
+    sql1 = (f"CREATE TABLE makkara_located (country_id VARCHAR(255) NOT NULL, makkara_name VARCHAR(255) NOT NULL)")
     kursori = yhteys.cursor()
     kursori.execute(sql)
+    kursori.execute(sql1)
     return
 
 #lisää joukon yks kerrallaa listaan. Joukko tulee satunnaisessa järkässä, eli jos ongelma, se pitöä muuttaa.
