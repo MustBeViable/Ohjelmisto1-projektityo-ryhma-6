@@ -56,5 +56,5 @@ def tuplataanko(answer, winnings):
 #Testailin alhaalla että funktiot toimii halutulla tavalla
 vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"
                         f" Mitä vastaat? ({yes}/{no}): ").lower()
-maara = int(input("Maara: "))
+raha_maara = 1000
 tuplataanko(vastaus,maara)

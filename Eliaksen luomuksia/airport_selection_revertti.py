@@ -1,10 +1,18 @@
 
 import mysql.connector
-from Game.Playthrough import test_playthrough
-from game_texts import yhteys
 
+
+yhteys = mysql.connector.connect(
+         host='localhost',
+         port=3306,
+         database='flight_game',
+         user='eliasellu',
+         password='Koira123',
+         autocommit=True,
+         collation="utf8mb4_general_ci"
+         )
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
-def airportselection(ident):
+def airportselection():
     sql = (f" Select airport.name as name, country.name as country, ident "
            f" from airport, country "
            f" where country.iso_country = airport.iso_country"
@@ -20,9 +28,8 @@ def airportselection(ident):
     result = kursori.fetchall()
     #tää for loop käy jokaisen dictionaryn listan sisältä ja ajaa distance funktion (selvittää etäisyyttä ks. alempaa)
     # Kun se o saanu etäisyyden se lisää arvon avaimeen 'distance'.
-    player_current_ident = current_coordinates(ident)
     for i in range(len(result)):
-        dist = distance(result[i]['ident'], player_current_ident)
+        dist = distance(result[i]['ident'])
         result[i]['distance'] = dist
         #print(i + 1)
         #print(result[i]["name"])
@@ -43,18 +50,19 @@ def airportselection(ident):
     for i, airport in enumerate(result_sorted):
         #print(f"{i + 1}. {airport['name']}: ({airport['distance']:.1f} km)")
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
+    print(result_sorted)
     next_airport = int(input("Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku: "))
-    #price = price_multiplier + next_airport * price_multiplier
+    price = price_multiplier + next_airport * price_multiplier
+    rahan_vahennus(price)
     next_airport = result_sorted[next_airport-1]["ident"]
-    print(next_airport)
-    # tähän mitö oliota halutaa muokkaa
-    test_playthrough.location = next_airport
-
-    return next_airport
+    new_location = current_coordinates(next_airport)
+    global location
+    location = new_location
+    return new_location
 
 #tää funktio saa ylemmän funktion lentokenttien nimet ja laskee sen etäisyyden nykyiseen lentokenttään (käytin baselinenä
 #nummelan lentokenttää. Ei tartte ku laittaa päivittää current_airport pelaajan nykyisee sijaintii.
-def distance(next_place, icao):
+def distance(next_place):
     from geopy import distance
     sql = (f" select latitude_deg, longitude_deg "
            f" from airport "
@@ -63,12 +71,13 @@ def distance(next_place, icao):
     kursori.execute(sql)
     result = kursori.fetchall()
     #nummelan tilalle laitetaa se kenttä mis pelaaja o sil hetkel.
-    #current_airport = "EFNU"
-    #current_airport = current_coordinates(current_airport)
-    dist = distance.distance(icao, result[0]).km
+    current_airport = currne()
+    #current_airport = (60.3339, 24.2964)
+
+    dist = distance.distance(current_airport, result[0]).km
     #print(dist)
     return dist
-
+airportselection()
 def current_coordinates(chosen_ICAO):
     sql = (f" select latitude_deg, longitude_deg "
            f" from airport "
@@ -76,10 +85,7 @@ def current_coordinates(chosen_ICAO):
     kursori = yhteys.cursor()
     kursori.execute(sql)
     result = kursori.fetchall()
-    return result
-#player_location = (60.3339, 24.2964)
-airportselection(test_playthrough.location)
+    return result[0]
+current_airport("EFNU")
 
-print(test_playthrough.location)
-airportselection(test_playthrough.location)
-print(test_playthrough.location)
+locatio = current_coordinates("EFNU")
