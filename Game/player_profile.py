@@ -1,5 +1,5 @@
 # curremt money
-own_money = 500
+own_money = 1000
 
 # all makkaras and their amount
 own_makkaras = []
