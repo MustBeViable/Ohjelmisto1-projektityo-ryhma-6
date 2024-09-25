@@ -1,3 +1,5 @@
+from venv import create
+
 import mysql.connector
 
 #Tehty toimimaan mun tietokantaan, eli pitäs lisätä funktio mikä antaa oikeudet aina kun pelataan eri koneella
@@ -20,6 +22,24 @@ yhteys = mysql.connector.connect(
          collation="utf8mb4_general_ci"
          )
 
+
+def table_check():
+    sql = (f"show tables;")
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    result = kursori.fetchall()
+    check_list = []
+    for i in range(len(result)):
+        check_list.append(result[i][0])
+    if "makkara" in check_list:
+        print("Makkarat löytyy.")
+    else:
+        testilista = ["Veggienakki", "HK_sininen", "keisarinakki"]
+        create_makkara()
+        for i in range(len(testilista)):
+            add_makkara(i)
+    return
+
 #Luo käyttäjälle makkara tablen. Toimii vain jos käyttäjälle on annettu luvat. Ohjeet ylempänä.
 def create_makkara():
     sql = (f"CREATE TABLE if not exists makkara (makkara_name VARCHAR(255) NOT NULL)")
@@ -27,28 +47,12 @@ def create_makkara():
     kursori.execute(sql)
     return
 
-#SQL joka hakee jo makkara taulussa olevat tiedot, ottaa meijän makkaralistan ja joukon avulla estää duplikaatit
-#jostai syystä lisää joukkoon yhden numeron aina per ajokerta alkaen 0, 1, 2, 3...
-def check_makkaras_duplicates(makkara_name):
-    sql =(f" SELECT * from makkara ")
-    kursori = yhteys.cursor(dictionary=True)
-    kursori.execute(sql)
-    result = kursori.fetchall()
-    makkara_check_list = set()
-    for i in range(len(result)):
-        makkara_check_list.add(result[i]['makkara_name'])
-    for i in range(len(makkara_name)):
-        makkara_check_list.add(makkara_name[i])
-    for i in range(len(makkara_check_list)):
-        add_makkara(i)
-    print(f"tämä:\n{makkara_check_list}")
-    return
-
 #lisää joukon yks kerrallaa listaan. Joukko tulee satunnaisessa järkässä, eli jos ongelma, se pitöä muuttaa.
 def add_makkara(makkara_name):
-    sql = (f"INSERT ignore INTO makkara (makkara_name) VALUES ('{makkara_name}')")
+    sql = (f"INSERT INTO makkara (makkara_name) VALUES ('{makkara_name}')")
     kursori = yhteys.cursor()
     kursori.execute(sql)
+    return
 
 
 #tämä poistetaa pääohjelmaan. Testaa vaa että listan lisääminen toimii oikein
@@ -57,15 +61,16 @@ def testi():
     kursori = yhteys.cursor()
     kursori.execute(sql)
     result = kursori.fetchall()
-    #print(result)
+    print(result)
     return result
 
-testilista = ["Veggienakki", "HK_sininen", "keisarinakki"]
+table_check()
 
-create_makkara()
-check_makkaras_duplicates(testilista)
+
+#create_makkara()
+#check_makkaras_duplicates(testilista)
 #bring_makkaras(testilista)
-testi()
+#testi()
 #def fetch_makkara(iso_country):
 #    sql = (f"select makkara.name"
 #           f" FROM makkara INNER JOIN country")
