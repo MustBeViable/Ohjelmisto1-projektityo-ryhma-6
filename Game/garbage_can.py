@@ -28,7 +28,6 @@ def finnair_personnel():
 
 
 
-
 def money_from_garbage(own_money):
     new_money = own_money
     new_money = random.randint(200, 1000)
