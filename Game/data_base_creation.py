@@ -24,14 +24,10 @@ def table_check():
     check_list = []
     for i in range(len(result)):
         check_list.append(result[i][0])
-        print("testi check list")
-        print(check_list)
     if "makkara" in check_list:
-        print("Makkarat löytyy.")
         value = 1
     else:
         create_table_makkara()
-        print("t2")
         value = 0
     return value
 
@@ -54,16 +50,15 @@ def add_makkaras_to_table(makkara, country, score):
 
 
 def create_makkara_reached():
-    sql1 = (f"CREATE TABLE makkara_located (country_id VARCHAR(255) NOT NULL, makkara_name VARCHAR(255) NOT NULL,"
+    sql = (f"CREATE TABLE makkara_located (country_id VARCHAR(255) NOT NULL, makkara_name VARCHAR(255) NOT NULL,"
             f" FOREIGN KEY (makkara_name) REFERENCES makkara(name), FOREIGN KEY country(name) REFERENCES country(name))")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
 
 
-table_check()
-print(table_check())
-if table_check() == 0:
+test = table_check()
+if test == 0:
     for i in range(len(iso_country_list)):
         add_makkaras_to_table(list(makkaras_dictionary.values())[i],iso_country_list[i],score_value_makkara[i])
 
