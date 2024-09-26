@@ -24,7 +24,7 @@ def hole_in_charge(own_makkaras):
         # Devided by five (like 20%) and rounded down
         num_to_lose = len(own_makkaras) // 5
 
-        # Varmistetaan, että vähintään yksi makkara otetaan, jos tulos on nolla
+        # Varmistetaan, että vähintään yksi makkara otetaan
         if num_to_lose == 0 and len(own_makkaras) > 0:
             num_to_lose = 1
 
@@ -37,7 +37,6 @@ def hole_in_charge(own_makkaras):
             hole_in_charge_makkaras.append(makkara)
         print(hole_in_charge_makkaras)
         print(f"Harmi makkaravarastosi kannalta, mutta kolovastaava vei sinulta seuraavat makkarat: {', '.join(lost_makkaras)}")
-
     return
 
 
