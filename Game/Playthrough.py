@@ -1,13 +1,11 @@
 import mysql.connector
 
+from Game.game import game_id
 from game_texts import yhteys
 
 # yhteiset komennot, siirretään muualle
 old = "j"
 new = "u"
-
-# Yleinen muuttuja, siirretään muualle
-game_id = 0
 
 # Alkuarvot, siirretään muualle
 start_money = 1000
@@ -24,9 +22,9 @@ def sql_connection(sql_text):
 # Checks if the player has an unfinished game. If they do, asks if they want to continue or create a new game.
 # If they choose to continue, returns the id of that old game.
 # If they decide to create a new game, or they don't have an unfinished game, creates a new game and returns its id.
-# If they create a bew game, the unfinished game will be marked as finished.
-def choose_game(name):
-    sql = (f"SELECT id FROM game WHERE screen_name = {name} and status = {unfinished}")
+# If they create a new game, the unfinished game will be marked as finished.
+def choose_game(screen_name):
+    sql = (f"SELECT id FROM game WHERE screen_name = {screen_name} and status = {unfinished}")
     unfinished_game_id = sql_connection(sql)[0]
     current_game_id = None
     if unfinished_game_id:
@@ -36,12 +34,12 @@ def choose_game(name):
         if old_or_new == old:
             current_game_id = unfinished_game_id
         elif old_or_new == new:
-            current_game_id = create_game(name)
+            current_game_id = create_game(screen_name)
             finish_game_in_database(unfinished_game_id)
         else:
             pass
     else:
-        current_game_id = create_game(name)
+        current_game_id = create_game(screen_name)
     return current_game_id
 
 
@@ -57,10 +55,6 @@ def finish_game_in_database(game_id):
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
-
-#testi, poista
-test_game_id = 5
-game_id = test_game_id
 
 
 def fetch_own_location():
