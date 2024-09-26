@@ -47,7 +47,7 @@ def add_makkaras_to_table(makkara, country, score):
 
 
 def create_makkara_reached():
-    sql = (f"CREATE TABLE makkara_located (id int NOT NULL auto_increment,"
+    sql = (f"CREATE TABLE makkara_reached (id int NOT NULL auto_increment,"
            f"game_id VARCHAR(255) NOT NULL,"
            f" makkara_id VARCHAR(255) NOT NULL,"
            f"primary key (id))")
