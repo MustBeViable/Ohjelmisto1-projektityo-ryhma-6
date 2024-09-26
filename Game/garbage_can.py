@@ -1,5 +1,5 @@
 
-# 10% mahis finnair_personnel, 10% mahis kolovastaavalle, 10% mahis rosvolle, 70% mahis voittaa rahaa
+# 10% mahis finnair_personnel, 10% mahis kolovastaavalle, 10% mahis rosvolle, 10 % musta makkara, 60% mahis voittaa rahaa
 
 import random
 from os import remove
@@ -36,8 +36,7 @@ def hole_in_charge(own_makkaras):
             own_makkaras.remove(makkara)
             hole_in_charge_makkaras.append(makkara)
         print(hole_in_charge_makkaras)
-
-        print(f"Harmi makkaravarastosi kannalta, mutta kolovastaava vei sinulta seuraavat makkarat: {', '.join(lost_makkaras)}.")
+        print(f"Harmi makkaravarastosi kannalta, mutta kolovastaava vei sinulta seuraavat makkarat: {', '.join(lost_makkaras)}")
 
     return
 
@@ -77,9 +76,9 @@ def garbage_can():
     #finnair_personnel()
 
     # the possibilities of different outcomes
-    outcome = random.choices(['nothing', 'secret_black_sausage_chance', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [60, 10, 10, 10, 10], k=1)[0]
+    outcome = random.choices(['nothing', 'secret_black_sausage_chance', 'eobber', 'hole_in_charge', 'finnair_personnel'], weights = [60, 10, 10, 10, 10], k=1)[0]
     if outcome == 'nothing':
-        print(f"Onneksi olkoon, löysit {money_from_garbage(player_money)} € rahaa!")
+        print(f"Onneksi olkoon, löysit rahaa {money_from_garbage(player_money)} €!")
     elif outcome == 'robber':
         print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi, ja sinulle jäi {robber(player_money)} €.")
     elif outcome == 'hole_in_charge':
@@ -98,6 +97,7 @@ vege_list = ["Muu-makkara", "Pirkka vegemakkara", "Makukeittiön Kasvismakkara",
 hole_in_charge_makkaras = []
 
 # Testing the main function (garbage can function)
+
 #print(finnair_personnel())
 garbage_can()
 print(own_secret_black_sausage)
