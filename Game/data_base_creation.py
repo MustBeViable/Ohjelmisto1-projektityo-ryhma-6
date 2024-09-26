@@ -14,9 +14,7 @@ from game_creation_lists import *
 #esim käyttäen tietokantaa nimeltä flight_game "GRANT ALL ON flight_game.* TO (käyttäjänimi)@localhost;" Ja sit
 #"flush privileges"
 
-
-#ei toimi for some somethingsomething reason oikein, ku laittaa valuet ja ytekee if statementin alas
-def table_check():
+def table_check(table_name):
     sql = (f"show tables;")
     kursori = yhteys.cursor()
     kursori.execute(sql)
@@ -24,10 +22,9 @@ def table_check():
     check_list = []
     for i in range(len(result)):
         check_list.append(result[i][0])
-    if "makkara" in check_list:
+    if table_name in check_list:
         value = 1
     else:
-        create_table_makkara()
         value = 0
     return value
 
@@ -50,22 +47,44 @@ def add_makkaras_to_table(makkara, country, score):
 
 
 def create_makkara_reached():
-    sql = (f"CREATE TABLE makkara_located (country_id VARCHAR(255) NOT NULL, makkara_name VARCHAR(255) NOT NULL,"
-            f" FOREIGN KEY (makkara_name) REFERENCES makkara(name), FOREIGN KEY country(name) REFERENCES country(name))")
+    sql = (f"CREATE TABLE makkara_located (id int NOT NULL auto_increment,"
+           f"game_id VARCHAR(255) NOT NULL,"
+           f" makkara_id VARCHAR(255) NOT NULL,"
+           f"primary key (id))")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
 
+def create_playthrough():
+    sql = (f"CREATE TABLE playthrough (id int NOT NULL auto_increment,"
+           f"score int NOT NULL,"
+           f"money VARCHAR(255) NOT NULL,"
+           f"screen_name VARCHAR(255) NOT NULL,"
+           f"status VARCHAR(255) NOT NULL,"
+           f"location VARCHAR(255) NOT NULL,"
+           f"primary key (id))")
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    return
 
-test = table_check()
-if test == 0:
+'''test_list = ["makkara", "makkara_reached", "playthrough"]
+tests_ran = 0
+
+while tests_ran != len(test_list):
+    table_name = test_list[tests_ran]
+    
+    '''
+makkara = "makkara"
+test1 = table_check(makkara)
+if test1 == 0:
+    create_table_makkara()
     for i in range(len(iso_country_list)):
         add_makkaras_to_table(list(makkaras_dictionary.values())[i],iso_country_list[i],score_value_makkara[i])
-
-#create_makkara()
-#check_makkaras_duplicates(testilista)
-#bring_makkaras(testilista)
-#testi()
-#def fetch_makkara(iso_country):
-#    sql = (f"select makkara.name"
-#           f" FROM makkara INNER JOIN country")
+makkara_reached = "makkara_reached"
+test2 = table_check(makkara_reached)
+if test2 == 0:
+    create_makkara_reached()
+playthrough = "playthrough"
+test3 = table_check(playthrough)
+if test3 == 0:
+    create_playthrough()
