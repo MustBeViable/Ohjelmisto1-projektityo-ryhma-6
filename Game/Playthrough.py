@@ -9,6 +9,6 @@ test_playthrough = Playthrough("Elias", nummela)
 test_playthrough2 = Playthrough("Tuukka", nummela)
 
 # testit
-print(test_playthrough.player)
-print(test_playthrough.location)
-print(test_playthrough.money)
+#print(test_playthrough.player)
+#print(test_playthrough.location)
+#print(test_playthrough.money)

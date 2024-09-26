@@ -1,6 +1,7 @@
 import mysql.connector
-
 from game_texts import yhteys
+from game_creation_lists.all_lists_etc import *
+from game_creation_lists import *
 
 #Tehty toimimaan mun tietokantaan, eli pitäs lisätä funktio mikä antaa oikeudet aina kun pelataan eri koneella
 # (eli pitää luoda funktio joka luo käyttäjän, hakee tietokannan ja antaa oikeudet). Toi kannattaa tarkistaa opelta
@@ -14,7 +15,7 @@ from game_texts import yhteys
 #"flush privileges"
 
 
-
+#ei toimi for some somethingsomething reason oikein, ku laittaa valuet ja ytekee if statementin alas
 def table_check():
     sql = (f"show tables;")
     kursori = yhteys.cursor()
@@ -23,43 +24,48 @@ def table_check():
     check_list = []
     for i in range(len(result)):
         check_list.append(result[i][0])
+        print("testi check list")
+        print(check_list)
     if "makkara" in check_list:
         print("Makkarat löytyy.")
+        value = 1
     else:
-        testilista = ["Veggienakki", "HK_sininen", "keisarinakki"]
-        create_tables()
-        for i in range(len(testilista)):
-            add_makkara(i)
-    return
+        create_table_makkara()
+        print("t2")
+        value = 0
+    return value
 
 #Luo käyttäjälle makkara tablen. Toimii vain jos käyttäjälle on annettu luvat. Ohjeet ylempänä.
-def create_tables():
-    sql = (f"CREATE TABLE makkara (name VARCHAR(255) NOT NULL)")
-    sql1 = (f"CREATE TABLE makkara_located (country_id VARCHAR(255) NOT NULL, makkara_name VARCHAR(255) NOT NULL)")
-    kursori = yhteys.cursor()
-    kursori.execute(sql)
-    kursori.execute(sql1)
-    return
-
-#lisää joukon yks kerrallaa listaan. Joukko tulee satunnaisessa järkässä, eli jos ongelma, se pitöä muuttaa.
-def add_makkara(makkara_name):
-    sql = (f"INSERT INTO makkara (makkara_name) VALUES ('{makkara_name}')")
+def create_table_makkara():
+    sql = (f"CREATE TABLE makkara (id int NOT NULL auto_increment,"
+           f"name VARCHAR(255) NOT NULL,"
+           f"country varchar(255) NOT NULL,"
+           f"score int NOT NULL,"
+           f"primary key (id))")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
 
-
-#tämä poistetaa pääohjelmaan. Testaa vaa että listan lisääminen toimii oikein
-def testi():
-    sql = (f"SELECT * FROM makkara")
+def add_makkaras_to_table(makkara, country, score):
+    sql = (f"INSERT INTO makkara (name, country, score) VALUES ('{makkara}', '{country}', {score})")
     kursori = yhteys.cursor()
     kursori.execute(sql)
-    result = kursori.fetchall()
-    print(result)
-    return result
+    return
+
+
+def create_makkara_reached():
+    sql1 = (f"CREATE TABLE makkara_located (country_id VARCHAR(255) NOT NULL, makkara_name VARCHAR(255) NOT NULL,"
+            f" FOREIGN KEY (makkara_name) REFERENCES makkara(name), FOREIGN KEY country(name) REFERENCES country(name))")
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    return
+
 
 table_check()
-
+print(table_check())
+if table_check() == 0:
+    for i in range(len(iso_country_list)):
+        add_makkaras_to_table(list(makkaras_dictionary.values())[i],iso_country_list[i],score_value_makkara[i])
 
 #create_makkara()
 #check_makkaras_duplicates(testilista)
