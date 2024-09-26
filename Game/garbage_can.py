@@ -23,8 +23,7 @@ def hole_in_charge():
 def finnair_personnel():
     donate = int(input("Syötä tähän numeroina, paljonko haluat lahjoittaa rahaa? "))
     for d in donate:
-
-    own_makkaras.append(donate)
+        own_makkaras.append(donate)
 
 
 
