@@ -1,4 +1,5 @@
 # All the commands that the user can give.
+import mysql.connector
 
 yes = "k"
 no = "e"
@@ -39,3 +40,13 @@ give_help_str = (f"\n"
                  f"{game_instruction_str}\n"
                  f"{commands_str}\n"
                  f"{game_goal_str}")
+
+yhteys = mysql.connector.connect(
+         host='localhost',
+         port=3306,
+         database='flight_game',
+         user='eliasellu',
+         password='Koira123',
+         autocommit=True,
+         collation="utf8mb4_general_ci"
+         )
