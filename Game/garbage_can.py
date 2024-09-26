@@ -5,7 +5,8 @@ import random
 from os import remove
 
 from Game.player_profile import own_makkaras, own_money
-from secret_black_sausage import secret_black_sausage_chance
+from Game.secret_black_sausage import own_secret_black_sausage
+from secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
 
 def robber(own_money):
     player_money = own_money
@@ -16,8 +17,9 @@ def robber(own_money):
 
 # Function is calling all the "own_makkaras" list and reduces random amount of the list
 def hole_in_charge(own_makkaras):
+    print("Törmäsit kolovastaavaan!")
     if len(own_makkaras) == 0:
-        print("Sinulla ei ollut makkaraa vietävänä.")
+        print("Tällä kertaa sinulla ei ollut makkaraa vietävänä.")
     else:
         # Devided by five (like 20%) and rounded down
         num_to_lose = len(own_makkaras) // 5
@@ -35,11 +37,9 @@ def hole_in_charge(own_makkaras):
             hole_in_charge_makkaras.append(makkara)
         print(hole_in_charge_makkaras)
 
-        print(f"Kolovastaava vei sinulta seuraavat makkarat: {', '.join(lost_makkaras)}.")
+        print(f"Harmi makkaravarastosi kannalta, mutta kolovastaava vei sinulta seuraavat makkarat: {', '.join(lost_makkaras)}.")
 
     return
-
-
 
 
 # Player can donate x amount money and get vege sausage
@@ -70,38 +70,39 @@ def money_from_garbage(own_money):
     return new_money
 
 
-
 #Checkng garbages, saken mustamakkarafunktio
 def garbage_can():
-    #secret_black_sausage_chance()
     player_money = own_money
     #robber(player_money)
     #finnair_personnel()
 
     # the possibilities of different outcomes
-    outcome = random.choices(['nothing', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [70, 10, 10, 10], k=1)[0]
+    outcome = random.choices(['nothing', 'secret_black_sausage_chance', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [60, 10, 10, 10, 10], k=1)[0]
     if outcome == 'nothing':
-        print(f"Onneksi olkoon, löysit {money_from_garbage(own_money)} € rahaa!")
+        print(f"Onneksi olkoon, löysit {money_from_garbage(player_money)} € rahaa!")
     elif outcome == 'robber':
-        print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi, ja sinulle jäi {robber(own_money)} €.")
+        print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi, ja sinulle jäi {robber(player_money)} €.")
     elif outcome == 'hole_in_charge':
-        print(f"Törmäsit kolovastaavaan! Harmi makkaravarastosi kannalta... Makkaravarastostasi on lähtenyt {hole_in_charge(own_makkaras)} makkaraa.")
+        hole_in_charge(own_makkaras)
     elif outcome == 'finnair_personnel':
         print("Terve, olen Finnairin ympäristöedustaja. Meillä on palvelu, "
               "jolla voit kompensoida lentopäästöjäsi. Voit lahjoittaa haluamasi määrän rahaa, ja me annamme sinulle "
               "vastineeksi useamman lahjoituksen jälkeen harvinaisemman Vegemakkaran.")
         finnair_personnel()
+    elif outcome == secret_black_sausage_chance:
+        secret_black_sausage_chance(amount)
     return
 
-
-# Testing the main function (garbage can function)
-#print(finnair_personnel())
-#garbage_can()
 
 vege_list = ["Muu-makkara", "Pirkka vegemakkara", "Makukeittiön Kasvismakkara", "VegMe Grillkorv", "Bon Vegan"]
 hole_in_charge_makkaras = []
 
+# Testing the main function (garbage can function)
+#print(finnair_personnel())
+garbage_can()
+print(own_secret_black_sausage)
+
 #list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 #hole_in_charge(list)
 
-hole_in_charge(vege_list)
+#hole_in_charge(vege_list)
