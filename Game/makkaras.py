@@ -34,8 +34,9 @@ def table_check():
 
 #Luo käyttäjälle makkara tablen. Toimii vain jos käyttäjälle on annettu luvat. Ohjeet ylempänä.
 def create_tables():
-    sql = (f"CREATE TABLE makkara (name VARCHAR(255) NOT NULL)")
-    sql1 = (f"CREATE TABLE makkara_located (country_id VARCHAR(255) NOT NULL, makkara_name VARCHAR(255) NOT NULL)")
+    sql = (f"CREATE TABLE makkara (name VARCHAR(255) NOT NULL, primary key (name))")
+    sql1 = (f"CREATE TABLE makkara_located (country_id VARCHAR(255) NOT NULL, makkara_name VARCHAR(255) NOT NULL,"
+            f" FOREIGN KEY (makkara_name) REFERENCES makkara(name), FOREIGN KEY country(name) REFERENCES country(name))")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     kursori.execute(sql1)

@@ -24,9 +24,6 @@ def airportselection(ident):
     for i in range(len(result)):
         dist = distance(result[i]['ident'], player_current_ident)
         result[i]['distance'] = dist
-        #print(i + 1)
-        #print(result[i]["name"])
-        #print(distance(result[i]['name']))
 
     #tää luo uuden listan jossa lista on sortattu distance avaimella suuruus järjestykee (key=lambda lambda x määrittää
     # tavan millä järjestely tehdään. x['distance'] tarkoittaa, että jokaiselle alkion (tässä tapauksessa sanakirjan)
@@ -41,10 +38,17 @@ def airportselection(ident):
     print("Seuraavat lähdöt: (lennon nro, maa, lentokenttä, hinta (€):")
     price_multiplier = 50
     for i, airport in enumerate(result_sorted):
-        #print(f"{i + 1}. {airport['name']}: ({airport['distance']:.1f} km)")
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
-    next_airport = int(input("Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku: "))
-    #price = price_multiplier + next_airport * price_multiplier
+    next_airport = input("Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
+    while next_airport is not int:
+        try:
+            next_airport= int(next_airport)
+        except:
+            next_airport = input("Syötit väärin! Valitse uudelleen haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
+            continue
+        else:
+            next_airport = int(next_airport)
+            break
     next_airport = result_sorted[next_airport-1]["ident"]
     print(next_airport)
     # tähän mitö oliota halutaa muokkaa
@@ -66,7 +70,6 @@ def distance(next_place, icao):
     #current_airport = "EFNU"
     #current_airport = current_coordinates(current_airport)
     dist = distance.distance(icao, result[0]).km
-    #print(dist)
     return dist
 
 def current_coordinates(chosen_ICAO):
@@ -77,7 +80,6 @@ def current_coordinates(chosen_ICAO):
     kursori.execute(sql)
     result = kursori.fetchall()
     return result
-#player_location = (60.3339, 24.2964)
 airportselection(test_playthrough.location)
 
 print(test_playthrough.location)
