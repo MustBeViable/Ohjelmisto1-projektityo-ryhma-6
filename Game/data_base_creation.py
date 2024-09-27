@@ -57,7 +57,7 @@ def create_makkara_reached():
 def create_playthrough():
     sql = (f" CREATE TABLE playthrough (id int NOT NULL auto_increment,"
            f" score int NOT NULL,"
-           f" money VARCHAR(255) NOT NULL,"
+           f" money int NOT NULL,"
            f" screen_name VARCHAR(255) NOT NULL,"
            f" status VARCHAR(255) NOT NULL,"
            f" location VARCHAR(255) NOT NULL,"
