@@ -52,3 +52,10 @@ def tuplataanko(answer, winnings):
                     print("Tuplaus epäonnistui!")
                     break
         return winnings
+'''
+#Testailin alhaalla että funktiot toimii halutulla tavalla
+vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"
+                        f" Mitä vastaat? ({yes}/{no}): ").lower()
+raha_maara = 1000
+tuplataanko(vastaus,maara)
+'''
