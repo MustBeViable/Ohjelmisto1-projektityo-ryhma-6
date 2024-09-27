@@ -10,6 +10,7 @@ from Game.player_profile import own_makkaras, own_money
 from Game.secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
 from Game.doubling_machine import tuplataanko
 
+
 def robber(own_money):
     player_money = own_money
     if player_money > 0:
