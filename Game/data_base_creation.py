@@ -2,6 +2,7 @@ import mysql.connector
 from game_texts import yhteys
 from game_creation_lists.all_lists_etc import *
 
+
 #Tehty toimimaan mun tietokantaan, eli pitäs lisätä funktio mikä antaa oikeudet aina kun pelataan eri koneella
 # (eli pitää luoda funktio joka luo käyttäjän, hakee tietokannan ja antaa oikeudet). Toi kannattaa tarkistaa opelta
 # onko tarpeellista. Se luo tablen, jonka jälkee se tekee joukon, mihin lisään jo tietokannassa olevat makkarat. Sen
@@ -61,10 +62,22 @@ def create_playthrough():
            f" screen_name VARCHAR(255) NOT NULL,"
            f" status VARCHAR(255) NOT NULL,"
            f" location VARCHAR(255) NOT NULL,"
+           f" mustamakkara int NOT NULL,"
+           f" hole_airport varchar(255),"
            f" primary key (id))")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
+
+
+def create_makkaras_in_hole():
+    sql = (f" CREATE TABLE makkaras_in_hole (playthrough_id int NOT NULL,"
+           f" stolen_makkara_id int NOT NULL,"
+           f" primary key (stolen_makkara_id))")
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    return
+
 def foreign_keys_makkara_reached():
     sql = (f" ALTER TABLE makkara_reached"
            f" ADD CONSTRAINT FK_game_id FOREIGN KEY (game_id) REFERENCES playthrough(id),"
@@ -76,7 +89,9 @@ def foreign_keys_makkara_reached():
 def foreign_keys_playthrough():
     sql = (f" ALTER TABLE playthrough "
            f" ADD CONSTRAINT FK_location"
-           f" FOREIGN KEY (location) REFERENCES airport(ident)")
+           f" FOREIGN KEY (location) REFERENCES airport(ident),"
+           f" ADD CONSTRAINT FK_hole_airport"
+           f" FOREIGN KEY (hole_airport) REFERENCES airport(ident)")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -85,6 +100,35 @@ def foreign_keys_makkara():
     sql = (f" ALTER TABLE makkara"
            f" ADD CONSTRAINT FK_iso_country"
            f" FOREIGN KEY (country) REFERENCES country(iso_country)")
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    return
+
+def foreign_keys_makkaras_in_hole():
+    sql = (f" ALTER TABLE makkaras_in_hole"
+           f" ADD CONSTRAINT FK_makkara_reached_id"
+           f" FOREIGN KEY (makkara_reached) REFERENCES makkara_reached(id)")
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    return
+
+def create_koloherra():
+    sgl = (f" INSERT INTO playthrough (score, money, screen_name, status, location, mustamakkara)"
+           f" VALUES (0, 1000, 'koloherra', 'unfinished', 'EFNU', 0)")
+    kursori = yhteys.cursor()
+    kursori.execute(sgl)
+    return
+
+def create_example_makkara_reached():
+    sql = (f" INSERT INTO makkara_reached (game_id, makkara_id)"
+           f" VALUES (1, 100)")
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    return
+
+def create_example_makkaras_in_hole(playthrough_id, stolen_makkara_id):
+    sql = (f" INSERT INTO makkaras_in_hole (playthrough_id, stolen_makkara_id)"
+           f" VALUES ({playthrough_id}, {stolen_makkara_id})")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -99,7 +143,7 @@ while tests_ran != len(test_list):
 makkara = "makkara"
 test1 = table_check(makkara)
 #final_test arvoksi taululuontien määrä
-final_test = 3
+final_test = 4
 if test1 == 0:
     create_table_makkara()
     for i in range(len(iso_country_list)):
@@ -121,8 +165,19 @@ if test3 == 0:
     final_test -= 1
     print("t3")
     print(final_test)
+makkaras_in_hole = "makkaras_in_hole"
+test4 = table_check(makkaras_in_hole)
+if test4 == 0:
+    create_makkaras_in_hole()
+    print("t4")
+    final_test -= 1
 if final_test == 0:
     foreign_keys_makkara_reached()
     foreign_keys_playthrough()
     foreign_keys_makkara()
-    print("t4")
+    create_koloherra()
+    print("t5")
+    create_example_makkara_reached()
+    create_example_makkaras_in_hole(1, 1)
+    create_example_makkaras_in_hole(1,2)
+    print("t6")

@@ -13,6 +13,7 @@ command_and_helptext = {
     fly_command: "Avaa valikon, josta voit valita, mille lentokentälle lennät seuraavaksi.",
 }
 
+
 # All game texts
 give_commmand_str = 'Anna komento: '
 
@@ -40,13 +41,12 @@ give_help_str = (f"\n"
                  f"{commands_str}\n"
                  f"{game_goal_str}")
 
-
 yhteys = mysql.connector.connect(
          host='localhost',
          port=3306,
          database='flight_game',
-         user='tuukka',
-         password='Muumilaakso',
+         user='root',
+         password='Possu2929',
          autocommit=True,
          collation="utf8mb4_general_ci"
          )
