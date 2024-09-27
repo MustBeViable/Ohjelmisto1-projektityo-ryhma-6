@@ -1,7 +1,7 @@
 from Game.game_texts import yhteys
 
 
-def score_fetch_query():
+def top_5_score_fetch_query():
     sql = (f" SELECT screen_name, score"
            f" FROM playthrough")
     kursori = yhteys.cursor(dictionary=True)
@@ -12,4 +12,4 @@ def score_fetch_query():
          print(f"{result_sorted[i]['screen_name']}: {result_sorted[i]['score']:6.0f}")
     return
 
-#score_fetch_query()
+#top_5_score_fetch_query()
