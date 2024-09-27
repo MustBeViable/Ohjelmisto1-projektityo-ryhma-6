@@ -6,7 +6,8 @@ from os import remove
 
 from Game.player_profile import own_makkaras, own_money
 from Game.secret_black_sausage import own_secret_black_sausage
-from secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
+from Game.secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
+from Game.doubling_machine import tuplataanko
 
 def robber(own_money):
     player_money = own_money
@@ -89,6 +90,7 @@ def garbage_can():
         finnair_personnel()
     elif outcome == secret_black_sausage_chance:
         secret_black_sausage_chance(amount)
+        tuplataanko() #eliaksen tuplaus funktio
     return
 
 
