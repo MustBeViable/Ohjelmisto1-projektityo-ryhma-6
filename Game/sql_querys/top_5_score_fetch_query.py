@@ -8,8 +8,9 @@ def top_5_score_fetch_query():
     kursori.execute(sql)
     result = kursori.fetchall()
     result_sorted = sorted(result, key=lambda x: x['score'], reverse=True)
+    print(f"Top 5 lista: ")
     for i in range(5):
          print(f"{result_sorted[i]['screen_name']}: {result_sorted[i]['score']:6.0f}")
     return
 
-#top_5_score_fetch_query()
+top_5_score_fetch_query()
