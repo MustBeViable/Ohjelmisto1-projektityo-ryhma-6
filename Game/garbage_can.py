@@ -3,7 +3,9 @@
 
 import random
 from os import remove
-from Game.game_texts import yhteys
+
+from Game.game_texts import no, yes
+#from Game.game_texts import yhteys
 from Game.player_profile import own_makkaras, own_money
 from Game.secret_black_sausage import own_secret_black_sausage
 from Game.secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
@@ -63,24 +65,26 @@ def finnair_personnel():
 
 
 # !!!!! Need to exchange the money to be a variable !!!!
-def money_from_garbage(own_money):
-    new_money = own_money
+def money_from_garbage():
     new_money = random.randint(200, 1000)
     return new_money
 
 
 #Checkng garbages, saken mustamakkarafunktio
 def garbage_can():
-    player_money = own_money
+    #player_money = own_money
     #robber(player_money)
     #finnair_personnel()
 
     # the possibilities of different outcomes
-    outcome = random.choices(['nothing', 'secret_black_sausage_chance', 'eobber', 'hole_in_charge', 'finnair_personnel'], weights = [60, 10, 10, 10, 10], k=1)[0]
-    if outcome == 'nothing':
-        print(f"Onneksi olkoon, löysit rahaa {money_from_garbage(player_money)} €!")
+    outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [70, 10, 10, 10], k=1)[0]
+    if outcome == 'found_money':
+        new_money = money_from_garbage()
+        print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
+        vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat? ({yes}/{no}): ").lower()
+        tuplataanko(vastaus, new_money)  # eliaksen tuplaus funktio
     elif outcome == 'robber':
-        print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi, ja sinulle jäi {robber(player_money)} €.")
+        print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi, ja sinulle jäi {robber(own_money)} €.")
     elif outcome == 'hole_in_charge':
         hole_in_charge(own_makkaras)
     elif outcome == 'finnair_personnel':
@@ -89,8 +93,7 @@ def garbage_can():
               "vastineeksi useamman lahjoituksen jälkeen harvinaisemman Vegemakkaran.")
         finnair_personnel()
     elif outcome == secret_black_sausage_chance:
-        secret_black_sausage_chance(amount)
-        tuplataanko() #eliaksen tuplaus funktio
+        secret_black_sausage_chance(amount) #saken mustamakkara funktio
     return
 
 
