@@ -7,6 +7,10 @@ from game_texts import yhteys
 old = "j"
 new = "u"
 
+def lower_input(prompt):
+    result = input(prompt).lower()
+    return result
+
 # Alkuarvot, siirretään muualle
 start_money = 1000
 unfinished = "unfinished"
@@ -25,12 +29,13 @@ def sql_connection(sql_text):
 # If they create a new game, the unfinished game will be marked as finished.
 def choose_game(screen_name):
     sql = (f"SELECT id FROM game WHERE screen_name = {screen_name} and status = {unfinished}")
-    unfinished_game_id = sql_connection(sql)[0]
+    unfinished_game_list = sql_connection(sql)
     current_game_id = None
-    if unfinished_game_id:
-        old_or_new = input(f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}.")
+    if len(unfinished_game_list) != 0:
+        unfinished_game_id = unfinished_game_list[0][0]
+        old_or_new = lower_input(f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}.")
         while old_or_new not in [old, new]:
-            old_or_new = input(f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}.")
+            old_or_new = lower_input(f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}.")
         if old_or_new == old:
             current_game_id = unfinished_game_id
         elif old_or_new == new:
@@ -55,7 +60,6 @@ def finish_game_in_database(game_id):
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
-
 
 def fetch_own_location():
     sql = (f"SELECT location FROM game WHERE id = {game_id}")
