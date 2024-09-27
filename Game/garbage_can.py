@@ -3,7 +3,7 @@
 
 import random
 from os import remove
-
+from Game.game_texts import yhteys
 from Game.player_profile import own_makkaras, own_money
 from Game.secret_black_sausage import own_secret_black_sausage
 from Game.secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
