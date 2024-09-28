@@ -14,6 +14,7 @@ print(f"Tervetuloa {username}!")
 game_id = choose_game(username)
 
 # Tähän ehkä tieto siitä pelistä minkä pelaaja valitsi tai jotain.
+print(f"game id: {game_id}")
 
 # The game starts when the player presses enter.
 print("Paina enter aloittaaksesi pelaamisen.")
@@ -24,3 +25,5 @@ while start != "":
 # Tähän alkuprompti.
 
 # Tähän pelin koodi?
+
+print("Peli päättyi.")
