@@ -1,7 +1,13 @@
 import mysql.connector
 
-from Game.sql_querys.create_and_end_game import create_game, finish_game_in_database
+from Game.sql_querys.create_and_end_game import create_game, finish_game_in_database, fetch_unfinished_playthrough
 from game_texts import yhteys, game_id
+
+def sql_connection(sql_text):
+    kursori = yhteys.cursor()
+    kursori.execute(sql_text)
+    result = kursori.fetchall()
+    return result
 
 # yhteiset komennot, siirretään muualle
 old = "j"
@@ -17,11 +23,7 @@ unfinished = "unfinished"
 finished = "finished"
 start_location = "EFNU"
 
-def sql_connection(sql_text):
-    kursori = yhteys.cursor()
-    kursori.execute(sql_text)
-    result = kursori.fetchall()
-    return result
+continue_or_new_str = f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}."
 
 
 # Checks if the player has an unfinished game. If they do, asks if they want to continue or create a new game.
@@ -30,13 +32,12 @@ def sql_connection(sql_text):
 # If they create a new game, the unfinished game will be marked as finished.
 def choose_game(screen_name):
     current_game_id = None
-    sql = (f"SELECT id FROM playthrough WHERE screen_name = '{screen_name}' AND status = '{unfinished}'")
-    unfinished_game_list = sql_connection(sql)
+    unfinished_game_list = fetch_unfinished_playthrough(screen_name)
     if len(unfinished_game_list) != 0:
         unfinished_game_id = unfinished_game_list[0][0]
-        old_or_new = lower_input(f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}.")
+        old_or_new = lower_input(continue_or_new_str)
         while old_or_new not in [old, new]:
-            old_or_new = lower_input(f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}.")
+            old_or_new = lower_input(continue_or_new_str)
         if old_or_new == old:
             current_game_id = unfinished_game_id
         elif old_or_new == new:
@@ -50,13 +51,13 @@ def choose_game(screen_name):
 
 
 # testi choose_game
-'''testi_id = choose_game(input("Syötä testikäyttäjän nimi: "))
+testi_id = choose_game(input("Syötä testikäyttäjän nimi: "))
 print(f"palauttaa: {testi_id}")
 
 sql2 = (f"SELECT * FROM playthrough")
 test2 = sql_connection(sql2)
 print("Kaikki pelit: ")
-print(test2)'''
+print(test2)
 
 
 """"

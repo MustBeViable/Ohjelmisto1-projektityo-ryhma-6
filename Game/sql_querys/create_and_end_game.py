@@ -29,6 +29,14 @@ def finish_game_in_database(finish_id):
     sql_connection(sql)
     return
 
+# Fetches unfinished playthroughs of the player. Returns a list of the unfinished playthroughs.
+# Returns an empty list if there are no unfinished playthroughs.
+def fetch_unfinished_playthrough(screen_name):
+    sql = (f"SELECT id FROM playthrough WHERE screen_name = '{screen_name}' AND status = '{unfinished}'")
+    unfinished_game_list = sql_connection(sql)
+    print(unfinished_game_list)
+    return unfinished_game_list
+
 '''# testi create_game
 k_e = input("Luo uusi käyttäjä? k/e")
 if k_e == "k":
