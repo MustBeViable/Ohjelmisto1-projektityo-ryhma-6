@@ -1,20 +1,21 @@
-from Game.player_profile import own_money, own_makkaras
+from Game.sql_querys.money_function import add_money, use_money
 
 country_makkara="country makkara"
 
-def buy(original_money, price):
-    new_money = original_money - price
-    return new_money
+#def buy(original_money, price):
+    #new_money = original_money - price
+    #return new_money
 
 #Jos törmäät outoon bugiin tuo parametreinä ei globaaleina muutujat.
 def buy_makkara(price):
-    global own_money, own_makkaras
-    own_money=own_money-price
+
+    player_money=player_money-price
     own_makkaras.append(country_makkara)
-    return own_makkaras, own_money
-
+    use_money(price)
+    return own_makkaras, player_money
 makkara_price=500
-player_money=10000
+player_money=use_money()
+add_money(amount)
 
-print(buy(1000, 20))
-print(buy_makkara(makkara_price))
+#print(buy(1000, 20))
+#print(buy_makkara(makkara_price))
