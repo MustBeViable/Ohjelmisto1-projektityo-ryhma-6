@@ -5,8 +5,6 @@ unfinished = "unfinished"
 finished = "finished"
 
 start_money = "1000"
-unfinished = "unfinished"
-finished = "finished"
 start_location = "EFNU"
 
 def sql_connection(sql_text):
@@ -17,28 +15,28 @@ def sql_connection(sql_text):
 
 # Creates the game to the database with given screen name. Returns the ID of the new game.
 def create_game(screen_name):
-    sql_create = (f"INSERT INTO playthrough (score, money, screen_name, status, location) VALUES ('0', {start_money}, '{screen_name}', '{unfinished}', '{start_location}')")
+    sql_create = (f"INSERT INTO playthrough (screen_name, hole_airport, location) VALUES ('{screen_name}', NULL,'{start_location}')")
     sql_connection(sql_create)
-    sql_id = (f"SELECT id FROM playthrough WHERE screen_name = '{screen_name}' AND status = '{unfinished}' ORDER BY id DESC")
+    sql_id = (f"SELECT id FROM playthrough WHERE screen_name = '{screen_name}' AND finished = false ORDER BY id DESC")
     sql_connection(sql_id)
     new_id = sql_connection(sql_id)[0][0]
     return new_id
 
 def finish_game_in_database(finish_id):
-    sql = (f"UPDATE playthrough SET status = '{finished}' WHERE id = '{finish_id}'")
+    sql = (f"UPDATE playthrough SET finished = true WHERE id = '{finish_id}'")
     sql_connection(sql)
     return
 
 # Fetches unfinished playthroughs of the player. Returns a list of the unfinished playthroughs.
 # Returns an empty list if there are no unfinished playthroughs.
 def fetch_unfinished_playthrough(screen_name):
-    sql = (f"SELECT id FROM playthrough WHERE screen_name = '{screen_name}' AND status = '{unfinished}'")
+    sql = (f"SELECT id FROM playthrough WHERE screen_name = '{screen_name}' AND finished = false")
     unfinished_game_list = sql_connection(sql)
     print(unfinished_game_list)
     return unfinished_game_list
 
-'''# testi create_game
-k_e = input("Luo uusi käyttäjä? k/e")
+# testi create_game
+'''k_e = input("Luo uusi käyttäjä? k/e")
 if k_e == "k":
     testname = input("Anna testikäyttäjälle nimi: ")
     create_game(testname)
