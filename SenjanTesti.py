@@ -4,6 +4,13 @@ from Game.sql_querys.create_and_end_game import start_location
 start_score = 0
 start_money = 1000
 start_mustamakkara = 0
+kursori = yhteys.cursor()
+
+tables = ['makkaras_in_hole', 'makkara_reached', 'makkara', 'playthrough']
+for table in tables:
+    kursori.execute(f"DROP TABLE IF EXISTS {table}")
+    print(f"dropped table {table}")
+
 
 sql_playthrough1 = (f"DROP TABLE IF EXISTS playthrough;")
 sql_playthrough2 = (f" CREATE TABLE IF NOT EXISTS playthrough ("
@@ -17,7 +24,7 @@ sql_playthrough2 = (f" CREATE TABLE IF NOT EXISTS playthrough ("
                     f" location     varchar(40),"
                     f" PRIMARY KEY(id));")
 
-sql_makkara1 = (f" DROP TABLE IF EXISTS playthrough;")
+sql_makkara1 = (f" DROP TABLE IF EXISTS makkara;")
 sql_makkara2 = (f" CREATE TABLE IF NOT EXISTS makkara ("
                 f" id        int NOT NULL AUTO_INCREMENT,"
                 f" name      varchar(255),"
@@ -32,9 +39,13 @@ sql_makkara_reached2 = (f" CREATE TABLE IF NOT EXISTS makkara_reached("
                         f" makkara_id    int,"
                         f" PRIMARY KEY (id),"
                         f"FOREIGN KEY (game_id)"
-                        f"  REFERENCES playthrough(id) ON DELETE CASCADE ON UPDATE CASCADE,"
+                        f" REFERENCES playthrough(id) "
+                        f" ON DELETE CASCADE"
+                        f" ON UPDATE CASCADE,"
                         f" FOREIGN KEY (makkara_id)"
-                        f"  REFERENCES makkara(id) ON DELETE CASCADE ON UPDATE CASCADE);")
+                        f" REFERENCES makkara(id)"
+                        f" ON DELETE CASCADE"
+                        f" ON UPDATE CASCADE);")
 
 sql_makkaras_in_hole1 = (f" DROP TABLE IF EXISTS makkaras_in_hole;")
 sql_makkaras_in_hole2 = (f" CREATE TABLE IF NOT EXISTS makkaras_in_hole ("
@@ -42,9 +53,10 @@ sql_makkaras_in_hole2 = (f" CREATE TABLE IF NOT EXISTS makkaras_in_hole ("
                          f" playthrough_id       int,"
                          f" PRIMARY KEY (stolen_makkara_id),"
                          f" FOREIGN KEY (stolen_makkara_id)"
-                         f"     REFERENCES makkara_reached(id) ON DELETE CASCADE ON UPDATE CASCADE);")
+                         f" REFERENCES makkara_reached(id)"
+                         f" ON DELETE CASCADE"
+                         f" ON UPDATE CASCADE);")
 
-kursori = yhteys.cursor()
 
 kursori.execute(sql_makkara1)
 kursori.execute(sql_makkara2)
