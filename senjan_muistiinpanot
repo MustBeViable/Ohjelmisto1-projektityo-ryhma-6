@@ -1,3 +1,6 @@
 Arvostellaanko error handling?
 Status -> Boolean
-Not null ainoastaan pääavaimeen
+Not null ainoastaan pääavaimeen?
+Default arvoja?
+FK makkaras_in_hole ei testata?
+Foreign keyt ei onnistu, toimiiko Eliaksen skripti muilla?
