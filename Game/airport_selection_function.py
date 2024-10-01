@@ -1,6 +1,7 @@
 
 import mysql.connector
 from Game.Playthrough import test_playthrough
+from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, update_player_location
 from game_texts import yhteys
 
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
@@ -20,6 +21,9 @@ def airportselection(ident):
     result = kursori.fetchall()
     #tää for loop käy jokaisen dictionaryn listan sisältä ja ajaa distance funktion (selvittää etäisyyttä ks. alempaa)
     # Kun se o saanu etäisyyden se lisää arvon avaimeen 'distance'.
+    #Tähän ID kutsu SQL
+    identification = 1
+    #ident = fetch_player_location(identification)
     player_current_ident = current_coordinates(ident)
     for i in range(len(result)):
         dist = distance(result[i]['ident'], player_current_ident)
@@ -52,7 +56,7 @@ def airportselection(ident):
     next_airport = result_sorted[next_airport-1]["ident"]
     print(next_airport)
     # tähän mitö oliota halutaa muokkaa
-    test_playthrough.location = next_airport
+    update_player_location(identification, next_airport)
 
     return next_airport
 
@@ -81,6 +85,9 @@ def current_coordinates(chosen_ICAO):
     result = kursori.fetchall()
     return result
 
+identification = 1
+ident = fetch_player_location(identification)
+airportselection(ident)
 '''
 airportselection(test_playthrough.location)
 
