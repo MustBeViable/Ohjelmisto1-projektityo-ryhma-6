@@ -1,3 +1,5 @@
+
+import mysql.connector
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, update_player_location
 from game_texts import yhteys
 
