@@ -19,4 +19,4 @@ def update_player_location(id, new_location):
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
-update_player_location(id=1, new_location="EFHK")
+update_player_location(id=1, new_location="KAUS")
