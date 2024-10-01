@@ -1,11 +1,8 @@
+from Game.game_texts import yhteys
 
-# ei toimi vielä !!!!!!!!
-
-# !!!!!!!!!!!!!!!!!! kysely väärin !!!!!!!!!!!!!!
-def update_makkara_taxfree():
-    sql = (f"SELECT id FROM makkara_reached WHERE id = {game_id};")
+def add_makkara_reached(id, makkara):
+    sql = (f" INSERT INTO makkara_reached (game_id, makkara_id)"
+           f" VALUES ({id}, {makkara})")
     kursori = yhteys.cursor()
     kursori.execute(sql)
-    result = kursori.fetchall()
-    print(result)
-    return result
+    return
