@@ -10,7 +10,7 @@ def search_makkara():
            f"WHERE country in("
            f"select iso_country from country where iso_country in("
            f"select iso_country from airport where ident in("
-           f"select location from playthrough where location='{lokaatio}')))")
+           f"select player_location from playthrough where player_location='{lokaatio}')))")
 
     kursori = yhteys.cursor(dictionary=True)
     kursori.execute(sql)

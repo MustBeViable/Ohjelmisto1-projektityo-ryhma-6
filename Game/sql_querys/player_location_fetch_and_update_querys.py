@@ -2,7 +2,7 @@ from Game.game_texts import yhteys
 
 
 def fetch_player_location(id):
-    sql = (f" SELECT location"
+    sql = (f" SELECT player_location"
            f" FROM playthrough"
            f" WHERE id = '{id}'")
     kursori = yhteys.cursor()
@@ -14,7 +14,7 @@ def fetch_player_location(id):
 
 def update_player_location(id, new_location):
     sql = (f" UPDATE playthrough"
-           f" SET location = '{new_location}'"
+           f" SET player_location = '{new_location}'"
            f" WHERE id = '{id}'")
     kursori = yhteys.cursor()
     kursori.execute(sql)
