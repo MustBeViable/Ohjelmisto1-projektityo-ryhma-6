@@ -1,10 +1,6 @@
-from multiprocessing.dummy import current_process
-
+from Game.actions import ask_yes_or_no, Question
 from Game.choose_game import choose_game
-
-# siirrä muualle
-end_command = "lopeta"
-finished = False
+from Game.game_texts import dumpster_question, tax_free_question, fligh_question
 
 # Get user's screen name:
 username = input("Anna käyttäjänimi: ")
@@ -25,11 +21,17 @@ while start != "":
 
 # Tähän alkuprompti.
 
-# Tähän pelin koodi?
-'''while not finished:
-    print("Haluatko kaivaa roskista?")
-'''
-print("Peli päättyi.")
+game_finished = False
 
-def ask_yes_or_no():
-    pass
+while not game_finished:
+    for action in [Question(dumpster_question, "Kaivoit roskista."),
+                   Question(tax_free_question, "Ostit makkaran."),
+                   Question(fligh_question, "Lensit toiselle lentokentälle.")]:
+        answer = ask_yes_or_no(action.question)
+        if answer["finished"]:
+            game_finished = True
+            break
+        if answer["yes"]:
+            print(action.command)
+
+print("Peli päättyi.")
