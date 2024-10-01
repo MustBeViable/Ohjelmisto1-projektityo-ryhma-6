@@ -31,6 +31,6 @@ def unique_player_top_5_score_fetch_query(screen_name):
     return
 
 
-unique_player_top_5_score_fetch_query('testi2')
+unique_player_top_5_score_fetch_query('koloherra')
 print("")
-all_unique_player_score_fetch_query('testi1')
+all_unique_player_score_fetch_query('koloherra')
