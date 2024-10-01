@@ -1,6 +1,6 @@
 
 import mysql.connector
-from Game.Playthrough import test_playthrough
+from Game.choose_game import test_playthrough
 from game_texts import yhteys
 
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten

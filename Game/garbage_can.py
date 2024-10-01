@@ -42,6 +42,9 @@ def hole_in_charge(own_makkaras):
         print(f"Harmi makkaravarastosi kannalta, mutta kolovastaava vei sinulta seuraavat makkarat: {', '.join(lost_makkaras)}")
     return
 
+select* from makkara_reached
+hole_in_charge()
+select* from makkara_reached
 
 # Player can donate x amount money and get vege sausage
 # Player has to donate few times to get one vege sausage

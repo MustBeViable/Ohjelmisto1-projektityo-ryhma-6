@@ -1,12 +1,5 @@
 from Game.game_texts import yhteys
 
-# siirrä muualle
-unfinished = "unfinished"
-finished = "finished"
-
-start_money = "1000"
-start_location = "EFNU"
-
 def sql_connection(sql_text):
     kursori = yhteys.cursor()
     kursori.execute(sql_text)
@@ -15,7 +8,7 @@ def sql_connection(sql_text):
 
 # Creates the game to the database with given screen name. Returns the ID of the new game.
 def create_game(screen_name):
-    sql_create = (f"INSERT INTO playthrough (screen_name, hole_airport, location) VALUES ('{screen_name}', NULL,'{start_location}')")
+    sql_create = (f"INSERT INTO playthrough (screen_name) VALUES ('{screen_name}')")
     sql_connection(sql_create)
     sql_id = (f"SELECT id FROM playthrough WHERE screen_name = '{screen_name}' AND finished = false ORDER BY id DESC")
     sql_connection(sql_id)

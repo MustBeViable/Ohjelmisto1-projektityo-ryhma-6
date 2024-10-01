@@ -2,7 +2,7 @@ from Game.game_texts import yhteys
 from Game.sql_querys.create_and_end_game import start_location
 
 start_score = 0
-start_money = 1000
+start_money = 2000
 start_mustamakkara = 0
 kursori = yhteys.cursor()
 

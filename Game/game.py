@@ -1,9 +1,10 @@
 from multiprocessing.dummy import current_process
 
-from Game.Playthrough import choose_game
+from Game.choose_game import choose_game
 
 # siirrä muualle
 end_command = "lopeta"
+finished = False
 
 # Get user's screen name:
 username = input("Anna käyttäjänimi: ")
@@ -25,5 +26,10 @@ while start != "":
 # Tähän alkuprompti.
 
 # Tähän pelin koodi?
-
+'''while not finished:
+    print("Haluatko kaivaa roskista?")
+'''
 print("Peli päättyi.")
+
+def ask_yes_or_no():
+    pass
