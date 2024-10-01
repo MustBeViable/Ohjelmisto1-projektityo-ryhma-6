@@ -22,7 +22,9 @@ sql_playthrough2 = (f" CREATE TABLE IF NOT EXISTS playthrough ("
                     f" mustamakkara int         DEFAULT {start_mustamakkara},"
                     f" hole_airport varchar(40),"
                     f" location     varchar(40),"
-                    f" PRIMARY KEY(id));")
+                    f" PRIMARY KEY (id))"
+                    f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
+
 
 sql_makkara1 = (f" DROP TABLE IF EXISTS makkara;")
 sql_makkara2 = (f" CREATE TABLE IF NOT EXISTS makkara ("
@@ -30,7 +32,10 @@ sql_makkara2 = (f" CREATE TABLE IF NOT EXISTS makkara ("
                 f" name      varchar(255),"
                 f" score     int,"
                 f" country   varchar(40),"
-                f" PRIMARY KEY (id));")
+                f" PRIMARY KEY (id),"
+                f" FOREIGN KEY (country)"
+                f" REFERENCES country(iso_country))"
+                f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
 
 sql_makkara_reached1 = (f" DROP TABLE IF EXISTS makkara_reached;")
 sql_makkara_reached2 = (f" CREATE TABLE IF NOT EXISTS makkara_reached("
@@ -38,14 +43,15 @@ sql_makkara_reached2 = (f" CREATE TABLE IF NOT EXISTS makkara_reached("
                         f" game_id       int,"
                         f" makkara_id    int,"
                         f" PRIMARY KEY (id),"
-                        f"FOREIGN KEY (game_id)"
+                        f" FOREIGN KEY (game_id)"
                         f" REFERENCES playthrough(id) "
                         f" ON DELETE CASCADE"
                         f" ON UPDATE CASCADE,"
                         f" FOREIGN KEY (makkara_id)"
                         f" REFERENCES makkara(id)"
                         f" ON DELETE CASCADE"
-                        f" ON UPDATE CASCADE);")
+                        f" ON UPDATE CASCADE)"
+                        f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
 
 sql_makkaras_in_hole1 = (f" DROP TABLE IF EXISTS makkaras_in_hole;")
 sql_makkaras_in_hole2 = (f" CREATE TABLE IF NOT EXISTS makkaras_in_hole ("
@@ -53,18 +59,18 @@ sql_makkaras_in_hole2 = (f" CREATE TABLE IF NOT EXISTS makkaras_in_hole ("
                          f" playthrough_id       int,"
                          f" PRIMARY KEY (stolen_makkara_id),"
                          f" FOREIGN KEY (stolen_makkara_id)"
-                         f" REFERENCES makkara_reached(id)"
-                         f" ON DELETE CASCADE"
-                         f" ON UPDATE CASCADE);")
+                         f" REFERENCES makkara_reached(id))"
+                        f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;")
 
 
-kursori.execute(sql_makkara1)
-kursori.execute(sql_makkara2)
-print("Makkara luotiin.")
 
 kursori.execute(sql_playthrough1)
 kursori.execute(sql_playthrough2)
 print("Playthrough luotiin.")
+
+kursori.execute(sql_makkara1)
+kursori.execute(sql_makkara2)
+print("Makkara luotiin.")
 
 kursori.execute(sql_makkara_reached1)
 kursori.execute(sql_makkara_reached2)

@@ -1,10 +1,10 @@
 # All the commands that the user can give.
 import mysql.connector
 
-game_id = None
-
 yes = "k"
 no = "e"
+
+game_id = 1
 
 help_command = "ohje"
 fly_command = "lennä"

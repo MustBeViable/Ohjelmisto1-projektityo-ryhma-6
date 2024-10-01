@@ -49,7 +49,7 @@ def choose_game(screen_name):
         current_game_id = create_game(screen_name)
     return current_game_id
 
-
+'''
 # testi choose_game
 testi_id = choose_game(input("Syötä testikäyttäjän nimi: "))
 print(f"palauttaa: {testi_id}")
@@ -57,7 +57,7 @@ print(f"palauttaa: {testi_id}")
 sql2 = (f"SELECT * FROM playthrough")
 test2 = sql_connection(sql2)
 print("Kaikki pelit: ")
-print(test2)
+print(test2)'''
 
 
 """"

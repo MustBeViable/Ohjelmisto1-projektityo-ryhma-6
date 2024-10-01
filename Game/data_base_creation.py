@@ -34,7 +34,8 @@ def create_table_makkara():
            f" name VARCHAR(255) NOT NULL,"
            f" country varchar(255) NOT NULL,"
            f" score int NOT NULL,"
-           f" primary key (id))")
+           f" primary key (id))"
+           f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -50,7 +51,8 @@ def create_makkara_reached():
     sql = (f" CREATE TABLE makkara_reached (id int NOT NULL auto_increment,"
            f" game_id int NOT NULL,"
            f" makkara_id int NOT NULL,"
-           f" primary key (id))")
+           f" primary key (id))"
+           f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -61,10 +63,11 @@ def create_playthrough():
            f" money int NOT NULL,"
            f" screen_name VARCHAR(255) NOT NULL,"
            f" status VARCHAR(255) NOT NULL,"
-           f" location VARCHAR(255) NOT NULL,"
+           f" location varchar(40) NOT NULL,"
            f" mustamakkara int NOT NULL,"
            f" hole_airport varchar(255),"
-           f" primary key (id))")
+           f" primary key (id))"
+           f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -73,7 +76,8 @@ def create_playthrough():
 def create_makkaras_in_hole():
     sql = (f" CREATE TABLE makkaras_in_hole (playthrough_id int NOT NULL,"
            f" stolen_makkara_id int NOT NULL,"
-           f" primary key (stolen_makkara_id))")
+           f" primary key (stolen_makkara_id))"
+           f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -173,11 +177,22 @@ if test4 == 0:
     final_test -= 1
 if final_test == 0:
     foreign_keys_makkara_reached()
+    print("fk makkara reached tehty")
     foreign_keys_playthrough()
+    print("fk playthrough tehty")
     foreign_keys_makkara()
+    print("fk makkara tehty")
+
     create_koloherra()
     print("t5")
     create_example_makkara_reached()
     create_example_makkaras_in_hole(1, 1)
     create_example_makkaras_in_hole(1,2)
     print("t6")
+
+'''foreign_keys_makkara_reached()
+print("fk makkara reached tehty")
+foreign_keys_playthrough()
+print("fk playthrough tehty")
+foreign_keys_makkara()
+print("fk makkara tehty")'''
