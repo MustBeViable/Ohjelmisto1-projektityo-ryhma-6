@@ -10,8 +10,8 @@ def add_money(amount, game_id):
     return
 #lisäsin tänne sen game_id parametrin jotta päivitetään aina oikeaa tietoa. Se tuo myös funktion sisällä add_money
 # funktioon saman tiedon ja mulla toimi oikein toi nyt.
-def use_money( game_id):
-    sql = (f"SELECT money FROM playthrough WHERE id = '{game_id}'")
+def use_money( playthrough_id):
+    sql = (f"SELECT money FROM playthrough WHERE id = '{playthrough_id}'")
     kursori = yhteys.cursor(dictionary=True)
     kursori.execute(sql)
     result = kursori.fetchall()
