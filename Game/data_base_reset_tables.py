@@ -13,7 +13,7 @@ def drop_constraint(table, constraint):
     kursori.execute(sql)
     return
 #lisää listaa tablen nimi ku lisäät uuden tablen tietokantaa
-test_list = ["makkaras_in_hole", "makkara_reached", "makkara", "playthrough"]
+test_list = ["makkara_reached", "makkara", "playthrough"]
 '''
 drop_constraint("playthrough", "FK_location")
 drop_constraint("makkara_reached", "FK_makkara_id")
@@ -22,3 +22,4 @@ drop_constraint("makkara", "FK_iso_country")
 '''
 for i in test_list:
     table_remove(table=i)
+    print(i)
