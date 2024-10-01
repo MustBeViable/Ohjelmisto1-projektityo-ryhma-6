@@ -34,8 +34,7 @@ def create_table_makkara():
            f" name VARCHAR(255) NOT NULL,"
            f" country varchar(255) NOT NULL,"
            f" score int NOT NULL,"
-           f" primary key (id))"
-           f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
+           f" primary key (id))")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -51,8 +50,7 @@ def create_makkara_reached():
     sql = (f" CREATE TABLE makkara_reached (id int NOT NULL auto_increment,"
            f" game_id int NOT NULL,"
            f" makkara_id int NOT NULL,"
-           f" primary key (id))"
-           f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
+           f" primary key (id))")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -66,8 +64,7 @@ def create_playthrough():
            f" location varchar(40) NOT NULL,"
            f" mustamakkara int NOT NULL,"
            f" hole_airport varchar(255),"
-           f" primary key (id))"
-           f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
+           f" primary key (id))")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -76,8 +73,7 @@ def create_playthrough():
 def create_makkaras_in_hole():
     sql = (f" CREATE TABLE makkaras_in_hole (playthrough_id int NOT NULL,"
            f" stolen_makkara_id int NOT NULL,"
-           f" primary key (stolen_makkara_id))"
-           f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
+           f" primary key (stolen_makkara_id))")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -189,10 +185,3 @@ if final_test == 0:
     create_example_makkaras_in_hole(1, 1)
     create_example_makkaras_in_hole(1,2)
     print("t6")
-
-'''foreign_keys_makkara_reached()
-print("fk makkara reached tehty")
-foreign_keys_playthrough()
-print("fk playthrough tehty")
-foreign_keys_makkara()
-print("fk makkara tehty")'''
