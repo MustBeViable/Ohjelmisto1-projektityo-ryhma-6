@@ -7,15 +7,15 @@ from os import remove
 from Game.game_texts import no, yes
 #from Game.game_texts import yhteys
 from Game.player_profile import own_makkaras, own_money
-from Game.secret_black_sausage import own_secret_black_sausage
 from Game.secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
 from Game.doubling_machine import tuplataanko
+
 
 def robber(own_money):
     player_money = own_money
     if player_money > 0:
-        stolen_money = player_money * 0.5
-        return stolen_money
+        aft_rob = player_money * 0.5
+        return aft_rob
 
 
 # Function is calling all the "own_makkaras" list and reduces random amount of the list
@@ -84,7 +84,7 @@ def garbage_can():
         vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat? ({yes}/{no}): ").lower()
         tuplataanko(vastaus, new_money)  # eliaksen tuplaus funktio
     elif outcome == 'robber':
-        print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi, ja sinulle jäi {robber(own_money)} €.")
+        print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi ja sinulle jäi {robber(own_money)} €.")
     elif outcome == 'hole_in_charge':
         hole_in_charge(own_makkaras)
     elif outcome == 'finnair_personnel':
