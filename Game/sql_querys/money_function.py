@@ -18,6 +18,6 @@ def use_money( game_id):
     player_money = result[0]['money']
     print(player_money)
 
-    return
+    return player_money
 
 use_money(1)
