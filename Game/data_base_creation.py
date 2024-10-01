@@ -61,7 +61,7 @@ def create_playthrough():
            f" money int NOT NULL,"
            f" screen_name VARCHAR(255) NOT NULL,"
            f" status VARCHAR(255) NOT NULL,"
-           f" location VARCHAR(255) NOT NULL,"
+           f" location varchar(40) NOT NULL,"
            f" mustamakkara int NOT NULL,"
            f" hole_airport varchar(255),"
            f" primary key (id))")
@@ -173,8 +173,12 @@ if test4 == 0:
     final_test -= 1
 if final_test == 0:
     foreign_keys_makkara_reached()
+    print("fk makkara reached tehty")
     foreign_keys_playthrough()
+    print("fk playthrough tehty")
     foreign_keys_makkara()
+    print("fk makkara tehty")
+
     create_koloherra()
     print("t5")
     create_example_makkara_reached()
