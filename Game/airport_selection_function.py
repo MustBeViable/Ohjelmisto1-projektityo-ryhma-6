@@ -39,7 +39,7 @@ def airportselection(ident):
     price_multiplier = 50
     for i, airport in enumerate(result_sorted):
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
-    next_airport = input("Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
+    next_airport = input("Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku(älä syötä yli 20 tai 0 tai pienempi): ")
     while next_airport is not int:
         try:
             next_airport= int(next_airport)
@@ -80,8 +80,11 @@ def current_coordinates(chosen_ICAO):
     kursori.execute(sql)
     result = kursori.fetchall()
     return result
+
+'''
 airportselection(test_playthrough.location)
 
 print(test_playthrough.location)
 airportselection(test_playthrough.location)
 print(test_playthrough.location)
+'''
