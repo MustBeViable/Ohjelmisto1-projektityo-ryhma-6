@@ -1,4 +1,4 @@
-from Game.sql_querys.money_function import use_money, add_money
+from Game.sql_querys.money_function import fetch_player_money, update_player_money
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, update_player_location
 from game_texts import yhteys, game_id
 
@@ -56,9 +56,9 @@ def airportselection(ident):
             break
     next_airport = result_sorted[next_location-1]["ident"]
     price = (next_location)*price_multiplier
-    money = use_money(game_id)
+    money = fetch_player_money(game_id)
     money -= price
-    add_money(money,game_id)
+    update_player_money(money, game_id)
     update_player_location(game_id, next_airport)
 
     return next_airport

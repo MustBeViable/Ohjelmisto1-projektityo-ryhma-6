@@ -10,14 +10,14 @@ from Game.player_profile import own_makkaras, own_money
 from Game.secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
 from Game.doubling_machine import tuplataanko
 from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras
-from Game.sql_querys.money_function import add_money, use_money
+from Game.sql_querys.money_function import update_player_money, fetch_player_money
 
 
 
 def robber(player_money, id):
     if player_money > 0:
         aft_rob = player_money * 0.5
-        add_money(aft_rob, id)
+        update_player_money(aft_rob, id)
         return aft_rob
 
 
@@ -95,7 +95,7 @@ def garbage_can():
         vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat? ({yes}/{no}): ").lower()
         tuplataanko(vastaus, new_money)  # eliaksen tuplaus funktio
     elif outcome == 'robber':
-        money = use_money(id)
+        money = fetch_player_money(id)
         print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi ja sinulle jäi {robber(money, id)} €.")
     elif outcome == 'hole_in_charge':
         hole_in_charge()
