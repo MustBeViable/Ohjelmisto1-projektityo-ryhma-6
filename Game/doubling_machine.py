@@ -1,7 +1,6 @@
 import random
 
 from Game.game_texts import yes, no, game_id
-from Game.sql_querys.money_function import use_money, add_money
 
 
 #funtion parametreiks syötetään pelaajan rahat, mitä tuplaa ja monesko tuplaus menossa
