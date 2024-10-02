@@ -1,7 +1,7 @@
 import mysql.connector
 
 from Game.sql_querys.create_and_end_game import create_game, finish_game_in_database, fetch_unfinished_playthrough
-from game_texts import yhteys, game_id
+from game_texts import yhteys
 
 def sql_connection(sql_text):
     kursori = yhteys.cursor()
