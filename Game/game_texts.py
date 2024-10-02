@@ -11,12 +11,13 @@ start_location = "EFNU"
 sausage_price = 100
 finnair_makkara = 69420
 finnair_donation = 500
+price_multiplier = 50
 
 help_command = "ohje"
 fly_command = "lennä"
 end_command = "lopeta"
 give_up_command = "luovuta"
-money_command = "moni"
+money_command = "bank"
 
 # Dictionary of commands that are normally available and their help texts.
 command_and_helptext = {
