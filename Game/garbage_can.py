@@ -84,7 +84,7 @@ def garbage_can(game_id):
     #finnair_personnel()
 
     # the possibilities of different outcomes
-    outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [70, 0, 0, 0], k=1)[0]
+    outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [70, 10, 10, 10], k=1)[0]
     if outcome == 'found_money':
         new_money = money_from_garbage()
         print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
