@@ -85,7 +85,7 @@ def garbage_can():
     #finnair_personnel()
 
     # the possibilities of different outcomes
-    outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [0, 100, 0, 0], k=1)[0]
+    outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [70, 0, 0, 0], k=1)[0]
     if outcome == 'found_money':
         new_money = money_from_garbage()
         print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
@@ -108,8 +108,4 @@ def garbage_can():
         secret_black_sausage_chance(amount) #saken mustamakkara funktio
     return
 
-# Testing the main function (garbage can function)
-
-#print(finnair_personnel())
-garbage_can()
 
