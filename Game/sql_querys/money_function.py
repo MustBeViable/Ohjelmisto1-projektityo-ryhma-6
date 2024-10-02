@@ -14,7 +14,7 @@ def fetch_player_money(playthrough_id):
     kursori.execute(sql)
     result = kursori.fetchall()
     player_money = result[0]['money']
-    print(player_money)
+
 
     return player_money
 
