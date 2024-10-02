@@ -7,15 +7,16 @@ from os import remove
 from Game.game_texts import no, yes
 #from Game.game_texts import yhteys
 from Game.player_profile import own_makkaras, own_money
-from Game.secret_black_sausage import own_secret_black_sausage
 from Game.secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
 from Game.doubling_machine import tuplataanko
+from Game.sql_querys.money_function import add_money, use_money
 
-def robber(own_money):
-    player_money = own_money
+
+def robber(player_money, id):
     if player_money > 0:
-        stolen_money = player_money * 0.5
-        return stolen_money
+        aft_rob = player_money * 0.5
+        add_money(aft_rob, id)
+        return aft_rob
 
 
 # Function is calling all the "own_makkaras" list and reduces random amount of the list
@@ -75,19 +76,21 @@ def money_from_garbage():
 
 #Checkng garbages, saken mustamakkarafunktio
 def garbage_can():
+    id = 1
     #player_money = own_money
     #robber(player_money)
     #finnair_personnel()
 
     # the possibilities of different outcomes
-    outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [70, 10, 10, 10], k=1)[0]
+    outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [0, 100, 0, 00], k=1)[0]
     if outcome == 'found_money':
         new_money = money_from_garbage()
         print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
         vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat? ({yes}/{no}): ").lower()
         tuplataanko(vastaus, new_money)  # eliaksen tuplaus funktio
     elif outcome == 'robber':
-        print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi, ja sinulle jäi {robber(own_money)} €.")
+        money = use_money(id)
+        print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi ja sinulle jäi {robber(money, id)} €.")
     elif outcome == 'hole_in_charge':
         hole_in_charge(own_makkaras)
     elif outcome == 'finnair_personnel':

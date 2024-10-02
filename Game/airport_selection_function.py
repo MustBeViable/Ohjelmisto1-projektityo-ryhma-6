@@ -1,7 +1,7 @@
+from Game.sql_querys.money_function import use_money, add_money
+from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, update_player_location
+from game_texts import yhteys, game_id
 
-import mysql.connector
-from Game.choose_game import test_playthrough
-from game_texts import yhteys
 
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
 def airportselection(ident):
@@ -20,6 +20,7 @@ def airportselection(ident):
     result = kursori.fetchall()
     #tää for loop käy jokaisen dictionaryn listan sisältä ja ajaa distance funktion (selvittää etäisyyttä ks. alempaa)
     # Kun se o saanu etäisyyden se lisää arvon avaimeen 'distance'.
+    #ident = fetch_player_location(identification)
     player_current_ident = current_coordinates(ident)
     for i in range(len(result)):
         dist = distance(result[i]['ident'], player_current_ident)
@@ -39,20 +40,26 @@ def airportselection(ident):
     price_multiplier = 50
     for i, airport in enumerate(result_sorted):
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
-    next_airport = input("Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku(älä syötä yli 20 tai 0 tai pienempi): ")
-    while next_airport is not int:
+    next_location = input("Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku(älä syötä yli 20 tai 0 tai pienempi): ")
+    while next_location is not int and next_location not in range(1,21):
         try:
-            next_airport= int(next_airport)
+            next_location = int(next_location)
         except:
-            next_airport = input("Syötit väärin! Valitse uudelleen haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
+            next_location = input(
+                "Syötit väärin! Valitse uudelleen haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
             continue
         else:
-            next_airport = int(next_airport)
+            next_location = int(next_location)
+        while next_location not in range(1, 21):
+            next_location = input(
+                "Syötit väärin! Valitse uudelleen haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
             break
-    next_airport = result_sorted[next_airport-1]["ident"]
-    print(next_airport)
-    # tähän mitö oliota halutaa muokkaa
-    test_playthrough.location = next_airport
+    next_airport = result_sorted[next_location-1]["ident"]
+    price = (next_location)*price_multiplier
+    money = use_money(game_id)
+    money -= price
+    add_money(money,game_id)
+    update_player_location(game_id, next_airport)
 
     return next_airport
 
@@ -81,6 +88,9 @@ def current_coordinates(chosen_ICAO):
     result = kursori.fetchall()
     return result
 
+identification = 1
+ident = fetch_player_location(identification)
+airportselection(ident)
 '''
 airportselection(test_playthrough.location)
 

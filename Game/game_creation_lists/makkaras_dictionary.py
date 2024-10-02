@@ -161,5 +161,3 @@ makkaras_dictionary = {
     "Zimbabwe": "Zimbabwe Makkara",
 }
 
-makkaras_only=list(makkaras.values())
-print(len(makkaras_only))

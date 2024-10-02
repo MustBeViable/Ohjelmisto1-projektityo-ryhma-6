@@ -10,9 +10,3 @@ iso_country_list = [
     "SD", "SE", "SG", "SI", "SK", "SL", "SN", "SR", "SS", "SV", "SX", "SY", "SZ", "TC", "TD", "TH",
     "TM", "TN", "TR", "TW", "TZ", "UA", "UG", "US", "UY", "UZ", "VE", "VN", "VU", "ZA", "ZM", "ZW"
 ]
-print(len(country_codes))
-print(country_codes[120])
-print(country_codes[121])
-print(country_codes[122])
-print(country_codes[123])
-print(country_codes[124])
