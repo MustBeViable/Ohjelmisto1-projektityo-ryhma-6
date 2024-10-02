@@ -49,28 +49,13 @@ def choose_game(screen_name):
         current_game_id = create_game(screen_name)
     return current_game_id
 
-'''
+
 # testi choose_game
-testi_id = choose_game(input("Syötä testikäyttäjän nimi: "))
+'''testi_id = choose_game(input("Syötä testikäyttäjän nimi: "))
 print(f"palauttaa: {testi_id}")
 
 sql2 = (f"SELECT * FROM playthrough")
 test2 = sql_connection(sql2)
 print("Kaikki pelit: ")
-print(test2)'''
-
-
-""""
-
-def add_makkara_to_reached(new_makkara_name):
-    sql = (f"INSERT INTO makkara_reached (makkara_name, game_id) VALUES ('{new_makkara_name}', '{game_id}')")
-    kursori = yhteys.cursor()
-    kursori.execute(sql)
-    return
-
-# Fetches names of the sausages tha player has collected.
-def fetch_reached_makkaras():
-    sql = (f"SELECT name FROM makkara_reached WHERE id = {game_id}")
-    kursori = yhteys.cursor()
-    kursori.execute(sql)
-    return"""
+print(test2)
+'''
