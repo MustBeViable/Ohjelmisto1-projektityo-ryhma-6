@@ -16,9 +16,11 @@ help_command = "ohje"
 fly_command = "lennä"
 end_command = "lopeta"
 give_up_command = "luovuta"
+money_command = "moni"
 
 # Dictionary of commands that are normally available and their help texts.
 command_and_helptext = {
+    money_command: "Näyttää omat rahasi.",
     help_command: "Näyttää ohjeen.",
     end_command: "Sulkee pelin. Edistymisen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi.",
     give_up_command: "Lopettaa pelin. Luovuttamisen jälkeen et voi enää jatkaa kyseistä pelikertaa."

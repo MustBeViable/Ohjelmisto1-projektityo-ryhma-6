@@ -1,21 +1,35 @@
 # All the commands that the user can give and all the texts that the user can see are stored
 # as string variables in game_texts.py.
-from Game.game_texts import give_help_str, not_command_yes_no_str, yes, no, end_command, help_command
+from Game.game_texts import give_help_str, not_command_yes_no_str, yes, no, end_command, help_command, money_command
+from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras
+from Game.sql_querys.money_function import fetch_player_money
 
 
 # Prints the game instruction.
 def give_help():
     print(give_help_str)
 
+def show_money(game_id):
+    player_money = fetch_player_money(game_id)
+    print(f"Sinulla on {player_money}€.")
+
+def show_makkaras_and_score(game_id):
+    player_makkaras = fetch_player_makkaras(game_id)
+    makkaras_length = len(player_makkaras)
+    print(f"Sinulla on {makkaras_length} makkaraa: {player_makkaras}")
+
 # Prints that the given command does not exist.
 def faulty_command_yes_or_no(command):
     print(f'"{command}"{not_command_yes_no_str}')
 
-def ask_yes_or_no(question):
+def ask_yes_or_no(question, game_id):
     answer = input(question).lower()
     while answer not in [yes, no, end_command]:
         if answer == help_command:
             give_help()
+            answer = input(question).lower()
+        elif answer == money_command:
+            show_money(game_id)
             answer = input(question).lower()
         else:
             faulty_command_yes_or_no(answer)
