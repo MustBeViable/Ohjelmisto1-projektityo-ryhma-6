@@ -1,5 +1,5 @@
 from gc import garbage
-
+import time
 from Game.actions import ask_yes_or_no, Question
 from Game.airport_selection_function import airportselection
 from Game.choose_game import choose_game
@@ -41,6 +41,7 @@ while not game_finished:
         yes_no_taxfree(game_id)
     if fetch_player_money(game_id) >= 50:
         print(fligh_question)
+        time.sleep(2)
         airportselection(game_id)
     else:
         print("Rahasi eivät riitä enää lentämiseen.")

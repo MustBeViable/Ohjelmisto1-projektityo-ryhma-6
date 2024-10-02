@@ -47,8 +47,8 @@ def tuplataanko(answer, winnings, game_id):
                         f" Mitä vastaat? ({yes}/{no}): ").lower()
                 else:
                     break
-            current_money += winnings
-            update_player_money(current_money ,game_id)
+        current_money += winnings
+        update_player_money(current_money ,game_id)
         print(f"Sinulla on tällä hetkellä rahaa {current_money}€.")
 '''
 #Testailin alhaalla että funktiot toimii halutulla tavalla
