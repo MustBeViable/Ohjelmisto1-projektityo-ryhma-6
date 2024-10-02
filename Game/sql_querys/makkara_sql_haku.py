@@ -33,6 +33,8 @@ def search_makkara_id():
     result = kursori.fetchall()
     return result[0]["id"]
 
+#searches makkaras points from country where player in
+
 def search_makkara_score():
     identi = 1
     lokaatio=fetch_player_location(identi)
