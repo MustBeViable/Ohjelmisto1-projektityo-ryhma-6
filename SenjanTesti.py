@@ -1,5 +1,7 @@
-from Game.game_texts import yhteys
-from Game.sql_querys.create_and_end_game import start_location
+from Game.game_creation_lists.iso_country_list import iso_country_list
+from Game.game_creation_lists.makkaras_dictionary import makkaras_dictionary
+from Game.game_creation_lists.score_value_makkara import score_value_makkara
+from Game.game_texts import yhteys, start_location
 
 start_score = 0
 start_money = 2000
@@ -10,7 +12,6 @@ tables = ['makkara_reached', 'makkara', 'playthrough']
 for table in tables:
     kursori.execute(f"DROP TABLE IF EXISTS {table}")
     print(f"dropped table {table}")
-
 
 sql_playthrough1 = (f"DROP TABLE IF EXISTS playthrough;")
 sql_playthrough2 = (f" CREATE TABLE IF NOT EXISTS playthrough ("
@@ -24,7 +25,6 @@ sql_playthrough2 = (f" CREATE TABLE IF NOT EXISTS playthrough ("
                     f" player_location     varchar(40) DEFAULT '{start_location}',"
                     f" PRIMARY KEY (id))"
                     f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
-
 
 sql_makkara1 = (f" DROP TABLE IF EXISTS makkara;")
 sql_makkara2 = (f" CREATE TABLE IF NOT EXISTS makkara ("
@@ -54,6 +54,21 @@ sql_makkara_reached2 = (f" CREATE TABLE IF NOT EXISTS makkara_reached("
                         f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
 
 
+def add_makkaras_to_table(makkara, country, score):
+    sql = (f"INSERT INTO makkara (name, score, country) VALUES ('{makkara}', {score}, '{country}')")
+    kursori = yhteys.cursor()
+    kursori.execute(sql)
+    return
+    for i in range(len(iso_country_list)):
+        add_makkaras_to_table(list(makkaras_dictionary.values())[i], iso_country_list[i], score_value_makkara[i])
+
+
+sql_koloherra = (f" INSERT INTO playthrough (screen_name)"
+                 f" VALUES ('koloherra')")
+
+sql_example_makkara_reached = (f" INSERT INTO makkara_reached (playthrough_id, makkara_id)"
+                               f" VALUES (1, 100)")
+
 kursori.execute(sql_playthrough1)
 kursori.execute(sql_playthrough2)
 print("Playthrough luotiin.")
@@ -65,3 +80,10 @@ print("Makkara luotiin.")
 kursori.execute(sql_makkara_reached1)
 kursori.execute(sql_makkara_reached2)
 print("Makkara_reached luotiin.")
+
+for i in range(len(iso_country_list)):
+    add_makkaras_to_table(list(makkaras_dictionary.values())[i], iso_country_list[i], score_value_makkara[i])
+
+kursori.execute(sql_koloherra)
+kursori.execute(sql_example_makkara_reached)
+print("Esierkit luotiin.")

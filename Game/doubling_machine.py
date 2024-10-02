@@ -1,10 +1,11 @@
 import random
 
-from Game.game_texts import yes, no, game_id
+from Game.game_texts import yes, no
 from Game.sql_querys.money_function import fetch_player_money, update_player_money
 
 
-#funtion parametreiks syötetään pelaajan rahat, mitä tuplaa ja monesko tuplaus menossa
+#funtion parametreiks syötetään pelaajan rahat, mitä tuplaa ja monesko tuplaus menossa.
+# Palauttaa voitetun rahan tai pelaajan hävitessä nolla.
 #HUOM! Voidaan halutessa tuoda muuttuva lukuarvo muuttujan avulla, jolla kerrannoidaan, kuinka mahdollisuudet putoo.
 #itse suosittelen 5 tai 10.
 def tuplaus(amount, times):
@@ -29,13 +30,15 @@ def tuplaus(amount, times):
         return 0
 #HUOM! Vaatii ylemmän funktion toimiakseen!
 #funktio tallentaa iteroi montako kertaa pelaaja on jo tuplannut. Se myös tarkistaa onko pelaaja jo hävinnyt
-def tuplataanko(answer, winnings):
+def tuplataanko(answer, winnings, game_id):
         times = 0
         #Tässä tarkistetaa halusiko pelaaja tuplata ja oliko pelaaja jo hävinnyt rahansa lisäksi alhaalla seurataa
         #monesko tuplaus kerta menossa
+        current_money = fetch_player_money(game_id)
         while answer == yes and winnings > 0:
             if answer == yes:
                 winnings = tuplaus(winnings, times)
+                print(winnings)
                 times += 1
                 #Tässä tarkisteetaa tuplauskierroksen tulos. Jos pelaaja häviää, ohjelma ei kysy haluaako hän tuplata
                 #hävityt rahat.
@@ -44,11 +47,9 @@ def tuplataanko(answer, winnings):
                         f" Mitä vastaat? ({yes}/{no}): ").lower()
                 else:
                     break
-            current_money = fetch_player_money(game_id)
             current_money += winnings
-            current_money = update_player_money(game_id, current_money)
-            print(f"Sinulla on tällä hetkellä rahaa {current_money}€.")
-        return winnings
+            update_player_money(current_money ,game_id)
+        print(f"Sinulla on tällä hetkellä rahaa {current_money}€.")
 '''
 #Testailin alhaalla että funktiot toimii halutulla tavalla
 vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"

@@ -15,10 +15,12 @@ def create_game(screen_name):
     new_id = sql_connection(sql_id)[0][0]
     return new_id
 
+# Marks the game with the given id as finished in the databased.
 def finish_game_in_database(finish_id):
     sql = (f"UPDATE playthrough SET finished = true WHERE id = '{finish_id}'")
     sql_connection(sql)
     return
+
 
 # Fetches unfinished playthroughs of the player. Returns a list of the unfinished playthroughs.
 # Returns an empty list if there are no unfinished playthroughs.
@@ -27,6 +29,15 @@ def fetch_unfinished_playthrough(screen_name):
     unfinished_game_list = sql_connection(sql)
     print(unfinished_game_list)
     return unfinished_game_list
+
+# Returns each screen name ones.
+def fetch_all_screen_names():
+    sql = (f"select distinct screen_name from playthrough;")
+    screen_names_list = sql_connection(sql)
+    fine_screen_name_list = []
+    for name in screen_names_list:
+        fine_screen_name_list.append(name[0])
+    return fine_screen_name_list
 
 # testi create_game
 '''k_e = input("Luo uusi käyttäjä? k/e")

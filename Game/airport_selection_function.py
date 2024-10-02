@@ -1,10 +1,11 @@
 from Game.sql_querys.money_function import fetch_player_money, update_player_money
-from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, update_player_location
-from game_texts import yhteys, game_id
+from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, update_player_location, \
+    fetch_player_location_name
+from game_texts import yhteys
 
 
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
-def airportselection(ident):
+def airportselection(game_id):
     sql = (f" Select airport.name as name, country.name as country, ident "
            f" from airport, country "
            f" where country.iso_country = airport.iso_country"
@@ -21,7 +22,7 @@ def airportselection(ident):
     #tää for loop käy jokaisen dictionaryn listan sisältä ja ajaa distance funktion (selvittää etäisyyttä ks. alempaa)
     # Kun se o saanu etäisyyden se lisää arvon avaimeen 'distance'.
     #ident = fetch_player_location(identification)
-    player_current_ident = current_coordinates(ident)
+    player_current_ident = current_coordinates(game_id)
     for i in range(len(result)):
         dist = distance(result[i]['ident'], player_current_ident)
         result[i]['distance'] = dist
@@ -36,10 +37,12 @@ def airportselection(ident):
     # 1 ja päättymään 20. Enamurate lisää iterointiin indeksin, jossa sit käydään listan elementtejä läpi (jossa airport
     # on elementti) läpi i indeksin avulla. Samalla saadaan ulos elementin että indeksin. (1 sanakirja= erillisen
     # lentokentän nimi, maakoodi ja etäisyys avain/arvo pareina).
+    money = fetch_player_money(game_id)
     print("Seuraavat lähdöt: (lennon nro, maa, lentokenttä, hinta (€):")
     price_multiplier = 50
     for i, airport in enumerate(result_sorted):
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
+    print(f"Sinulla on {money}€. ")
     next_location = input("Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku(älä syötä yli 20 tai 0 tai pienempi): ")
     while next_location is not int and next_location not in range(1,21):
         try:
@@ -56,11 +59,11 @@ def airportselection(ident):
             break
     next_airport = result_sorted[next_location-1]["ident"]
     price = (next_location)*price_multiplier
-    money = fetch_player_money(game_id)
     money -= price
     update_player_money(money, game_id)
     update_player_location(game_id, next_airport)
-
+    location_name = fetch_player_location_name(game_id)
+    print(f"Saavuit lentokentälle {location_name}.")
     return next_airport
 
 #tää funktio saa ylemmän funktion lentokenttien nimet ja laskee sen etäisyyden nykyiseen lentokenttään (käytin baselinenä
@@ -88,9 +91,6 @@ def current_coordinates(chosen_ICAO):
     result = kursori.fetchall()
     return result
 
-identification = 1
-ident = fetch_player_location(identification)
-airportselection(ident)
 '''
 airportselection(test_playthrough.location)
 

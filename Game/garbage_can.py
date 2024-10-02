@@ -4,7 +4,7 @@
 import random
 from os import remove
 
-from Game.game_texts import no, yes, game_id, yhteys, finnair_makkara, finnair_donation
+from Game.game_texts import no, yes, yhteys, finnair_makkara, finnair_donation
 #from Game.game_texts import yhteys
 from Game.player_profile import own_makkaras, own_money
 from Game.secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
@@ -26,7 +26,7 @@ def robber(id, player_money):
 
 
 # Function is calling all the "own_makkaras" list and reduces random amount of the list
-def hole_in_charge():
+def hole_in_charge(game_id):
     own_makkaras = fetch_player_makkaras(game_id)
     print("Törmäsit kolovastaavaan!")
     if len(own_makkaras) == 0:
@@ -53,7 +53,7 @@ def hole_in_charge():
 
 # Player can donate x amount money and get vege sausage
 # Player has to donate few times to get one vege sausage
-def finnair_personnel():
+def finnair_personnel(game_id):
     print(f"Finnairin ympäristöedustaja pyytää lahjoitusta. Sen arvo on {finnair_donation}€.")
     current_money = fetch_player_money(game_id)
     answer = input(f"Haluatko lahjoittaa sen? Sinulla on {current_money}€ tällä hetkellä({yes}/{no}): ").lower()
@@ -78,8 +78,7 @@ def money_from_garbage():
 
 
 #Checkng garbages, saken mustamakkara funktio, kaikki roskiksen toiminnallisuudet
-def garbage_can():
-    id = 1
+def garbage_can(game_id):
     #player_money = own_money
     #robber(player_money)
     #finnair_personnel()
@@ -90,20 +89,20 @@ def garbage_can():
         new_money = money_from_garbage()
         print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
         vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat? ({yes}/{no}): ").lower()
-        tuplataanko(vastaus, new_money)  # eliaksen tuplaus funktio
+        tuplataanko(vastaus, new_money, game_id)  # eliaksen tuplaus funktio
     elif outcome == 'robber':
         current_money = fetch_player_money(game_id)
         if current_money > 0:
-            print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi ja sinulle jäi {robber(id, current_money)} €.")
+            print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi ja sinulle jäi {robber(game_id, current_money)} €.")
         else:
             print("Rosvo ei löytänyt ryöstettävää.")
     elif outcome == 'hole_in_charge':
-        hole_in_charge()
+        hole_in_charge(game_id)
     elif outcome == 'finnair_personnel':
         print("Terve, olen Finnairin ympäristöedustaja. Meillä on palvelu,\n"
               "jolla voit kompensoida lentopäästöjäsi. Voit lahjoittaa haluamasi\nmäärän rahaa, ja me annamme sinulle "
               "vastineeksi harvinaisen makkaran.")
-        finnair_personnel()
+        finnair_personnel(game_id)
     elif outcome == secret_black_sausage_chance:
         secret_black_sausage_chance(amount) #saken mustamakkara funktio
     return

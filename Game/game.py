@@ -1,9 +1,15 @@
+from gc import garbage
+
 from Game.actions import ask_yes_or_no, Question
+from Game.airport_selection_function import airportselection
 from Game.choose_game import choose_game
-from Game.game_texts import dumpster_question, tax_free_question, fligh_question
+from Game.game_texts import garbage_can_question, tax_free_question, fligh_question
+from Game.garbage_can import garbage_can
+from Game.sign_in_up import ask_sign_in_or_up
+from Game.sql_querys.money_function import fetch_player_money
 
 # Get user's screen name:
-username = input("Anna käyttäjänimi: ")
+username = ask_sign_in_or_up()
 print(f"Tervetuloa {username}!")
 # Tässä printataan sit se top-taulu ja tiedot edellisestä pelistä.
 
@@ -23,15 +29,21 @@ while start != "":
 
 game_finished = False
 
+#actions = [Question(garbage_can_question, garbage_can()),Question(tax_free_question, "Ostit makkaran."),Question(fligh_question, airportselection(game_id))]
+
 while not game_finished:
-    for action in [Question(dumpster_question, "Kaivoit roskista."),
-                   Question(tax_free_question, "Ostit makkaran."),
-                   Question(fligh_question, "Lensit toiselle lentokentälle.")]:
-        answer = ask_yes_or_no(action.question)
-        if answer["finished"]:
-            game_finished = True
-            break
-        if answer["yes"]:
-            print(action.command)
+
+# bugi: kaivaa aina roskista
+    if ask_yes_or_no(garbage_can_question):
+        garbage_can(game_id)
+    if ask_yes_or_no(tax_free_question):
+        print("Ostit makkaran.")
+    if fetch_player_money(game_id) >= 50:
+        print(fligh_question)
+        airportselection(game_id)
+    else:
+        print("Rahasi eivät riitä enää lentämiseen.")
+        game_finished = True
+
 
 print("Peli päättyi.")
