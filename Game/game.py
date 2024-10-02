@@ -7,6 +7,7 @@ from Game.game_texts import garbage_can_question, tax_free_question, fligh_quest
 from Game.garbage_can import garbage_can
 from Game.sign_in_up import ask_sign_in_or_up
 from Game.sql_querys.money_function import fetch_player_money
+from Game.yesno_taxfree import yes_no_taxfree
 
 # Get user's screen name:
 username = ask_sign_in_or_up()
@@ -37,7 +38,7 @@ while not game_finished:
     if ask_yes_or_no(garbage_can_question):
         garbage_can(game_id)
     if ask_yes_or_no(tax_free_question):
-        print("Ostit makkaran.")
+        yes_no_taxfree(game_id)
     if fetch_player_money(game_id) >= 50:
         print(fligh_question)
         airportselection(game_id)
