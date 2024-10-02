@@ -15,7 +15,7 @@ def kolo_search():
     elif outside_airport == "uber":
         mahdollisuus=random.randint(1,2)
         if mahdollisuus==1:
-            new_money=rahat-150
+            new_money=fetch_player_money(game_id)-150
             update_player_money(new_money, game_id)
             print("uber kuljettaja pahoinpiteli sinut, jätti tienvarteen, vei sinulta 100 euroa ja joudit tilaamaan taxin takaisin lentokentälle, joka maksoi 50 euroa!")
         elif mahdollisuus!=1:
