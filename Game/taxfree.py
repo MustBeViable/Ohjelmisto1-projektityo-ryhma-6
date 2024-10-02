@@ -9,7 +9,7 @@ from sql_querys.money_function import update_player_money, fetch_player_money
 
 def taxfree(player_money, makkara_ID, game_id):
     if sausage_price<=fetch_player_money(game_id):
-        makkara_name = search_makkara()
+        makkara_name = search_makkara(game_id)
         add_makkara_reached(game_id,makkara_ID)
         new_money=player_money-sausage_price
         update_player_money(new_money, game_id)
