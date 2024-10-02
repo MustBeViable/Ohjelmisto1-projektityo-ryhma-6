@@ -4,19 +4,23 @@ from sql_querys.makkara_taxfree_sql_update import add_makkara_reached
 from sql_querys.makkara_sql_haku import search_makkara, search_makkara_id, search_makkara_score
 from sql_querys.money_function import update_player_money, fetch_player_money
 
-#Taxfree subtracts 150€ of player moneys and adds makkara from the country to
+#Taxfree subtracts cost of money from player moneys and adds makkara from the country to
 # players makkara_reached and adds makkaras score to players score
 
 def taxfree(player_money, makkara_ID):
-    makkara_name = search_makkara()
-    add_makkara_reached(game_id,makkara_ID)
-    new_money=player_money-sausage_price
-    update_player_money(new_money, game_id)
-    new_player_score=player_score_fetch(game_id)+search_makkara_score()
-    player_score_update(new_player_score,game_id)
-    print(f"Ostit makkaran {makkara_name} ja se maksoi {sausage_price} euroa. Sinulla on nyt {new_money} €.")
-    return
+    if sausage_price<=fetch_player_money(game_id):
+        makkara_name = search_makkara()
+        add_makkara_reached(game_id,makkara_ID)
+        new_money=player_money-sausage_price
+        update_player_money(new_money, game_id)
+        new_player_score=player_score_fetch(game_id)+search_makkara_score()
+        player_score_update(new_player_score,game_id)
+        print(f"Ostit makkaran {makkara_name} ja se maksoi {sausage_price} euroa. Sinulla on nyt {new_money} €.")
+    elif sausage_price>player_money:
+        print("Rahat eivät riittäneet. Mene töihin!!!!")
+        return
 
-taxfree(fetch_player_money(game_id), search_makkara_id())
-print(player_score_fetch(game_id))
+#taxfree(player_money, makkara_ID)
+#taxfree(fetch_player_money(game_id), search_makkara_id())
+#print(player_score_fetch(game_id))
 
