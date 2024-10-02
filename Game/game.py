@@ -35,9 +35,9 @@ game_finished = False
 while not game_finished:
 
 # bugi: kaivaa aina roskista
-    if ask_yes_or_no(garbage_can_question):
+    if ask_yes_or_no(garbage_can_question, game_id):
         garbage_can(game_id)
-    if ask_yes_or_no(tax_free_question):
+    if ask_yes_or_no(tax_free_question, game_id):
         yes_no_taxfree(game_id)
     if fetch_player_money(game_id) >= 50:
         print(fligh_question)

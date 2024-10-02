@@ -27,7 +27,5 @@ def ask_sign_in_or_up():
     elif answer == sign_up:
         a = sign_up_function()
     else:
-        a = cancel
-    if a == cancel:
-        ask_sign_in_or_up()
+        a = ask_sign_in_or_up()
     return a
