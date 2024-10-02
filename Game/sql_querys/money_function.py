@@ -2,13 +2,13 @@
 from Game.game_texts import yhteys
 
 
-def add_money(amount, game_id):
+def update_player_money(amount, game_id):
     sql = (f"UPDATE playthrough SET money = {amount} WHERE id = '{game_id}'")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
 
-def use_money( playthrough_id):
+def fetch_player_money(playthrough_id):
     sql = (f"SELECT money FROM playthrough WHERE id = '{playthrough_id}'")
     kursori = yhteys.cursor(dictionary=True)
     kursori.execute(sql)
@@ -18,4 +18,4 @@ def use_money( playthrough_id):
 
     return player_money
 
-use_money(1)
+fetch_player_money(1)
