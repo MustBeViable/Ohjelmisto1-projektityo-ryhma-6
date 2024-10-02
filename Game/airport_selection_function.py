@@ -1,7 +1,7 @@
 from Game.sql_querys.money_function import fetch_player_money, update_player_money
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, update_player_location, \
     fetch_player_location_name
-from game_texts import yhteys
+from game_texts import yhteys, price_multiplier
 
 
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
@@ -39,7 +39,6 @@ def airportselection(game_id):
     # lentokentän nimi, maakoodi ja etäisyys avain/arvo pareina).
     money = fetch_player_money(game_id)
     print("Seuraavat lähdöt: (lennon nro, maa, lentokenttä, hinta (€):")
-    price_multiplier = 50
     for i, airport in enumerate(result_sorted):
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
     print(f"Sinulla on {money}€. ")
