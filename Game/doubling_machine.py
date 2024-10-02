@@ -1,6 +1,7 @@
 import random
 
 from Game.game_texts import yes, no, game_id
+from Game.sql_querys.money_function import fetch_player_money, update_player_money
 
 
 #funtion parametreiks syötetään pelaajan rahat, mitä tuplaa ja monesko tuplaus menossa
@@ -43,9 +44,9 @@ def tuplataanko(answer, winnings):
                         f" Mitä vastaat? ({yes}/{no}): ").lower()
                 else:
                     break
-            current_money = use_money(game_id)
+            current_money = fetch_player_money(game_id)
             current_money += winnings
-            current_money = add_money(game_id, current_money)
+            current_money = update_player_money(game_id, current_money)
             print(f"Sinulla on tällä hetkellä rahaa {current_money}€.")
         return winnings
 '''
