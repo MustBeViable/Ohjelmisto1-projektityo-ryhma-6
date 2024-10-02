@@ -23,10 +23,9 @@ def tuplaus(amount, times):
     if chance1 >= chance2:
         print("Tuplaus onnistui!")
         amount = amount * 2
-        print(f"Tällä hetkellä sinulla on {amount}€.")
         return amount
     else:
-        print("Tuplaus epäonnistui!")
+        print("Tuplaus epäonnistui! Hävisit kaikki löytämäsi rahat.")
         return 0
 #HUOM! Vaatii ylemmän funktion toimiakseen!
 #funktio tallentaa iteroi montako kertaa pelaaja on jo tuplannut. Se myös tarkistaa onko pelaaja jo hävinnyt
@@ -44,7 +43,6 @@ def tuplataanko(answer, winnings):
                     answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan."
                         f" Mitä vastaat? ({yes}/{no}): ").lower()
                 else:
-                    print("Tuplaus epäonnistui!")
                     break
             current_money = use_money(game_id)
             current_money += winnings
