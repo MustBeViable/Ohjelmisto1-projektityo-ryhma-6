@@ -1,6 +1,7 @@
 import random
 
-from Game.game_texts import yes, no
+from Game.game_texts import yes, no, game_id
+from Game.sql_querys.money_function import use_money, add_money
 
 
 #funtion parametreiks syötetään pelaajan rahat, mitä tuplaa ja monesko tuplaus menossa
@@ -22,7 +23,6 @@ def tuplaus(amount, times):
     if chance1 >= chance2:
         print("Tuplaus onnistui!")
         amount = amount * 2
-        # Tämä on testi printti poista valmiiseen ohjelmaan tai muokkaa kertomaan pelaajan sen hetkiset voitot
         return amount
     else:
         print("Tuplaus epäonnistui! Hävisit kaikki löytämäsi rahat.")
@@ -37,13 +37,17 @@ def tuplataanko(answer, winnings):
             if answer == yes:
                 winnings = tuplaus(winnings, times)
                 times += 1
-                #Tässä tarkistetaa tuplauskierroksen tulos. Jos pelaaja häviää, ohjelma ei kysy haluaako hän tuplata
+                #Tässä tarkisteetaa tuplauskierroksen tulos. Jos pelaaja häviää, ohjelma ei kysy haluaako hän tuplata
                 #hävityt rahat.
                 if winnings > 0:
-                    answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"
+                    answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan."
                         f" Mitä vastaat? ({yes}/{no}): ").lower()
                 else:
                     break
+            current_money = use_money(game_id)
+            current_money += winnings
+            current_money = add_money(game_id, current_money)
+            print(f"Sinulla on tällä hetkellä rahaa {current_money}€.")
         return winnings
 '''
 #Testailin alhaalla että funktiot toimii halutulla tavalla
