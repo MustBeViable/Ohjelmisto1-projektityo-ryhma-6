@@ -1,9 +1,10 @@
 from Game.actions import ask_yes_or_no, Question
 from Game.choose_game import choose_game
 from Game.game_texts import dumpster_question, tax_free_question, fligh_question
+from Game.sign_in_up import ask_sign_in_or_up
 
 # Get user's screen name:
-username = input("Anna käyttäjänimi: ")
+username = ask_sign_in_or_up()
 print(f"Tervetuloa {username}!")
 # Tässä printataan sit se top-taulu ja tiedot edellisestä pelistä.
 

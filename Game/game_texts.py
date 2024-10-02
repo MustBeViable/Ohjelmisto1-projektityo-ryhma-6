@@ -63,9 +63,9 @@ tax_free_question = "Haluatko shoppailla? "
 yhteys = mysql.connector.connect(
          host='localhost',
          port=3306,
-         database='flight_game',
-         user='kolovastaava',
-         password='kolovastaava',
+         database='makkara_game',
+         user='palautukset',
+         password='moro3',
          autocommit=True,
          collation="utf8mb4_general_ci"
          )
