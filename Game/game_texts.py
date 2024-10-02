@@ -11,6 +11,7 @@ start_money = 1000
 start_score = 0
 start_mustamakkara = 0
 start_location = "EFNU"
+sausage_price = 100
 
 help_command = "ohje"
 fly_command = "lennä"
