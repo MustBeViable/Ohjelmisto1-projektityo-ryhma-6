@@ -4,7 +4,8 @@ from Game.game_texts import yhteys
 def fetch_player_makkaras(id):
     sql = (f" SELECT id"
            f" FROM makkara_reached"
-           f" where playthrough_id = '{id}'")
+           f" where playthrough_id = '{id}'"
+           f" and stolen = False")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     result = kursori.fetchall()
@@ -12,4 +13,3 @@ def fetch_player_makkaras(id):
     for i in range(len(result)):
         player_makkaras.append(result[i][0])
     return player_makkaras
-
