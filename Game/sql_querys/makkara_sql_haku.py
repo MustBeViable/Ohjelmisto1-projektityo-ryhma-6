@@ -15,11 +15,9 @@ def search_makkara():
     kursori = yhteys.cursor(dictionary=True)
     kursori.execute(sql)
     result = kursori.fetchall()
-    print(result)
     return result[0]["name"]
 
-print(search_makkara())
-
+#returns makkara_id in player location
 def search_makkara_id():
     identi = 1
     lokaatio=fetch_player_location(identi)
@@ -33,7 +31,5 @@ def search_makkara_id():
     kursori = yhteys.cursor(dictionary=True)
     kursori.execute(sql)
     result = kursori.fetchall()
-    #print(result)
     return result[0]["id"]
 
-print(search_makkara_id())
