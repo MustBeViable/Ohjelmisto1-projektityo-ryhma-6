@@ -4,6 +4,8 @@ from sql_querys.makkara_taxfree_sql_update import add_makkara_reached
 from sql_querys.makkara_sql_haku import search_makkara, search_makkara_id, search_makkara_score
 from sql_querys.money_function import update_player_money, fetch_player_money
 
+#Taxfree subtracts 150€ of player moneys and adds makkara from the country to
+# players makkara_reached and adds makkaras score to players score
 
 def taxfree(player_money, makkara_ID):
     makkara_name = search_makkara()
