@@ -23,7 +23,6 @@ def check_player_input():
     return next_location
 
 
-
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
 def airportselection(game_id):
     sql = (f" Select airport.name as name, country.name as country, ident "
@@ -100,7 +99,7 @@ def current_coordinates(chosen_ICAO):
     result = kursori.fetchall()
     return result
 
-airportselection(1)
+airportselection(2)
 '''
 airportselection(test_playthrough.location)
 
