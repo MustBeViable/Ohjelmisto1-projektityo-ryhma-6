@@ -98,7 +98,6 @@ def current_coordinates(chosen_ICAO):
     kursori.execute(sql)
     result = kursori.fetchall()
     return result
-
 '''
 airportselection(test_playthrough.location)
 
