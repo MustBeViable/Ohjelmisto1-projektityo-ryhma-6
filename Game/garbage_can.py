@@ -4,23 +4,30 @@
 import random
 from os import remove
 
-from Game.game_texts import no, yes
+from Game.game_texts import no, yes, game_id, yhteys, finnair_makkara, finnair_donation
 #from Game.game_texts import yhteys
 from Game.player_profile import own_makkaras, own_money
 from Game.secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
 from Game.doubling_machine import tuplataanko
-from Game.sql_querys.money_function import add_money, use_money
+from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras
+from Game.sql_querys.money_function import update_player_money, fetch_player_money
+from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fetch, player_score_update
 
 
-def robber(player_money, id):
-    if player_money > 0:
-        aft_rob = player_money * 0.5
-        add_money(aft_rob, id)
+def robber(id, player_money):
+    if player_money == 1:
+        aft_rob = player_money - 1
         return aft_rob
+    else:
+        aft_rob = player_money * 0.5
+        update_player_money(aft_rob, id)
+    return aft_rob
+
 
 
 # Function is calling all the "own_makkaras" list and reduces random amount of the list
-def hole_in_charge(own_makkaras):
+def hole_in_charge():
+    own_makkaras = fetch_player_makkaras(game_id)
     print("Törmäsit kolovastaavaan!")
     if len(own_makkaras) == 0:
         print("Tällä kertaa sinulla ei ollut makkaraa vietävänä.")
@@ -37,35 +44,31 @@ def hole_in_charge(own_makkaras):
 
         # The selected sausages are removed from original list and added to hole in charge's list
         for makkara in lost_makkaras:
-            own_makkaras.remove(makkara)
-            hole_in_charge_makkaras.append(makkara)
-        print(hole_in_charge_makkaras)
-        print(f"Harmi makkaravarastosi kannalta, mutta kolovastaava vei sinulta seuraavat makkarat: {', '.join(lost_makkaras)}")
+            sql = (f"UPDATE makkara_reached SET stolen = True WHERE id IN (SELECT id FROM makkara_reached WHERE id = {makkara})")
+            kursori = yhteys.cursor()
+            kursori.execute(sql)
+        print(f"Harmi makkaravarastosi kannalta, sillä kolovastaava vei sinulta makkaroita {len(lost_makkaras)} kpl makkaroista.")
     return
 
-select* from makkara_reached
-hole_in_charge()
-select* from makkara_reached
 
 # Player can donate x amount money and get vege sausage
 # Player has to donate few times to get one vege sausage
 def finnair_personnel():
-    donate = int(input("Syötä tähän numeroina, paljonko haluat lahjoittaa rahaa: "))
-    new_money = own_money - donate
-    don = 0
-    while donate > 0:
-        don += 1
-        if don < 2:
-            print("Hyvä päätös! Jatka lahjoitusten tekemistä myös jatkossa niin pitkäjänteisyys palkitaan!")
-        if don == 2:
-            win = vege_list[0]
-            vege_list.remove(win)
-            own_makkaras.append(win)
-            print(f"Onnittelut hyvistä päätöksistä! Pitkäjänteisyytesi ja lahjoitustesi ansiosta olet saanut harvinaisen {win} -makkaran!")
-            #add_makkara_to_rached(win)
-        break
-    return new_money
+    print(f"Finnairin ympäristöedustaja pyytää lahjoitusta. Sen arvo on {finnair_donation}€.")
+    current_money = fetch_player_money(game_id)
+    answer = input(f"Haluatko lahjoittaa sen? Sinulla on {current_money}€ tällä hetkellä({yes}/{no}): ").lower()
 
+    while answer == yes:
+        print(f"Onnittelut hyvistä päätöksistä! Pitkäjänteisyytesi ja lahjoitustesi ansiosta olet saanut harvinaisen "
+              f"makkaran, jota kolovastaavakaan ei voi varastaa.")
+        money = fetch_player_money(game_id)
+        money -= finnair_donation
+        update_player_money(money, game_id)
+        score = player_score_fetch(game_id)
+        score += finnair_makkara
+        player_score_update(score, game_id)
+        break
+    return
 
 
 # !!!!! Need to exchange the money to be a variable !!!!
@@ -74,7 +77,7 @@ def money_from_garbage():
     return new_money
 
 
-#Checkng garbages, saken mustamakkarafunktio
+#Checkng garbages, saken mustamakkara funktio, kaikki roskiksen toiminnallisuudet
 def garbage_can():
     id = 1
     #player_money = own_money
@@ -82,37 +85,27 @@ def garbage_can():
     #finnair_personnel()
 
     # the possibilities of different outcomes
-    outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [0, 100, 0, 00], k=1)[0]
+    outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [70, 0, 0, 0], k=1)[0]
     if outcome == 'found_money':
         new_money = money_from_garbage()
         print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
         vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat? ({yes}/{no}): ").lower()
         tuplataanko(vastaus, new_money)  # eliaksen tuplaus funktio
     elif outcome == 'robber':
-        money = use_money(id)
-        print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi ja sinulle jäi {robber(money, id)} €.")
+        current_money = fetch_player_money(game_id)
+        if current_money > 0:
+            print(f"Tulit ryöstetyksi! Rosvo vei merkittävän osan rahoistasi ja sinulle jäi {robber(id, current_money)} €.")
+        else:
+            print("Rosvo ei löytänyt ryöstettävää.")
     elif outcome == 'hole_in_charge':
-        hole_in_charge(own_makkaras)
+        hole_in_charge()
     elif outcome == 'finnair_personnel':
-        print("Terve, olen Finnairin ympäristöedustaja. Meillä on palvelu, "
-              "jolla voit kompensoida lentopäästöjäsi. Voit lahjoittaa haluamasi määrän rahaa, ja me annamme sinulle "
-              "vastineeksi useamman lahjoituksen jälkeen harvinaisemman Vegemakkaran.")
+        print("Terve, olen Finnairin ympäristöedustaja. Meillä on palvelu,\n"
+              "jolla voit kompensoida lentopäästöjäsi. Voit lahjoittaa haluamasi\nmäärän rahaa, ja me annamme sinulle "
+              "vastineeksi harvinaisen makkaran.")
         finnair_personnel()
     elif outcome == secret_black_sausage_chance:
         secret_black_sausage_chance(amount) #saken mustamakkara funktio
     return
 
 
-vege_list = ["Muu-makkara", "Pirkka vegemakkara", "Makukeittiön Kasvismakkara", "VegMe Grillkorv", "Bon Vegan"]
-hole_in_charge_makkaras = []
-
-# Testing the main function (garbage can function)
-
-#print(finnair_personnel())
-garbage_can()
-print(own_secret_black_sausage)
-
-#list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-#hole_in_charge(list)
-
-#hole_in_charge(vege_list)

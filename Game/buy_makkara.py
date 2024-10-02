@@ -1,4 +1,4 @@
-from Game.sql_querys.money_function import add_money, use_money
+from Game.sql_querys.money_function import update_player_money, fetch_player_money
 
 country_makkara="country makkara"
 
@@ -11,11 +11,11 @@ def buy_makkara(price):
 
     player_money=player_money-price
     own_makkaras.append(country_makkara)
-    use_money(price)
+    fetch_player_money(price)
     return own_makkaras, player_money
 makkara_price=500
-player_money=use_money()
-add_money(amount)
+player_money=fetch_player_money()
+update_player_money(amount)
 
 #print(buy(1000, 20))
 #print(buy_makkara(makkara_price))

@@ -1,6 +1,7 @@
 import random
 
-from Game.game_texts import yes, no
+from Game.game_texts import yes, no, game_id
+from Game.sql_querys.money_function import fetch_player_money, update_player_money
 
 
 #funtion parametreiks syötetään pelaajan rahat, mitä tuplaa ja monesko tuplaus menossa
@@ -8,28 +9,23 @@ from Game.game_texts import yes, no
 #itse suosittelen 5 tai 10.
 def tuplaus(amount, times):
     luckynumber = random.randint(1, 100)
-    print(luckynumber)
     #Tässä määritän voittavan mahiksen suoraa random generaattorista ja jokaisella uudella tuplauskerralla vähennän 5
     #jotta tuplaus vaikeutuisi
     chance1 = luckynumber - (times * 5)
     # Tämä on testi printti poista valmiiseen ohjelmaan
-    print(chance1)
     #Tässä määritän "kolikon" toisen puolen. Se on maximi (100, määritetty randintisä) - randomoitu tulos ja lisätään
     # siihen tuo mahdollinen uusien tuplauksien vaikutus
     chance2 = 100 - luckynumber + (times * 5)
     # Tämä on testi printti poista valmiiseen ohjelmaan
-    print(chance2)
     #tässä tarkistetaan saiko käyttäjä yli 50, eli 50/50 mahdollisuus ekalla tuplausyrityksellä. Jos tämä onnistuu
     #tuplaan rahat eli amount*2
     #Sakke olen täällä
     if chance1 >= chance2:
         print("Tuplaus onnistui!")
         amount = amount * 2
-        # Tämä on testi printti poista valmiiseen ohjelmaan tai muokkaa kertomaan pelaajan sen hetkiset voitot
-        print(amount)
         return amount
     else:
-        print("Tuplaus epäonnistui!")
+        print("Tuplaus epäonnistui! Hävisit kaikki löytämäsi rahat.")
         return 0
 #HUOM! Vaatii ylemmän funktion toimiakseen!
 #funktio tallentaa iteroi montako kertaa pelaaja on jo tuplannut. Se myös tarkistaa onko pelaaja jo hävinnyt
@@ -40,17 +36,18 @@ def tuplataanko(answer, winnings):
         while answer == yes and winnings > 0:
             if answer == yes:
                 winnings = tuplaus(winnings, times)
-                #Tämä on testi printti poista valmiiseen ohjelmaan
-                print(winnings)
                 times += 1
-                #Tässä tarkistetaa tuplauskierroksen tulos. Jos pelaaja häviää, ohjelma ei kysy haluaako hän tuplata
+                #Tässä tarkisteetaa tuplauskierroksen tulos. Jos pelaaja häviää, ohjelma ei kysy haluaako hän tuplata
                 #hävityt rahat.
                 if winnings > 0:
-                    answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"
+                    answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan."
                         f" Mitä vastaat? ({yes}/{no}): ").lower()
                 else:
-                    print("Tuplaus epäonnistui!")
                     break
+            current_money = fetch_player_money(game_id)
+            current_money += winnings
+            current_money = update_player_money(game_id, current_money)
+            print(f"Sinulla on tällä hetkellä rahaa {current_money}€.")
         return winnings
 '''
 #Testailin alhaalla että funktiot toimii halutulla tavalla

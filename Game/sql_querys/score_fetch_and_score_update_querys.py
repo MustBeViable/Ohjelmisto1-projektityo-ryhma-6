@@ -9,7 +9,6 @@ def player_score_fetch(id):
     kursori.execute(sql)
     result = kursori.fetchall()
     current_score = result[0][0]
-    print(current_score)
     return current_score
 
 def player_score_update(new_score, id):

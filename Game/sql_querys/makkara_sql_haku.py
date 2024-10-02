@@ -15,11 +15,9 @@ def search_makkara():
     kursori = yhteys.cursor(dictionary=True)
     kursori.execute(sql)
     result = kursori.fetchall()
-    print(result)
     return result[0]["name"]
 
-print(search_makkara())
-
+#returns makkara_id in player location
 def search_makkara_id():
     identi = 1
     lokaatio=fetch_player_location(identi)
@@ -33,7 +31,20 @@ def search_makkara_id():
     kursori = yhteys.cursor(dictionary=True)
     kursori.execute(sql)
     result = kursori.fetchall()
-    #print(result)
     return result[0]["id"]
 
-print(search_makkara_id())
+#searches makkaras points from country where player in
+
+def search_makkara_score():
+    identi = 1
+    lokaatio=fetch_player_location(identi)
+    sql = (f"SELECT score "
+           f"FROM makkara "
+           f"WHERE country in("
+           f"select iso_country from country where iso_country in("
+           f"select iso_country from airport where ident in("
+           f"select player_location from playthrough where player_location='{lokaatio}')))")
+    kursori = yhteys.cursor(dictionary=True)
+    kursori.execute(sql)
+    result = kursori.fetchall()
+    return result[0]["score"]

@@ -11,6 +11,8 @@ start_score = 0
 start_mustamakkara = 0
 start_location = "EFNU"
 sausage_price = 100
+finnair_makkara = 69420
+finnair_donation = 500
 
 help_command = "ohje"
 fly_command = "lennä"
