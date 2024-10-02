@@ -6,20 +6,28 @@ cancel = "peru"
 give_screen_name_str = "Anna käyttäjänimi: "
 sign_in_or_up_str = f"Kirjoita {sign_in} jos haluat kirjautua sisään. Kirjoita {sign_up} jos haluat luoda uuden käyttäjätunnuksen.\n"
 
+def sign_in_function():
+    name = input(give_screen_name_str).lower()
+    while name not in fetch_all_screen_names() and name != cancel:
+        print(f"Käyttäjätunnusta {name} ei löydy.\n")
+        name = input(give_screen_name_str).lower()
+    return name
+
+def sign_up_function():
+    name = input(give_screen_name_str).lower()
+    while name in fetch_all_screen_names() and name != cancel:
+        print(f"Käyttäjätunnus {name} on jo käytössä. Valitse toinen nimi.\n")
+        name = input(give_screen_name_str).lower()
+    return name
 
 def ask_sign_in_or_up():
     answer = input(sign_in_or_up_str).lower()
-    while answer not in [sign_in, sign_up]:
-        answer = input(sign_in_or_up_str).lower()
-    name = input(give_screen_name_str).lower()
-    if answer == sign_up:
-        while name in fetch_all_screen_names() and name != cancel:
-            print(f"Käyttäjätunnus {name} on jo käytössä. Valitse toinen nimi.\n")
-            name = input(give_screen_name_str).lower()
-        else:
-            print(f"Loit tunnuksen nimellä {name}.")
-    elif answer == sign_in:
-        while name not in fetch_all_screen_names():
-            print(f"Käyttäjätunnusta {name} ei löydy.\n")
-            name = input(give_screen_name_str).lower()
-    return name
+    if answer == sign_in:
+        a = sign_in_function()
+    elif answer == sign_up:
+        a = sign_up_function()
+    else:
+        a = cancel
+    if a == cancel:
+        ask_sign_in_or_up()
+    return a

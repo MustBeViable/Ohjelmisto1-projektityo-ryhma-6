@@ -4,8 +4,6 @@ import mysql.connector
 yes = "k"
 no = "e"
 
-game_id = 1
-
 start_money = 1000
 start_score = 0
 start_mustamakkara = 0
@@ -58,8 +56,8 @@ give_help_str = (f"\n"
                  f"{commands_str}\n"
                  f"{game_goal_str}")
 
-dumpster_question = "Haluatko kaivaa roskista? "
-fligh_question = "Haluatko lentää? "
+garbage_can_question = "Haluatko kaivaa roskista? "
+fligh_question = "Mihin haluat lentää? "
 tax_free_question = "Haluatko shoppailla? "
 
 yhteys = mysql.connector.connect(
