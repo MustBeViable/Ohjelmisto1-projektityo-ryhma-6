@@ -38,7 +38,7 @@ def tuplataanko(answer, winnings):
             if answer == yes:
                 winnings = tuplaus(winnings, times)
                 times += 1
-                #Tässä tarkistetaa tuplauskierroksen tulos. Jos pelaaja häviää, ohjelma ei kysy haluaako hän tuplata
+                #Tässä tarkisteetaa tuplauskierroksen tulos. Jos pelaaja häviää, ohjelma ei kysy haluaako hän tuplata
                 #hävityt rahat.
                 if winnings > 0:
                     answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan."
