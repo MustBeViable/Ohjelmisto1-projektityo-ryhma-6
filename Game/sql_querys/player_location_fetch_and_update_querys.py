@@ -9,7 +9,7 @@ def fetch_player_location(id):
     kursori.execute(sql)
     result = kursori.fetchall()
     current_location = result[0][0]
-    print(current_location)
+
     return current_location
 
 def update_player_location(id, new_location):
