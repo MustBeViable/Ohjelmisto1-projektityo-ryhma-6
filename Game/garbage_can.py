@@ -93,7 +93,6 @@ def garbage_can(game_id, ascii_garbage_can=None):
     random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights=[70, 10, 10, 10], k=1)[0]
     if outcome == 'found_money':
         print(happy_garbage_can)
-        time.sleep(2)
         new_money = money_from_garbage()
         print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
         vastaus = input(
@@ -101,7 +100,6 @@ def garbage_can(game_id, ascii_garbage_can=None):
         tuplataanko(vastaus, new_money, game_id)  # eliaksen tuplaus funktio
     elif outcome == 'robber':
         print(robber_2)
-        time.sleep(2)
         current_money = fetch_player_money(game_id)
         if current_money > 0:
             print(
@@ -110,7 +108,6 @@ def garbage_can(game_id, ascii_garbage_can=None):
             print("Rosvo ei löytänyt ryöstettävää.")
     elif outcome == 'hole_in_charge':
         print(hole_in_charge_ascii)
-        time.sleep(2)
         hole_in_charge(game_id)
     elif outcome == 'finnair_personnel':
         print(finnair_personnel)
