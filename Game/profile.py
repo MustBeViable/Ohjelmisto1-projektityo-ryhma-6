@@ -10,17 +10,21 @@ from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player
 
 
 def profile(game_id):
-    print(f"Sijaintisi on tällä hetkellä: {fetch_player_location(game_id)}, {fetch_player_location_name(game_id)}")
+    """This funktion shows player's profile"""
+    print(f"Sijaintisi on tällä hetkellä: {fetch_player_location_name(game_id)}", {fetch_player_location(game_id)})
     print(f"Sinulla on rahaa {fetch_player_money(game_id)} euroa.")
     #print(f"Sinun scoresi on {score_fetch(game_id)}")
     show_makkarat = input("Jos haluat nähdä keräämäsi makkarat, anna komento 'makkarani'.: ")
     if show_makkarat == 'makkarani':
-        print(f"Kolovastaava on vienyt sinulta seuraavat makkarat: {fetch_player_stolen_makkaras(game_id)}")
+        print(f"Sinulla on yhteensä makkaroita: {len(fetch_player_makkaras(game_id))} kpl.")
+        """
+        print(f"Kolovastaava viemät makkarat: {fetch_player_stolen_makkaras(game_id)}")
         print(f"Sinulla on {fetch_player_makkaras(game_id)}")
 
     if show_makkarat == 'makkarani':
-        show_makkarat = {{fetch_player_location_name(game_id)}, {fetch_player_makkaras(game_id)}}
-        print(show_makkarat)
+        show_makkarat_dictionary = {f"{fetch_player_location_name(game_id)}", f"{fetch_player_makkaras(game_id)}"}
+        #print(show_makkarat)
+        """
 profile(2)
 
 
