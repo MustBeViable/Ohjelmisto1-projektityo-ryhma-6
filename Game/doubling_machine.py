@@ -13,10 +13,12 @@ def tuplaus(amount, times_player_have_doubled):
     if player_number >= casinos_number:
         print("Tuplaus onnistui!")
         amount = amount * 2
+        print(f"Olet saamassa nyt {amount}€.")
         return amount
     else:
         print("Tuplaus epäonnistui! Hävisit kaikki löytämäsi rahat.")
-        return 0
+        amount = 0
+        return amount
 
 def tuplataanko(answer, winnings, game_id):
     """This function asks does player wants to double his money and also checks that they do not have any money left."""
@@ -25,7 +27,6 @@ def tuplataanko(answer, winnings, game_id):
     while answer == yes and winnings > 0:
         if answer == yes:
             winnings = tuplaus(winnings, times_player_have_doubled)
-            print(winnings)
             times_player_have_doubled += 1
             if winnings > 0:
                 answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan."
