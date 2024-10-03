@@ -112,7 +112,6 @@ def garbage_can(game_id):
         hole_in_charge(game_id)
     elif outcome == 'finnair_personnel':
         print(finnair_ascii)
-        time.sleep(2)
         print("Terve, olen Finnairin ympäristöedustaja. Meillä on palvelu,\n"
               "jolla voit kompensoida lentopäästöjäsi. Voit lahjoittaa haluamasi\nmäärän rahaa, ja me annamme sinulle "
               "vastineeksi harvinaisen makkaran.")
