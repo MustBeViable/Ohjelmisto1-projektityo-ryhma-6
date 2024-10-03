@@ -38,6 +38,8 @@ game_finished = False
 while not game_finished:
     print(ascii_carbage_can)
     if ask_for_command(garbage_can_question, game_id)["yes"]:
+        print(ascii_carbage_can)
+        time.sleep(2)
         garbage_can(game_id)
     if ask_for_command(tax_free_question, game_id)["yes"]:
         yes_no_taxfree(game_id)
