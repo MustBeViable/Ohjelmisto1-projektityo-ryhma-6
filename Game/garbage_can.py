@@ -5,6 +5,7 @@ from os import remove
 import time
 
 from Game.Game_ascii_art import robber_from_garbage_can
+from Game.Game_ascii_art.finnair_ascii import finnair_ascii
 from Game.Game_ascii_art.hole_in_charge_ascii import hole_in_charge_ascii
 from Game.Game_ascii_art.money_found_garbage_can import happy_garbage_can
 from Game.Game_ascii_art.robber_from_garbage_can import robber_2
@@ -86,7 +87,7 @@ def money_from_garbage():
     return new_money
 
 
-def garbage_can(game_id, ascii_garbage_can=None):
+def garbage_can(game_id):
     """This is the main carbage can function and it is checkng garbages with its all features (money found, robber,
     hole in charge, finnair personnel"""
     outcome = \
@@ -110,7 +111,7 @@ def garbage_can(game_id, ascii_garbage_can=None):
         print(hole_in_charge_ascii)
         hole_in_charge(game_id)
     elif outcome == 'finnair_personnel':
-        print(finnair_personnel)
+        print(finnair_ascii)
         time.sleep(2)
         print("Terve, olen Finnairin ympäristöedustaja. Meillä on palvelu,\n"
               "jolla voit kompensoida lentopäästöjäsi. Voit lahjoittaa haluamasi\nmäärän rahaa, ja me annamme sinulle "
