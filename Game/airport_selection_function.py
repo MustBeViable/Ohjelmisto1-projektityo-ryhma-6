@@ -55,7 +55,7 @@ def airportselection(game_id):
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
     print(f"Sinulla on {money}€. ")
     next_location = check_player_input()
-    if money < next_location*price_multiplier:
+    while money < next_location*price_multiplier:
         print("Rahasi ei riitä tälle kentälle.")
         next_location = check_player_input()
     next_airport = list_of_airport_dictionaries_sorted_by_distance[next_location-1]["ident"]
