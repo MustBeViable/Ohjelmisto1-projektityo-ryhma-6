@@ -3,6 +3,7 @@ import mysql.connector
 
 yes = "k"
 no = "e"
+approve = "j"
 
 start_money = 1000
 start_score = 0
