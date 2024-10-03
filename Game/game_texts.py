@@ -13,6 +13,7 @@ finnair_makkara = 69420
 finnair_donation = 500
 price_multiplier = 50
 
+
 help_command = "ohje"
 end_command = "lopeta"
 give_up_command = "luovuta"

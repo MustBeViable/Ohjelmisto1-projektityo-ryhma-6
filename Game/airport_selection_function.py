@@ -3,6 +3,25 @@ from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player
     fetch_player_location_name
 from game_texts import yhteys, price_multiplier
 
+#This function tests if player input for next airport is placed correctly
+def check_player_input():
+    next_location = input(
+        "Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku(älä syötä yli 20 tai 0 tai pienempi): ")
+    while next_location is not int and next_location not in range(1,21):
+        try:
+            next_location = int(next_location)
+        except:
+            next_location = input(
+                "Syötit väärin! Valitse uudelleen haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
+            continue
+        else:
+            next_location = int(next_location)
+        while next_location not in range(1, 21):
+            next_location = input(
+                "Syötit väärin! Valitse uudelleen haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
+            break
+    return next_location
+
 
 #Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
 def airportselection(game_id):
@@ -42,20 +61,10 @@ def airportselection(game_id):
     for i, airport in enumerate(result_sorted):
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
     print(f"Sinulla on {money}€. ")
-    next_location = input("Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku(älä syötä yli 20 tai 0 tai pienempi): ")
-    while next_location is not int and next_location not in range(1,21):
-        try:
-            next_location = int(next_location)
-        except:
-            next_location = input(
-                "Syötit väärin! Valitse uudelleen haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
-            continue
-        else:
-            next_location = int(next_location)
-        while next_location not in range(1, 21):
-            next_location = input(
-                "Syötit väärin! Valitse uudelleen haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
-            break
+    next_location = check_player_input()
+    if money < next_location*price_multiplier:
+        print("Rahasi ei riitä tälle kentälle.")
+        next_location = check_player_input()
     next_airport = result_sorted[next_location-1]["ident"]
     price = (next_location)*price_multiplier
     money -= price
@@ -89,7 +98,6 @@ def current_coordinates(chosen_ICAO):
     kursori.execute(sql)
     result = kursori.fetchall()
     return result
-
 '''
 airportselection(test_playthrough.location)
 
