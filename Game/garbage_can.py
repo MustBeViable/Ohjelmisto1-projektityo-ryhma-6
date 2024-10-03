@@ -97,7 +97,7 @@ def garbage_can(game_id):
         new_money = money_from_garbage()
         print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
         vastaus = input(
-            f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat? ({yes}/{no}): ").lower()
+            f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat?  ({yes}/{no}): ").lower()
         tuplataanko(vastaus, new_money, game_id)  # eliaksen tuplaus funktio
     elif outcome == 'robber':
         print(robber_2)
