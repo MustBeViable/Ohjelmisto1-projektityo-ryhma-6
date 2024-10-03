@@ -1,3 +1,6 @@
+import time
+
+from Game.Game_ascii_art.airplane_up import airplane_up
 from Game.sql_querys.money_function import fetch_player_money, update_player_money
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, update_player_location, \
     fetch_player_location_name
@@ -61,6 +64,8 @@ def airportselection(game_id):
     update_player_money(money, game_id)
     update_player_location(game_id, next_airport)
     location_name = fetch_player_location_name(game_id)
+    print(airplane_up)
+    time.sleep(2)
     print(f"Saavuit lentokentälle {location_name}.")
     return next_airport
 

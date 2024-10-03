@@ -1,5 +1,8 @@
 from gc import garbage
 import time
+
+from Game.Game_ascii_art import casual_garbage_can
+from Game.Game_ascii_art.casual_garbage_can import ascii_carbage_can
 from Game.actions import ask_for_command, Question
 from Game.airport_selection_function import airportselection
 from Game.choose_game import choose_game
@@ -35,6 +38,8 @@ game_finished = False
 while not game_finished:
 
     if ask_for_command(garbage_can_question, game_id)["yes"]:
+        print(ascii_carbage_can)
+        time.sleep(2)
         garbage_can(game_id)
     if ask_for_command(tax_free_question, game_id)["yes"]:
         yes_no_taxfree(game_id)
