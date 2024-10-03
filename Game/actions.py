@@ -24,10 +24,10 @@ def faulty_command_yes_or_no(command):
     print(f'"{command}"{not_command_yes_no_str}')
 
 def ask_for_command(question, game_id):
-    '''Asks user the question given as a parameter. Returns a dictionary with values
+    """Asks user the question given as a parameter. Returns a dictionary with values
     "yes": Boolean and "finished": Boolean. "yes" tells whether the user answered yes or no
     too the question and "finished" tells whether the user gave finish command or not.
-    '''
+    """
     answer = input(question).lower()
     while answer not in [yes, no, end_command]:
         if answer == help_command:
@@ -49,28 +49,36 @@ def ask_for_command(question, game_id):
     elif answer == end_command:
         return {"yes": False, "finished": True}
 
-class Question:
-    def __init__(self, question, command):
-        self.question = question
-        self.command = command
 
-class ActionOnCommand:
-    def __init__(self, question):
-        self.question = question
+def create_yes_no_question(question):
+    input(question)
 
-'''def pick_action():
-    command = input().lower()
-    if command == help_command:
+def ask_input(prompt, game_id):
+    answer = input(prompt).lower()
+    if answer == help_command:
         give_help()
-    elif command == fly_command:
-        show_airports()
-    else:
-        faulty_command(command)
-    return'''
+        answer = ask_input(prompt, game_id)
+    if answer == money_command:
+        show_money(game_id)
+        answer = ask_input(prompt, game_id)
+    if answer == makkaras_command:
+        show_makkaras(game_id)
+        answer = ask_input(prompt, game_id)
+    return answer
 
+#print(ask_input("Mitäs haluat tehdä? ", 3))
 
 # Test
 #print("Peli on käynnissä. Aloita antamalla ensimmäinen komento.")
 #pick_action()
 
-#monke
+def command_to_action(game_id, answer):
+            if answer == help_command:
+                give_help()
+            elif answer == money_command:
+                show_money(game_id)
+            elif answer == makkaras_command:
+                show_makkaras(game_id)
+            else:
+                faulty_command_yes_or_no(answer)
+            return answer
