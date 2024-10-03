@@ -1,13 +1,13 @@
 from gc import garbage
 import time
-from Game.actions import ask_for_command, Question
+from Game.actions import ask_for_command
 from Game.airport_selection_function import airportselection
 from Game.choose_game import choose_game
 from Game.game_texts import garbage_can_question, tax_free_question, fligh_question
 from Game.garbage_can import garbage_can
 from Game.sign_in_up import ask_sign_in_or_up
 from Game.sql_querys.money_function import fetch_player_money
-from Game.yesno_taxfree import yes_no_taxfree
+from Game.taxfree import yes_no_taxfree
 
 # Get user's screen name:
 username = ask_sign_in_or_up()

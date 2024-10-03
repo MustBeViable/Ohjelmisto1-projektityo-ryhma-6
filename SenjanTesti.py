@@ -21,9 +21,13 @@ sql_playthrough2 = (f" CREATE TABLE IF NOT EXISTS playthrough ("
                     f" screen_name  varchar(40),"
                     f" finished     boolean     DEFAULT false,"
                     f" mustamakkara int         DEFAULT 0,"
-                    f" stolen_makkaras_location varchar(40) DEFAULT NULL,"
+                    f" stolen_makkaras_iso_country varchar(40) DEFAULT NULL,"
                     f" player_location     varchar(40) DEFAULT '{start_location}',"
-                    f" PRIMARY KEY (id))"
+                    f" PRIMARY KEY (id),"
+                    f" FOREIGN KEY (stolen_makkaras_iso_country)"
+                    f" REFERENCES country(iso_country),"
+                    f" FOREIGN KEY (player_location)"
+                    f" REFERENCES airport(ident))"
                     f" ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci")
 
 sql_makkara1 = (f" DROP TABLE IF EXISTS makkara;")
@@ -64,12 +68,6 @@ def add_makkaras_to_table(makkara, country, score):
         add_makkaras_to_table(list(makkaras_dictionary.values())[i], iso_country_list[i], score_value_makkara[i])
 
 
-sql_koloherra = (f" INSERT INTO playthrough (screen_name)"
-                 f" VALUES ('koloherra')")
-
-sql_example_makkara_reached = (f" INSERT INTO makkara_reached (playthrough_id, makkara_id)"
-                               f" VALUES (1, 100)")
-
 kursori.execute(sql_playthrough1)
 kursori.execute(sql_playthrough2)
 print("Playthrough luotiin.")
@@ -84,7 +82,3 @@ print("Makkara_reached luotiin.")
 
 for i in range(len(iso_country_list)):
     add_makkaras_to_table(list(makkaras_dictionary.values())[i], iso_country_list[i], score_value_makkara[i])
-
-kursori.execute(sql_koloherra)
-kursori.execute(sql_example_makkara_reached)
-print("Esierkit luotiin.")
