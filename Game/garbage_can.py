@@ -50,7 +50,6 @@ def hole_in_charge(game_id):
         print(f"Harmi makkaravarastosi kannalta, sillä kolovastaava vei sinulta makkaroita {len(lost_makkaras)} kpl makkaroista.")
     return
 
-
 # Player can donate x amount money and get vege sausage
 # Player has to donate few times to get one vege sausage
 def finnair_personnel(game_id):
@@ -79,10 +78,6 @@ def money_from_garbage():
 
 #Checkng garbages, saken mustamakkara funktio, kaikki roskiksen toiminnallisuudet
 def garbage_can(game_id):
-    #player_money = own_money
-    #robber(player_money)
-    #finnair_personnel()
-
     # the possibilities of different outcomes
     outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [70, 10, 10, 10], k=1)[0]
     if outcome == 'found_money':

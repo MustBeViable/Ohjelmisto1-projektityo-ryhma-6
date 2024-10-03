@@ -40,6 +40,7 @@ sql_makkara2 = (f" CREATE TABLE IF NOT EXISTS makkara ("
 sql_makkara_reached1 = (f" DROP TABLE IF EXISTS makkara_reached;")
 sql_makkara_reached2 = (f" CREATE TABLE IF NOT EXISTS makkara_reached("
                         f" id            int NOT NULL AUTO_INCREMENT,"
+                        f" stolen BOOLEAN DEFAULT false,"
                         f" playthrough_id       int,"
                         f" makkara_id    int,"
                         f" PRIMARY KEY (id),"

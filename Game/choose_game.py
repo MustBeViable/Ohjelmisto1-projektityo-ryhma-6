@@ -17,12 +17,6 @@ def lower_input(prompt):
     result = input(prompt).lower()
     return result
 
-# Alkuarvot, siirretään muualle
-start_money = "1000"
-unfinished = "unfinished"
-finished = "finished"
-start_location = "EFNU"
-
 continue_or_new_str = f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}."
 
 
