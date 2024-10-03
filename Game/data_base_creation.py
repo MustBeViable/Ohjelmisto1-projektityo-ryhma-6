@@ -75,7 +75,7 @@ def create_playthrough(score, money, mustamakkara, location):
            f" screen_name VARCHAR(255),"
            f" finished BOOLEAN DEFAULT FALSE,"
            f" mustamakkara int DEFAULT {mustamakkara},"
-           f" stolen_makkaras_location VARCHAR(255) DEFAULT NULL,"
+           f" stolen_makkaras_iso_country VARCHAR(255) DEFAULT NULL,"
            f" player_location varchar(40) DEFAULT '{location}',"
            f" primary key (id))")
     kursori = yhteys.cursor()
@@ -95,7 +95,7 @@ def foreign_keys_playthrough():
            f" ADD CONSTRAINT FK_location"
            f" FOREIGN KEY (player_location) REFERENCES airport(ident),"
            f" ADD CONSTRAINT FK_hole_airport"
-           f" FOREIGN KEY (stolen_makkaras_location) REFERENCES airport(ident)")
+           f" FOREIGN KEY (stolen_makkaras_iso_country) REFERENCES country(iso_country)")
     kursori = yhteys.cursor()
     kursori.execute(sql)
     return
@@ -108,36 +108,7 @@ def foreign_keys_makkara():
     kursori.execute(sql)
     return
 
-'''def foreign_keys_makkaras_in_hole():
-    sql = (f" ALTER TABLE makkaras_in_hole"
-           f" ADD CONSTRAINT FK_makkara_reached_id"
-           f" FOREIGN KEY (makkara_reached_id) REFERENCES makkara_reached(id)")
-    kursori = yhteys.cursor()
-    kursori.execute(sql)
-    return'''
 
-def create_koloherra():
-    sgl = (f" INSERT INTO playthrough (screen_name)"
-           f" VALUES ('koloherra')")
-    kursori = yhteys.cursor()
-    kursori.execute(sgl)
-    return
-
-def create_example_makkara_reached():
-    sql = (f" INSERT INTO makkara_reached (playthrough_id, makkara_id)"
-           f" VALUES (1, 100)")
-    kursori = yhteys.cursor()
-    kursori.execute(sql)
-    return
-
-
-'''test_list = ["makkara", "makkara_reached", "playthrough"]
-tests_ran = 0
-
-while tests_ran != len(test_list):
-    table_name = test_list[tests_ran]
-    
-    '''
 makkara = "makkara"
 test1 = table_check(makkara)
 #final_test arvoksi taululuontien määrä
@@ -173,8 +144,3 @@ if final_test == 0:
     print("fk playthrough tehty")
     foreign_keys_makkara()
     print("fk makkara tehty")
-
-    create_koloherra()
-    print("t5")
-    create_example_makkara_reached()
-    print("t6")
