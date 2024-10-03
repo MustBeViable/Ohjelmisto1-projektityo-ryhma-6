@@ -15,6 +15,7 @@ from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fet
 
 
 def robber(id, player_money):
+    """robber reduces half of the player's money"""
     if player_money == 1:
         aft_rob = player_money - 1
         return aft_rob
@@ -24,9 +25,8 @@ def robber(id, player_money):
     return aft_rob
 
 
-
-# Function is calling all the "own_makkaras" list and reduces random amount of the list
 def hole_in_charge(game_id):
+    """This is hole in charge function and uses sql query from another file."""
     own_makkaras = fetch_player_makkaras(game_id)
     print("Törmäsit kolovastaavaan!")
     if len(own_makkaras) == 0:
@@ -50,9 +50,9 @@ def hole_in_charge(game_id):
         print(f"Harmi makkaravarastosi kannalta, sillä kolovastaava vei sinulta makkaroita {len(lost_makkaras)} kpl makkaroista.")
     return
 
-# Player can donate x amount money and get vege sausage
-# Player has to donate few times to get one vege sausage
+
 def finnair_personnel(game_id):
+    """Player can donate 500 euros and get rare sausage"""
     print(f"Finnairin ympäristöedustaja pyytää lahjoitusta. Sen arvo on {finnair_donation}€.")
     current_money = fetch_player_money(game_id)
     answer = input(f"Haluatko lahjoittaa sen? Sinulla on {current_money}€ tällä hetkellä({yes}/{no}): ").lower()
@@ -70,15 +70,16 @@ def finnair_personnel(game_id):
     return
 
 
-# !!!!! Need to exchange the money to be a variable !!!!
 def money_from_garbage():
+    """This randomizes how much money you can get"""
     new_money = random.randint(200, 1000)
     return new_money
 
 
-#Checkng garbages, saken mustamakkara funktio, kaikki roskiksen toiminnallisuudet
+
 def garbage_can(game_id):
-    # the possibilities of different outcomes
+    """This is the main carbage can function and it is checkng garbages with its all features (money found, robber,
+    hole in charge, finnair personnel"""
     outcome = random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights = [70, 10, 10, 10], k=1)[0]
     if outcome == 'found_money':
         new_money = money_from_garbage()
