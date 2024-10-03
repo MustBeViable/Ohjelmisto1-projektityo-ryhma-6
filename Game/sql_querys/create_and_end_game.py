@@ -27,7 +27,6 @@ def finish_game_in_database(finish_id):
 def fetch_unfinished_playthrough(screen_name):
     sql = (f"SELECT id FROM playthrough WHERE screen_name = '{screen_name}' AND finished = false")
     unfinished_game_list = sql_connection(sql)
-    print(unfinished_game_list)
     return unfinished_game_list
 
 # Returns each screen name ones.
