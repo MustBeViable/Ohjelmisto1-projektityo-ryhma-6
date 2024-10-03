@@ -1,8 +1,11 @@
 from Game.game_texts import yhteys
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location
 
-# Returns the name of the makkara in the location
+
 def search_makkara(game_id):
+
+    """Returns the name of the makkara in the location"""
+
     lokaatio=fetch_player_location(game_id)
     sql = (f"SELECT name "
            f"FROM makkara "
@@ -16,8 +19,11 @@ def search_makkara(game_id):
     result = kursori.fetchall()
     return result[0]["name"]
 
-#returns makkara_id in player location
+
 def search_makkara_id(game_id):
+
+    """returns makkara_id in player location"""
+
     lokaatio=fetch_player_location(game_id)
     sql = (f"SELECT id "
            f"FROM makkara "
@@ -31,9 +37,12 @@ def search_makkara_id(game_id):
     result = kursori.fetchall()
     return result[0]["id"]
 
-#searches makkaras points from country where player in
+
 
 def search_makkara_score(game_id):
+
+    """searches makkaras points from country where player in"""
+
     lokaatio=fetch_player_location(game_id)
     sql = (f"SELECT score "
            f"FROM makkara "
