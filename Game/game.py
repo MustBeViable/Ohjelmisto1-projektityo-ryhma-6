@@ -1,13 +1,16 @@
 from gc import garbage
 import time
-from Game.actions import ask_for_command
+
+from Game.Game_ascii_art import casual_garbage_can
+from Game.Game_ascii_art.casual_garbage_can import ascii_carbage_can
+from Game.actions import ask_for_command, Question
 from Game.airport_selection_function import airportselection
 from Game.choose_game import choose_game
 from Game.game_texts import garbage_can_question, tax_free_question, fligh_question
 from Game.garbage_can import garbage_can
 from Game.sign_in_up import ask_sign_in_or_up
 from Game.sql_querys.money_function import fetch_player_money
-from Game.taxfree import yes_no_taxfree
+from Game.yesno_taxfree import yes_no_taxfree
 
 # Get user's screen name:
 username = ask_sign_in_or_up()
@@ -33,8 +36,10 @@ game_finished = False
 #actions = [Question(garbage_can_question, garbage_can()),Question(tax_free_question, "Ostit makkaran."),Question(fligh_question, airportselection(game_id))]
 
 while not game_finished:
-
+    print(ascii_carbage_can)
     if ask_for_command(garbage_can_question, game_id)["yes"]:
+        print(ascii_carbage_can)
+        time.sleep(2)
         garbage_can(game_id)
     if ask_for_command(tax_free_question, game_id)["yes"]:
         yes_no_taxfree(game_id)
