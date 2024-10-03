@@ -36,7 +36,7 @@ game_finished = False
 #actions = [Question(garbage_can_question, garbage_can()),Question(tax_free_question, "Ostit makkaran."),Question(fligh_question, airportselection(game_id))]
 
 while not game_finished:
-
+    print(ascii_carbage_can)
     if ask_for_command(garbage_can_question, game_id)["yes"]:
         print(ascii_carbage_can)
         time.sleep(2)
