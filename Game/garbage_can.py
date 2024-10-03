@@ -2,7 +2,12 @@
 
 import random
 from os import remove
+import time
 
+from Game.Game_ascii_art import robber_from_garbage_can
+from Game.Game_ascii_art.hole_in_charge_ascii import hole_in_charge_ascii
+from Game.Game_ascii_art.money_found_garbage_can import happy_garbage_can
+from Game.Game_ascii_art.robber_from_garbage_can import robber_2
 from Game.game_texts import no, yes, yhteys, finnair_makkara, finnair_donation
 # from Game.game_texts import yhteys
 from Game.player_profile import own_makkaras, own_money
@@ -81,18 +86,22 @@ def money_from_garbage():
     return new_money
 
 
-def garbage_can(game_id):
+def garbage_can(game_id, ascii_garbage_can=None):
     """This is the main carbage can function and it is checkng garbages with its all features (money found, robber,
     hole in charge, finnair personnel"""
     outcome = \
     random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights=[70, 10, 10, 10], k=1)[0]
     if outcome == 'found_money':
+        print(happy_garbage_can)
+        time.sleep(2)
         new_money = money_from_garbage()
         print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
         vastaus = input(
             f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat? ({yes}/{no}): ").lower()
         tuplataanko(vastaus, new_money, game_id)  # eliaksen tuplaus funktio
     elif outcome == 'robber':
+        print(robber_2)
+        time.sleep(2)
         current_money = fetch_player_money(game_id)
         if current_money > 0:
             print(
@@ -100,8 +109,12 @@ def garbage_can(game_id):
         else:
             print("Rosvo ei löytänyt ryöstettävää.")
     elif outcome == 'hole_in_charge':
+        print(hole_in_charge_ascii)
+        time.sleep(2)
         hole_in_charge(game_id)
     elif outcome == 'finnair_personnel':
+        print(finnair_personnel)
+        time.sleep(2)
         print("Terve, olen Finnairin ympäristöedustaja. Meillä on palvelu,\n"
               "jolla voit kompensoida lentopäästöjäsi. Voit lahjoittaa haluamasi\nmäärän rahaa, ja me annamme sinulle "
               "vastineeksi harvinaisen makkaran.")
