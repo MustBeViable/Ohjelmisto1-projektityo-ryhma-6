@@ -50,7 +50,6 @@ def hole_in_charge(game_id):
         print(f"Harmi makkaravarastosi kannalta, sillä kolovastaava vei sinulta makkaroita {len(lost_makkaras)} kpl makkaroista.")
     return
 
-
 # Player can donate x amount money and get vege sausage
 # Player has to donate few times to get one vege sausage
 def finnair_personnel(game_id):

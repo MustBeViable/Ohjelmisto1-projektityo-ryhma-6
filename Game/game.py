@@ -1,6 +1,6 @@
 from gc import garbage
 import time
-from Game.actions import ask_yes_or_no, Question
+from Game.actions import ask_for_command, Question
 from Game.airport_selection_function import airportselection
 from Game.choose_game import choose_game
 from Game.game_texts import garbage_can_question, tax_free_question, fligh_question
@@ -34,10 +34,9 @@ game_finished = False
 
 while not game_finished:
 
-# bugi: kaivaa aina roskista
-    if ask_yes_or_no(garbage_can_question, game_id):
+    if ask_for_command(garbage_can_question, game_id)["yes"]:
         garbage_can(game_id)
-    if ask_yes_or_no(tax_free_question, game_id):
+    if ask_for_command(tax_free_question, game_id)["yes"]:
         yes_no_taxfree(game_id)
     if fetch_player_money(game_id) >= 50:
         print(fligh_question)
