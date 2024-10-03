@@ -3,8 +3,8 @@ from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player
     fetch_player_location_name
 from game_texts import yhteys, price_multiplier
 
-#This function tests if player input for next airport is placed correctly
 def check_player_input():
+    """This function tests if player have given right input."""
     next_location = input(
         "Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku(älä syötä yli 20 tai 0 tai pienempi): ")
     while next_location is not int and next_location not in range(1,21):
@@ -23,8 +23,9 @@ def check_player_input():
     return next_location
 
 
-#Tää funktio hakee 20 random kenttää ja saa sen nimen, maan ja leveys/pituuspiirit geopyy varten
+
 def airportselection(game_id):
+    """Fetch 20 random airports, which will be sorted by distance to player"""
     sql = (f" Select airport.name as name, country.name as country, ident "
            f" from airport, country "
            f" where country.iso_country = airport.iso_country"
@@ -32,40 +33,29 @@ def airportselection(game_id):
            f" and airport.name not like 'CLICK%'"
            f" order by rand()"
            f" limit 20 ")
-    #kursori = yhteys.cursor(dictionary=true), muuttaa tuplen sijasta dictionaryks. Eli lista, jonka sisällä dictionary
-    #kantsii käyttä jos useampi select (vaikka select name, ident, id...) ja muuttamalla select arvoja ei muuta printtiä
-    #näi voi callaa avaimilla mm result['name']
     kursori = yhteys.cursor(dictionary=True)
     kursori.execute(sql)
-    result = kursori.fetchall()
-    #tää for loop käy jokaisen dictionaryn listan sisältä ja ajaa distance funktion (selvittää etäisyyttä ks. alempaa)
-    # Kun se o saanu etäisyyden se lisää arvon avaimeen 'distance'.
-    #ident = fetch_player_location(identification)
-    player_current_ident = current_coordinates(game_id)
-    for i in range(len(result)):
-        dist = distance(result[i]['ident'], player_current_ident)
-        result[i]['distance'] = dist
-
-    #tää luo uuden listan jossa lista on sortattu distance avaimella suuruus järjestykee (key=lambda lambda x määrittää
-    # tavan millä järjestely tehdään. x['distance'] tarkoittaa, että jokaiselle alkion (tässä tapauksessa sanakirjan)
-    # osalta otetaan. järjestelyavaimeksi sen 'distance'-arvo. X viittaayhtee sanakirjaan ja x['distance'] sen sanakirjan
-    # distance avaimen arvoon.) "key=lambda tarjoaa joustavan ja yksinkertaisen tavan järjestää tai käsitellä listan
-    # elementtejä räätälöidyn avaimen perusteella."
-    result_sorted = sorted(result, key=lambda x: x['distance'])
-    #tässä printtaan saadut tulokset uudesta listasta ja järjestän ne indeksi+1 perusteella, jotta saan tulosteen alkamaan
-    # 1 ja päättymään 20. Enamurate lisää iterointiin indeksin, jossa sit käydään listan elementtejä läpi (jossa airport
-    # on elementti) läpi i indeksin avulla. Samalla saadaan ulos elementin että indeksin. (1 sanakirja= erillisen
-    # lentokentän nimi, maakoodi ja etäisyys avain/arvo pareina).
+    list_of_airport_dictionaries = kursori.fetchall()
+    #This for loop goes through all the randomly chosen airports one at the time and adds distance airports
+    # to the dictionary
+    player_ident = fetch_player_location(game_id)
+    player_current_ident = current_coordinates(player_ident)
+    for i in range(len(list_of_airport_dictionaries)):
+        dist = distance(list_of_airport_dictionaries[i]['ident'], player_current_ident)
+        list_of_airport_dictionaries[i]['distance'] = dist
+    #This sorts list of airport dictionaries by the distance from nearest to furthest.
+    list_of_airport_dictionaries_sorted_by_distance = sorted(list_of_airport_dictionaries, key=lambda x: x['distance'])
+    #Enumerate adds index to the list and uses it as index "i" while airport calls same dictionary's right value.
     money = fetch_player_money(game_id)
     print("Seuraavat lähdöt: (lennon nro, maa, lentokenttä, hinta (€):")
-    for i, airport in enumerate(result_sorted):
+    for i, airport in enumerate(list_of_airport_dictionaries_sorted_by_distance):
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
     print(f"Sinulla on {money}€. ")
     next_location = check_player_input()
     if money < next_location*price_multiplier:
         print("Rahasi ei riitä tälle kentälle.")
         next_location = check_player_input()
-    next_airport = result_sorted[next_location-1]["ident"]
+    next_airport = list_of_airport_dictionaries_sorted_by_distance[next_location-1]["ident"]
     price = (next_location)*price_multiplier
     money -= price
     update_player_money(money, game_id)
@@ -74,9 +64,8 @@ def airportselection(game_id):
     print(f"Saavuit lentokentälle {location_name}.")
     return next_airport
 
-#tää funktio saa ylemmän funktion lentokenttien nimet ja laskee sen etäisyyden nykyiseen lentokenttään (käytin baselinenä
-#nummelan lentokenttää. Ei tartte ku laittaa päivittää current_airport pelaajan nykyisee sijaintii.
 def distance(next_place, icao):
+    """Check distance of airports one at the time. Returns player's distance to that airport."""
     from geopy import distance
     sql = (f" select latitude_deg, longitude_deg "
            f" from airport "
@@ -84,24 +73,16 @@ def distance(next_place, icao):
     kursori = yhteys.cursor()
     kursori.execute(sql)
     result = kursori.fetchall()
-    #nummelan tilalle laitetaa se kenttä mis pelaaja o sil hetkel.
-    #current_airport = "EFNU"
-    #current_airport = current_coordinates(current_airport)
     dist = distance.distance(icao, result[0]).km
     return dist
 
-def current_coordinates(chosen_ICAO):
+def current_coordinates(IDENT):
+    """Fetch coordinates of airport, where player is currently. Returns those coordinates."""
     sql = (f" select latitude_deg, longitude_deg "
            f" from airport "
-           f" where ident = '{chosen_ICAO}'")
+           f" where ident = '{IDENT}'")
+
     kursori = yhteys.cursor()
     kursori.execute(sql)
     result = kursori.fetchall()
     return result
-'''
-airportselection(test_playthrough.location)
-
-print(test_playthrough.location)
-airportselection(test_playthrough.location)
-print(test_playthrough.location)
-'''
