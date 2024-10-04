@@ -1,7 +1,7 @@
 from Game.game_texts import yhteys
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location
 
-
+#Unfinished maybe coming next release
 def country_where_hole(id):
     ICAO = fetch_player_location(id)
     sql = (f" SELECT country.name as name"
