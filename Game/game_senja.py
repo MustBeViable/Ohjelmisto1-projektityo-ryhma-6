@@ -49,7 +49,6 @@ while not finish_or_give_up["finish"]:
             break
 
 print("Peli päättyi.")
-
 print(finish_or_give_up)
 print(finish_or_give_up["game over"])
 if finish_or_give_up["game over"]:

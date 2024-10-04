@@ -32,7 +32,6 @@ score_command_action = CommandWithParameter(score_command, show_score, "Näyttä
 cant_end_command_action = Command(end_command, cant_end_now, "Sulkee pelin. Edistymisen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi.")
 give_up_command_action = Command(give_up_command, cant_end_now, "Lopettaa pelin. Luovuttamisen jälkeen et voi enää jatkaa kyseistä pelikertaa.")
 
-
 basic_commands = [give_help_command_action,
                  show_money_command_action,
                  show_makkara_amount_command_action,

@@ -26,3 +26,4 @@ def fetch_player_stolen_makkaras(id):
     for i in range(len(result)):
         player_makkaras.append(result[i][0])
     return player_makkaras
+

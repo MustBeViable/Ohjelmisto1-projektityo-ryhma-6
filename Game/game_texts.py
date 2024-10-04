@@ -21,7 +21,6 @@ end_command = "lopeta"
 give_up_command = "luovuta"
 money_command = "bank"
 makkaras_command = "makkarat"
-profile_command = "profiili"
 cancel_command = "palaa"
 score_command = "pisteet"
 

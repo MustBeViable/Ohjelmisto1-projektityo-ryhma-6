@@ -54,7 +54,7 @@ def hole_in_charge(game_id):
             kursori = yhteys.cursor()
             kursori.execute(sql)
         print(
-            f"Harmi makkaravarastosi kannalta, sillä kolovastaava vei sinulta makkaroita {len(lost_makkaras)} kpl makkaroista.")
+            f"Harmi makkaravarastosi kannalta, sillä kolovastaava vei sinulta makkaroita {len(lost_makkaras)} kpl.")
     return
 
 
@@ -78,6 +78,8 @@ def finnair_personnel(game_id):
             score = player_score_fetch(game_id)
             score += finnair_makkara
             player_score_update(score, game_id)
+        else:
+            print("Rahat eivät riitä")
             return
 
 
