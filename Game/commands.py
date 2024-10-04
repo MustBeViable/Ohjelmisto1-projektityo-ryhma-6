@@ -1,6 +1,7 @@
 from Game.actions import give_help, show_money, show_makkaras, cant_end_now, give_commands, show_score, faulty_command
 from Game.game_texts import help_command, yes, no, end_command, makkaras_command, money_command, approve, \
-    give_up_command, commands_command, commands_str, score_command, not_command_str
+    give_up_command, commands_command, commands_str, score_command, not_command_str, profile_command
+from Game.profile import show_profile
 
 
 class Command:
@@ -25,14 +26,17 @@ class CommandWithParameter(Command):
 give_help_command_action = Command(help_command, give_help, "Näyttää ohjeen.")
 show_money_command_action = CommandWithParameter(money_command, show_money, "Näyttää sen hetkiset rahasi.")
 show_makkara_amount_command_action = CommandWithParameter(makkaras_command, show_makkaras, "Näyttää omien makkaroidesi määrän.")
+show_profile_command_action = CommandWithParameter(profile_command, show_profile, "Näyttää sijaintisi, rahasi, pisteesi ja makkaroidesi määrän.")
 commands_command_action = Command(commands_command, give_commands, "Näyttää peruskomennot.")
 score_command_action = CommandWithParameter(score_command, show_score, "Näyttää pisteesi.")
 cant_end_command_action = Command(end_command, cant_end_now, "Sulkee pelin. Edistymisen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi.")
 give_up_command_action = Command(give_up_command, cant_end_now, "Lopettaa pelin. Luovuttamisen jälkeen et voi enää jatkaa kyseistä pelikertaa.")
 
+
 basic_commands = [give_help_command_action,
                  show_money_command_action,
                  show_makkara_amount_command_action,
+                  show_profile_command_action,
                  commands_command_action,
                  score_command_action,
                  cant_end_command_action,

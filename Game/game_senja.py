@@ -1,6 +1,7 @@
 from Game.actions import give_help
 from Game.choose_game import create_or_choose_game
 from Game.commands import outside_section_question
+from Game.profile import show_profile
 from Game.section import garbage_can_section, tax_free_section, flight_section
 from Game.sign_in_up import ask_sign_in_or_up
 from Game.sql_querys.create_and_end_game import finish_game_in_database
@@ -47,6 +48,10 @@ while not finish_or_give_up["finish"]:
         if finish_or_give_up["finish"]:
             break
 
+print("Peli päättyi.")
+
+print(finish_or_give_up)
+print(finish_or_give_up["game over"])
 if finish_or_give_up["game over"]:
     finish_game_in_database(game_id)
 
