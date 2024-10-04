@@ -12,3 +12,4 @@ def check_if_any_stolen_makkara(game_id):
 
 
 
+
