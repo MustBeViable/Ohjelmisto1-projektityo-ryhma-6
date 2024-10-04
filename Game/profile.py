@@ -4,7 +4,7 @@ from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player
 from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fetch
 
 
-def profile(game_id):
+def show_profile(game_id):
     """This funktion shows player's profile"""
     print(f"Sijaintisi on tällä hetkellä lentokentällä: {fetch_player_location_name(game_id)}, ICAO: {fetch_player_location(game_id)}")
     print(f"Sinulla on rahaa {fetch_player_money(game_id)} euroa ja scoresi on {player_score_fetch(game_id)}")
@@ -20,7 +20,3 @@ def profile(game_id):
         show_makkarat_dictionary = {f"{fetch_player_location_name(game_id)}", f"{fetch_player_makkaras(game_id)}"}
         #print(show_makkarat)
         """
-
-
-
-
