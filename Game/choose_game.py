@@ -37,7 +37,7 @@ def continue_or_new_str(game_id):
             f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}. ")
     return text
 
-no_unfinished_game = "Sinulla ei ole keskeneräisiä pelejä. "
+no_unfinished_game = "Sinulla ei ole keskeneräisiä pelejä. Luodaan sinulle uusi peli."
 
 def create_or_choose_game(screen_name):
     """Checks if the given screen_name has an unfinished game.
