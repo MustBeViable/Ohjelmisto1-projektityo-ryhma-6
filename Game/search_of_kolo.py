@@ -30,4 +30,3 @@ def kolo_search(game_id):
             return_player_makkaras(id)
             print("löysit hole_in_charge kolon ja sait makkarasi takaisin! :)")
             return
-kolo_search(1)
