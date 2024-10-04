@@ -23,6 +23,7 @@ money_command = "bank"
 makkaras_command = "makkarat"
 cancel_command = "palaa"
 score_command = "pisteet"
+hole_command = "kolo"
 
 # Dictionary of commands that are normally available and their help texts.
 command_and_helptext = {
@@ -30,6 +31,7 @@ command_and_helptext = {
     makkaras_command: "Näyttää omat makkarasi.",
     score_command: "Näyttää pisteesi.",
     commands_command: "Näyttää peruskomennot.",
+    hole_command: "Etsii koloa.",
     help_command: "Näyttää ohjeen.",
     end_command: "Sulkee pelin. Edistymisen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi.",
     give_up_command: "Lopettaa pelin. Luovuttamisen jälkeen et voi enää jatkaa kyseistä pelikertaa."

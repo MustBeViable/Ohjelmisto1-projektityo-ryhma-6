@@ -1,6 +1,6 @@
 from Game.game_texts import yhteys
 
-def all_unique_player_score_fetch_query(screen_name):
+def fetch_all_time_top_list(screen_name):
     sql = (f" SELECT screen_name, score"
            f" FROM playthrough"
            f" WHERE screen_name = '{screen_name}'")
@@ -13,7 +13,7 @@ def all_unique_player_score_fetch_query(screen_name):
          print(f"{result_sorted[i]['screen_name']}: {result_sorted[i]['score']:6.0f}")
     return
 
-def unique_player_top_5_score_fetch_query(screen_name):
+def fetch_player_top5_list(screen_name):
     sql = (f" SELECT screen_name, score"
            f" FROM playthrough"
            f" WHERE screen_name = '{screen_name}'")
@@ -29,8 +29,3 @@ def unique_player_top_5_score_fetch_query(screen_name):
         for i in range(5):
          print(f"{result_sorted[i]['screen_name']}: {result_sorted[i]['score']:6.0f}")
     return
-
-
-unique_player_top_5_score_fetch_query('koloherra')
-print("")
-all_unique_player_score_fetch_query('koloherra')
