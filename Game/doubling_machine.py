@@ -4,56 +4,35 @@ from Game.game_texts import yes, no
 from Game.sql_querys.money_function import fetch_player_money, update_player_money
 
 
-#funtion parametreiks syötetään pelaajan rahat, mitä tuplaa ja monesko tuplaus menossa.
-# Palauttaa voitetun rahan tai pelaajan hävitessä nolla.
-#HUOM! Voidaan halutessa tuoda muuttuva lukuarvo muuttujan avulla, jolla kerrannoidaan, kuinka mahdollisuudet putoo.
-#itse suosittelen 5 tai 10.
-def tuplaus(amount, times):
+def tuplaus(amount, times_player_have_doubled):
+    """This function randomizes a number from 1 to 100 and checks if it's more than 50. If it is player wins.
+    It reduces chances to win by every new doubling situation. If player wins it doubles the money, if he loses it returns 0"""
     luckynumber = random.randint(1, 100)
-    #Tässä määritän voittavan mahiksen suoraa random generaattorista ja jokaisella uudella tuplauskerralla vähennän 5
-    #jotta tuplaus vaikeutuisi
-    chance1 = luckynumber - (times * 5)
-    # Tämä on testi printti poista valmiiseen ohjelmaan
-    #Tässä määritän "kolikon" toisen puolen. Se on maximi (100, määritetty randintisä) - randomoitu tulos ja lisätään
-    # siihen tuo mahdollinen uusien tuplauksien vaikutus
-    chance2 = 100 - luckynumber + (times * 5)
-    # Tämä on testi printti poista valmiiseen ohjelmaan
-    #tässä tarkistetaan saiko käyttäjä yli 50, eli 50/50 mahdollisuus ekalla tuplausyrityksellä. Jos tämä onnistuu
-    #tuplaan rahat eli amount*2
-    #Sakke olen täällä
-    if chance1 >= chance2:
+    player_number = luckynumber - (times_player_have_doubled * 5)
+    casinos_number = 100 - luckynumber + (times_player_have_doubled * 5)
+    if player_number >= casinos_number:
         print("Tuplaus onnistui!")
         amount = amount * 2
+        print(f"Olet saamassa nyt {amount}€.")
         return amount
     else:
         print("Tuplaus epäonnistui! Hävisit kaikki löytämäsi rahat.")
-        return 0
-#HUOM! Vaatii ylemmän funktion toimiakseen!
-#funktio tallentaa iteroi montako kertaa pelaaja on jo tuplannut. Se myös tarkistaa onko pelaaja jo hävinnyt
+        amount = 0
+        return amount
+
 def tuplataanko(answer, winnings, game_id):
-        times = 0
-        #Tässä tarkistetaa halusiko pelaaja tuplata ja oliko pelaaja jo hävinnyt rahansa lisäksi alhaalla seurataa
-        #monesko tuplaus kerta menossa
-        current_money = fetch_player_money(game_id)
-        while answer == yes and winnings > 0:
-            if answer == yes:
-                winnings = tuplaus(winnings, times)
-                print(winnings)
-                times += 1
-                #Tässä tarkisteetaa tuplauskierroksen tulos. Jos pelaaja häviää, ohjelma ei kysy haluaako hän tuplata
-                #hävityt rahat.
-                if winnings > 0:
-                    answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan."
-                        f" Mitä vastaat? ({yes}/{no}): ").lower()
-                else:
-                    break
-        current_money += winnings
-        update_player_money(current_money ,game_id)
-        print(f"Sinulla on tällä hetkellä rahaa {current_money}€.")
-'''
-#Testailin alhaalla että funktiot toimii halutulla tavalla
-vastaus = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan!"
-                        f" Mitä vastaat? ({yes}/{no}): ").lower()
-raha_maara = 1000
-tuplataanko(vastaus,maara)
-'''
+    """This function asks does player wants to double his money and also checks that they do not have any money left."""
+    times_player_have_doubled = 0
+    current_money = fetch_player_money(game_id)
+    while answer == yes and winnings > 0:
+        if answer == yes:
+            winnings = tuplaus(winnings, times_player_have_doubled)
+            times_player_have_doubled += 1
+            if winnings > 0:
+                answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan."
+                    f" Mitä vastaat? ({yes}/{no}): ").lower()
+            else:
+                break
+    current_money += winnings
+    update_player_money(current_money ,game_id)
+    print(f"Sinulla on tällä hetkellä rahaa {current_money}€.")
