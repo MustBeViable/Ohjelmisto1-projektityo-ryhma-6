@@ -1,9 +1,6 @@
-Arvostellaanko error handling?
-Status -> Boolean
-Not null ainoastaan pääavaimeen?
-Default arvoja?
-FK makkaras_in_hole ei testata?
-Foreign keyt ei onnistu, toimiiko Eliaksen skripti muilla?
-
 Kyllä/ei ei toimi.
 Cancel kirjautumisessa ei ehkä toimi?
+Taxi tai uber ei tarkista rahoja.
+Finnairin edustaja tarkista.
+Peli ei lopu tietokannassa pelin päättyessä.
+Pelissä kertyy liikaa rahaa.
