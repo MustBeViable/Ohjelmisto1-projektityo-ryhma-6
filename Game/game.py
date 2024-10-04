@@ -3,9 +3,9 @@ import time
 
 from Game.Game_ascii_art import casual_garbage_can
 from Game.Game_ascii_art.casual_garbage_can import ascii_carbage_can
-from Game.actions import ask_for_command
+from Game.actions2 import ask_for_command
 from Game.airport_selection_function import airportselection
-from Game.choose_game import choose_game
+from Game.choose_game import create_or_choose_game
 from Game.game_texts import garbage_can_question, tax_free_question, fligh_question
 from Game.garbage_can import garbage_can
 from Game.sign_in_up import ask_sign_in_or_up
@@ -18,7 +18,7 @@ print(f"Tervetuloa {username}!")
 # Tässä printataan sit se top-taulu ja tiedot edellisestä pelistä.
 
 # Player chooses whether they want to continue their old game or start a new one. Saves the game_id.
-game_id = choose_game(username)
+game_id = create_or_choose_game(username)
 
 # Tähän ehkä tieto siitä pelistä minkä pelaaja valitsi tai jotain.
 print(f"game id: {game_id}")
