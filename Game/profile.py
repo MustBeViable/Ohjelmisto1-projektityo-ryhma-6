@@ -20,5 +20,3 @@ def show_profile(game_id):
         show_makkarat_dictionary = {f"{fetch_player_location_name(game_id)}", f"{fetch_player_makkaras(game_id)}"}
         #print(show_makkarat)
         """
-
-def profile_high_score(game_id):
