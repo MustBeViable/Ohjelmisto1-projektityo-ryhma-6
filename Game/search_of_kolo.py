@@ -11,6 +11,7 @@ def kolo_search(game_id):
 
     """What happens when u search kolo"""
 
+
     outside_airport=input("Kirjoita taxi jos haluat ottaa taxin(50 euroa) tai kirjoita uber jos haluat uberin(1 euroa)?")
     while outside_airport != "taxi" and outside_airport != "uber":
         outside_airport = input("Kirjoita taxi jos haluat ottaa taxin(50 euroa) tai kirjoita uber jos haluat uberin(1 euroa)?")
