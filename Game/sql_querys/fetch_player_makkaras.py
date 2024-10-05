@@ -27,3 +27,7 @@ def fetch_player_stolen_makkaras(id):
         player_makkaras.append(result[i][0])
     return player_makkaras
 
+def player_makkaras_amount(id):
+    """Returns the amount of makkaras the player has."""
+    amount = len(fetch_player_makkaras(id))
+    return amount
