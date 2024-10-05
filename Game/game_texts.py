@@ -72,7 +72,7 @@ give_help_str = (f"{game_instruction_str}\n"
                  f"{game_goal_str}")
 
 garbage_can_question = f"Haluatko kaivaa roskista? ({yes}/{no})"
-fligh_question = "Kävelet kohti lipunmyyntiautomaattia. Paina enter nähdäksesi lähtevät lennot."
+fligh_question = f"Kävelet kohti lipunmyyntiautomaattia. Paina {approve} nähdäksesi lähtevät lennot."
 tax_free_question = f"Haluatko shoppailla? ({yes}/{no})"
 
 yhteys = mysql.connector.connect(
