@@ -112,7 +112,7 @@ def outside_section_continue_question(question, action, game_id):
     return False
     '''
 
-def outside_section_question(question, action, accepted_commands, other_commands, game_id):
+def execute_section(question, action, accepted_commands, other_commands, game_id):
     """Asks the user the given question until answered one of the given commands, give-up-command or end-command.
     If the user answers yes, executes the given action. If the user answers no, does nothing.
     Returns {end: Boolean, give up: Boolean} meaning {end: player wants to end game, give up: player wants to give up}
@@ -122,12 +122,12 @@ def outside_section_question(question, action, accepted_commands, other_commands
         faulty_command(answer)
         answer = input_outside_section(question, game_id)
     if answer == end_command:
-        return {"finish": True, "give up": False}
+        return {"finish": True, "game over": False}
     if answer == give_up_command:
-        return {"finish": True, "give up": True}
+        return {"finish": True, "game over": True}
     if answer in accepted_commands:
         action(game_id)
-    return {"finish": False, "give up": False}
+    return {"finish": False, "game over": False}
 
 
 '''

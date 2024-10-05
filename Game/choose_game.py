@@ -1,7 +1,7 @@
 import mysql.connector
 
 from Game.sql_querys.create_and_end_game import create_game, finish_game_in_database, fetch_unfinished_playthrough
-from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras
+from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras, player_makkaras_amount
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, fetch_player_location_name
 from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fetch
 from game_texts import yhteys
@@ -32,7 +32,7 @@ def continue_or_new_str(game_id):
     text = (f"Haluatko jatkaa keskeneräistä pelikertaasi? "
             f"(sijainti: {fetch_player_location_name(game_id)}, "
             f"pisteitä: {player_score_fetch(game_id)}, "
-            f"makkaroita: {len(fetch_player_makkaras(game_id))} kpl)\n"
+            f"makkaroita: {player_makkaras_amount(game_id)} kpl)\n"
             f"Jos aloitat uuden peli, edellinen pelisi päättyy, etkä voi enää jatkaa sitä.\n"
             f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}. ")
     return text
