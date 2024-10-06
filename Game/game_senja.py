@@ -1,11 +1,13 @@
-from Game.actions import give_help
+from Game.actions import give_help, show_top
 from Game.choose_game import create_or_choose_game
 from Game.commands import execute_section
+from Game.profile import show_profile
 from Game.section import garbage_can_section, tax_free_section, flight_section
 from Game.sign_in_up import ask_sign_in_or_up
 from Game.sql_querys.create_and_end_game import finish_game_in_database
 from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras, player_makkaras_amount
 from Game.sql_querys.money_function import fetch_player_money
+from Game.sql_querys.one_player_own_top_5 import fetch_player_top5_list
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location_name
 from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fetch
 
@@ -46,7 +48,9 @@ while not finish_or_give_up["finish"]:
         if finish_or_give_up["finish"]:
             break
 
-print("Peli päättyi.")
+print("Peli päättyi.\n")
+show_profile(game_id)
 if finish_or_give_up["game over"]:
     finish_game_in_database(game_id)
-    print(f"Pelisi on lopetettu. Keräsit {player_score_fetch(game_id)} pistettä ja {player_makkaras_amount(game_id)} makkaraa.")
+    print(f"Pelisi on lopetettu etkä voi enää jatkaa sitä.")
+show_top(username)
