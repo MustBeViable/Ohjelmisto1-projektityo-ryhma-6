@@ -17,7 +17,7 @@ def kolo_search(game_id):
         outside_airport = input("Kirjoita taxi jos haluat ottaa taxin(50 euroa) tai kirjoita uber jos haluat uberin(1 euroa)?")
 
     if outside_airport == "taxi":
-        return_player_makkaras(id)
+        return_player_makkaras(game_id)
         new_money = fetch_player_money(game_id) - 150
         update_player_money(new_money, game_id)
         print("löysit hole_in_charge kolon ja sait makkarasi takaisin! :)")
@@ -28,6 +28,6 @@ def kolo_search(game_id):
             update_player_money(new_money, game_id)
             print("Uber kuljettaja pahoinpiteli sinut, jätti tienvarteen, vei sinulta 100 euroa ja joudit tilaamaan taxin takaisin lentokentälle, joka maksoi 50 euroa!")
         elif mahdollisuus!=1:
-            return_player_makkaras(id)
+            return_player_makkaras(game_id)
             print("löysit hole_in_charge kolon ja sait makkarasi takaisin! :)")
             return
