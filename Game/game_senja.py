@@ -54,3 +54,4 @@ if finish_or_give_up["game over"]:
     finish_game_in_database(game_id)
     print(f"Pelisi on lopetettu etkä voi enää jatkaa sitä.")
 show_top(username)
+top_5_score_fetch_query()
