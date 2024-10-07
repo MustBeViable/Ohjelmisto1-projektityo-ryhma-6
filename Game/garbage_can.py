@@ -1,18 +1,13 @@
 # 10% mahis finnair_personnel, 10% mahis kolovastaavalle, 10% mahis rosvolle, 10 % musta makkara, 60% mahis voittaa rahaa
 
 import random
-from os import remove
-import time
 
-from Game.Game_ascii_art import robber_from_garbage_can
 from Game.Game_ascii_art.finnair_ascii import finnair_ascii
 from Game.Game_ascii_art.hole_in_charge_ascii import hole_in_charge_ascii
 from Game.Game_ascii_art.money_found_garbage_can import happy_garbage_can
 from Game.Game_ascii_art.robber_from_garbage_can import robber_2
 from Game.game_texts import no, yes, yhteys, finnair_makkara, finnair_donation
-# from Game.game_texts import yhteys
-from Game.player_profile import own_makkaras, own_money
-from Game.secret_black_sausage import secret_black_sausage_chance, amount, own_secret_black_sausage
+from For_futher_development.secret_black_sausage import secret_black_sausage_chance, amount
 from Game.doubling_machine import tuplataanko
 from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras
 from Game.sql_querys.money_function import update_player_money, fetch_player_money
@@ -91,7 +86,7 @@ def money_from_garbage():
 
 
 def garbage_can(game_id):
-    """This is the main carbage can function and it is checkng garbages with its all features (money found, robber,
+    """This is the main carbage can function, and it is checkng garbages with its all features (money found, robber,
     hole in charge, finnair personnel"""
     from Game.commands import input_in_section
     outcome = \

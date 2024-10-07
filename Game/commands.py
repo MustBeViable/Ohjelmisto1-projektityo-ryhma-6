@@ -1,8 +1,8 @@
-from Game.actions import give_help, show_money, show_makkaras, cant_end_now, give_commands, show_score, faulty_command
+from Game.actions import give_help, show_money, show_makkaras, cant_end_now, give_commands, show_score, faulty_command, \
+    show_profile
 from Game.check_stolen_makkaras import check_if_any_stolen_makkara
 from Game.game_texts import help_command, end_command, makkaras_command, money_command, give_up_command, commands_command, \
     score_command, profile_command, hole_command
-from Game.profile import show_profile
 
 class Command:
     def __init__(self, command, action):
@@ -78,7 +78,7 @@ def input_outside_section(prompt, game_id):
     """Used before sections. Asks for a user input. If the user input is a basic command, calls execute_basic_command
     and executes the basic action. Asks for an input until it's no longer a basic command and
     returns the input."""
-    answer = input(prompt).lower()
+    answer = input(f"{prompt}\n").lower()
     command_was_basic_command = execute_basic_command(answer, game_id, basic_commands)
     if command_was_basic_command:
         answer = input_outside_section(prompt, game_id)

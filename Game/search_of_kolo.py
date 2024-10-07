@@ -1,9 +1,7 @@
-
 import random
 
 from Game.sql_querys.money_function import fetch_player_money, update_player_money
 from Game.sql_querys.return_stolen_makkaras import return_player_makkaras
-
 
 
 def kolo_search(game_id):
@@ -20,7 +18,7 @@ def kolo_search(game_id):
         return_player_makkaras(game_id)
         new_money = fetch_player_money(game_id) - 150
         update_player_money(new_money, game_id)
-        print("löysit hole_in_charge kolon ja sait makkarasi takaisin! :)")
+        print("löysit Kolovastaavan Kolon ja sait makkarasi takaisin! :)")
     elif outside_airport == "uber":
         mahdollisuus=random.randint(1,2)
         if mahdollisuus==1:

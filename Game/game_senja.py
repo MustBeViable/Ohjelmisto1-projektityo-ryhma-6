@@ -1,7 +1,6 @@
-from Game.actions import give_help, show_top
+from Game.actions import give_help, show_top, show_profile
 from Game.choose_game import create_or_choose_game
 from Game.commands import execute_section
-from Game.profile import show_profile
 from Game.section import garbage_can_section, tax_free_section, flight_section
 from Game.sign_in_up import ask_sign_in_or_up
 from Game.sql_querys.create_and_end_game import finish_game_in_database
@@ -32,8 +31,7 @@ while start != "":
 
 sections = [garbage_can_section,
             tax_free_section,
-            flight_section
-            ]
+            flight_section]
 
 finish_or_give_up = {"finish": False, "game over": False}
 
