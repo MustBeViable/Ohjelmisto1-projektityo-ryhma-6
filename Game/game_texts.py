@@ -3,7 +3,12 @@ import mysql.connector
 
 yes = "k"
 no = "e"
-approve = "j"
+approve = "n"
+cancel_command = "palaa"
+continue_old_game_command = "j"
+create_new_game_command = "u"
+sign_up = "uusi"
+sign_in = "kirjaudu"
 
 start_money = 1000
 start_score = 0
@@ -14,6 +19,7 @@ finnair_makkara = 69420
 finnair_donation = 500
 price_multiplier = 50
 
+# Basic commands
 commands_command = "komennot"
 help_command = "ohje"
 money_command = "bank"
@@ -23,8 +29,6 @@ profile_command = "profiili"
 hole_command = "kolo"
 give_up_command = "luovuta"
 end_command = "lopeta"
-
-cancel_command = "palaa"
 
 # Dictionary of commands that are normally available and their help texts.
 command_and_helptext = {
@@ -39,15 +43,13 @@ command_and_helptext = {
     end_command: "Sulkee pelin. Edistymisen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi."
 }
 
-# All game texts
-give_commmand_str = 'Anna komento: '
+# Game texts.
+
+give_screen_name_str = f'Anna käyttäjänimi. Voit palata takaisin kirjoittamalla "{cancel_command}".\n'
+sign_in_or_up_str = f'Kirjoita "{sign_in}" jos haluat kirjautua sisään. Kirjoita "{sign_up}" jos haluat luoda uuden käyttäjätunnuksen.\n'
 
 not_command_str = (' ei  ole komento, syötä jokin tunnistettava komento. '
                    'Komennolla "komennot" näet kaikki peruskomennot. ')
-
-not_command_yes_no_str = (f' ei  ole komento. Komennolla "{yes}" vastaat kyllä, '
-                          f'komennolla "{no}" vastaat ei. '
-                          'Komennolla "komennot" näet kaikki peruskomennot. ')
 
 game_instruction_str = (f'PELIN OHJE\n'
                         f'Sinulta kysytään kysymys. Kirjoita konsoliin haluamasi vastaus ja paina enter. '
@@ -71,10 +73,6 @@ give_help_str = (f"{game_instruction_str}\n"
                  f"{commands_str}\n"
                  f"{game_goal_str}")
 
-garbage_can_question = f"Haluatko kaivaa roskista? ({yes}/{no})"
-fligh_question = f"Kävelet kohti lipunmyyntiautomaattia. Paina {approve} nähdäksesi lähtevät lennot."
-tax_free_question = f"Haluatko shoppailla? ({yes}/{no})"
-
 yhteys = mysql.connector.connect(
          host='localhost',
          port=3306,
@@ -84,3 +82,4 @@ yhteys = mysql.connector.connect(
          autocommit=True,
          collation="utf8mb4_general_ci"
          )
+

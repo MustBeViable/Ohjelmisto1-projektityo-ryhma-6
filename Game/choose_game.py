@@ -1,8 +1,7 @@
-import mysql.connector
-
+from Game.game_texts import continue_old_game_command, create_new_game_command
 from Game.sql_querys.create_and_end_game import create_game, finish_game_in_database, fetch_unfinished_playthrough
-from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras, player_makkaras_amount
-from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, fetch_player_location_name
+from Game.sql_querys.fetch_player_makkaras import player_makkaras_amount
+from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location_name
 from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fetch
 from game_texts import yhteys
 
@@ -14,8 +13,6 @@ def sql_connection(sql_text):
     return result
 
 # yhteiset komennot, siirretään muualle
-old = "j"
-new = "u"
 
 def lower_input(prompt):
     result = input(prompt).lower()
@@ -34,10 +31,10 @@ def continue_or_new_str(game_id):
             f"pisteitä: {player_score_fetch(game_id)}, "
             f"makkaroita: {player_makkaras_amount(game_id)} kpl)\n"
             f"Jos aloitat uuden peli, edellinen pelisi päättyy, etkä voi enää jatkaa sitä.\n"
-            f"Jos haluat jatkaa, paina {old}. Jos haluat aloittaa uuden pelin, paina {new}. ")
+            f"Jos haluat jatkaa, paina {continue_old_game_command}. Jos haluat aloittaa uuden pelin, paina {create_new_game_command}. ")
     return text
 
-no_unfinished_game = "Sinulla ei ole keskeneräisiä pelejä. Luodaan sinulle uusi peli."
+no_unfinished_game = "Luodaan sinulle uusi peli."
 
 def create_or_choose_game(screen_name):
     """Checks if the given screen_name has an unfinished game.
@@ -61,12 +58,12 @@ def choose_old_or_new_game(screen_name, unfinished_game_list):
     game as finished."""
     current_game_id = None
     unfinished_game_id = unfinished_game_list[0][0]
-    user_input = input(continue_or_new_str(unfinished_game_id)).lower()
-    while user_input not in [old, new]:
-        user_input = input(continue_or_new_str(unfinished_game_id)).lower()
-    if user_input == old:
+    user_input = input(continue_or_new_str(unfinished_game_id)).lower().strip()
+    while user_input not in [continue_old_game_command, create_new_game_command]:
+        user_input = input(continue_or_new_str(unfinished_game_id)).lower().strip()
+    if user_input == continue_old_game_command:
         current_game_id = unfinished_game_id
-    if user_input == new:
+    if user_input == create_new_game_command:
         current_game_id = create_game(screen_name)
         finish_game_in_database(unfinished_game_id)
     return current_game_id

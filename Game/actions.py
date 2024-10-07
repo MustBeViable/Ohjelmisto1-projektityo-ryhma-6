@@ -1,9 +1,8 @@
-# Used by game_Senja_try
-
 from Game.game_texts import give_help_str, commands_str, not_command_str
 from Game.sql_querys.fetch_player_makkaras import player_makkaras_amount
 from Game.sql_querys.money_function import fetch_player_money
 from Game.sql_querys.one_player_own_top_5 import fetch_player_top5_list
+from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location_name, fetch_player_location
 from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fetch
 
 # Prints the game instruction.
@@ -38,11 +37,20 @@ def show_score(game_id):
 def show_top(screen_name):
     """Prints the player's top 5 scores."""
     player_scores = fetch_player_top5_list(screen_name)
-    print("top 5 pelisi:")
-    for idx, score in enumerate(player_scores):
-        print(f"{idx + 1}. {score} pt")
-    print("")
+    if len(player_scores) == 0:
+        print("Käyttäjälläsi ei ole vielä yhtäkään peliä.")
+    else:
+        print("top 5 pelisi:")
+        for idx, score in enumerate(player_scores):
+            print(f"{idx + 1}. {score} pt")
+        print("")
 
 def faulty_command(command):
     """Prints that the given command doesn't exist."""
     print(f'"{command}"{not_command_str}')
+
+def show_profile(game_id):
+    """This funktion shows player's profile"""
+    print(f"Sijaintisi on tällä hetkellä lentokentällä: {fetch_player_location_name(game_id)}, ICAO: {fetch_player_location(game_id)}")
+    print(f"Sinulla on rahaa {fetch_player_money(game_id)} euroa ja pisteitä {player_score_fetch(game_id)}.")
+    print(f"Sinulla on yhteensä makkaroita: {player_makkaras_amount(game_id)} kpl.")
