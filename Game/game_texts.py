@@ -14,30 +14,30 @@ finnair_makkara = 69420
 finnair_donation = 500
 price_multiplier = 50
 
-
-help_command = "ohje"
 commands_command = "komennot"
-end_command = "lopeta"
-give_up_command = "luovuta"
+help_command = "ohje"
 money_command = "bank"
-profile_command = "profiili"
 makkaras_command = "makkarat"
-cancel_command = "palaa"
 score_command = "pisteet"
+profile_command = "profiili"
 hole_command = "kolo"
+give_up_command = "luovuta"
+end_command = "lopeta"
+
+cancel_command = "palaa"
 
 # Dictionary of commands that are normally available and their help texts.
 command_and_helptext = {
+    commands_command: "Näyttää peruskomennot.",
+    help_command: "Näyttää ohjeen.",
     money_command: "Näyttää omat rahasi.",
     makkaras_command: "Näyttää omat makkarasi.",
     score_command: "Näyttää pisteesi.",
-    commands_command: "Näyttää peruskomennot.",
+    profile_command: "Näyttää sijaintisi, rahasi, pisteesi ja makkaroidesi määrän.",
     hole_command: "Etsii koloa.",
-    help_command: "Näyttää ohjeen.",
-    end_command: "Sulkee pelin. Edistymisen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi.",
-    give_up_command: "Lopettaa pelin. Luovuttamisen jälkeen et voi enää jatkaa kyseistä pelikertaa."
+    give_up_command: "Lopettaa pelin. Luovuttamisen jälkeen et voi enää jatkaa kyseistä pelikertaa.",
+    end_command: "Sulkee pelin. Edistymisen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi."
 }
-
 
 # All game texts
 give_commmand_str = 'Anna komento: '
