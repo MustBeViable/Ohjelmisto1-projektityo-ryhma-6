@@ -15,4 +15,5 @@ def top_5_score_fetch_query():
     else:
         for i in range(5):
              print(f"{i + 1}. {result_sorted[i]['screen_name']}: {result_sorted[i]['score']:6.0f} pt")
+    print("")
     return
