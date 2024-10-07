@@ -5,17 +5,17 @@ from Game.profile import show_profile
 from Game.section import garbage_can_section, tax_free_section, flight_section
 from Game.sign_in_up import ask_sign_in_or_up
 from Game.sql_querys.create_and_end_game import finish_game_in_database
-from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras, player_makkaras_amount
+from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras
 from Game.sql_querys.money_function import fetch_player_money
-from Game.sql_querys.one_player_own_top_5 import fetch_player_top5_list
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location_name
-from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fetch
+from Game.sql_querys.top_5_score_fetch_query import top_5_score_fetch_query
 
 # Get user's screen name:
 username = ask_sign_in_or_up()
 print(f"Tervetuloa {username}!")
 
-# Tässä printataan sit se top-taulu ja tiedot edellisestä pelistä.
+show_top(username)
+top_5_score_fetch_query()
 
 # Player chooses whether they want to continue their old game or start a new one. Saves the game_id.
 game_id = create_or_choose_game(username)

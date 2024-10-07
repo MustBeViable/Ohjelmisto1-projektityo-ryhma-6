@@ -1,5 +1,4 @@
-from Game.actions import give_help, show_money, show_makkaras, cant_end_now, give_commands, show_score, faulty_command, \
-    end_game, give_up_game
+from Game.actions import give_help, show_money, show_makkaras, cant_end_now, give_commands, show_score, faulty_command
 from Game.check_stolen_makkaras import check_if_any_stolen_makkara
 from Game.game_texts import help_command, yes, no, end_command, makkaras_command, money_command, approve, \
     give_up_command, commands_command, commands_str, score_command, not_command_str, profile_command, hole_command
@@ -24,34 +23,35 @@ class CommandWithParameter(Command):
         return action_result
 
 # Basic commands: Commands that can be given at any point of the game.
-basic_commands = [Command(help_command, give_help, "Näyttää ohjeen."),
-                 CommandWithParameter(money_command, show_money, "Näyttää sen hetkiset rahasi."),
-                 CommandWithParameter(makkaras_command, show_makkaras, "Näyttää omien makkaroidesi määrän."),
-                  CommandWithParameter(profile_command, show_profile, "Näyttää sijaintisi, rahasi, pisteesi ja makkaroidesi määrän."),
-                  CommandWithParameter(hole_command, check_if_any_stolen_makkara, "Etsii koloa."),
-                 Command(commands_command, give_commands, "Näyttää peruskomennot."),
-                 CommandWithParameter(score_command, show_score, "Näyttää pisteesi."),
-                 ]
-in_section_end_commands = [Command(end_command, cant_end_now, "Sulkee pelin. Edistyminen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi."),
-                            Command(give_up_command, cant_end_now, "Lopettaa pelin. Luovuttamisen jälkeen et voi enää jatkaa kyseistä pelikertaa.")]
+basic_commands = [
+    Command(commands_command, give_commands, "Näyttää peruskomennot."),
+    Command(help_command, give_help, "Näyttää pelin ohjeen."),
+    CommandWithParameter(money_command, show_money, "Näyttää rahamääräsi."),
+    CommandWithParameter(makkaras_command, show_makkaras, "Näyttää keräämiesi makkaroiden määrän."),
+    CommandWithParameter(score_command, show_score, "Näyttää pisteesi."),
+    CommandWithParameter(profile_command, show_profile, "Näyttää sijaintisi, rahasi, pisteesi ja makkaroidesi määrän."),
+    CommandWithParameter(hole_command, check_if_any_stolen_makkara, "Voit etsiä Koloa, mikäli Kolovastaava on vienyt makkaroitasi sinne.")
+]
+in_section_end_commands = [Command(end_command, cant_end_now,"Sulkee pelin. Edistyminen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi."),
+                           Command(give_up_command, cant_end_now,"Lopettaa pelin. Luovuttamisen jälkeen et voi enää jatkaa kyseistä pelikertaa.")]
 
 in_section_commands = basic_commands + in_section_end_commands
 
-def execute_basic_command(answer, game_id, set_of_basic_commands):
+
+def execute_basic_command(answer, game_id, list_of_basic_commands):
     """Checks if the given command is a basic command. If it is, executes the basic
         action and returns True. If it isn't, returns False."""
-    for command_object in set_of_basic_commands:
-        if answer == command_object.command:
-            command_object.execute_action(game_id)
+    for basic_command in list_of_basic_commands:
+        if answer == basic_command.command:
+            basic_command.execute_action(game_id)
             return True
     return False
 
-
 def input_in_section(prompt, game_id):
     """Used inside sections. Asks for a user input. If the user input is a basic command, calls execute_basic_command
-    and executes the basic action. Asks for an input until it's no longer a basic command and
-    returns the input."""
-    answer = input(prompt).lower()
+    and executes the basic action. Asks for an input until it's no longer a basic command.\n
+    Returns the user input."""
+    answer = input(f"{prompt}\n").lower().strip()
     command_was_basic_command = execute_basic_command(answer, game_id, in_section_commands)
     if command_was_basic_command:
         answer = input_in_section(prompt, game_id)
@@ -83,44 +83,3 @@ def execute_section(question, action, accepted_commands, other_commands, game_id
     if answer in accepted_commands:
         action(game_id)
     return {"finish": False, "game over": False}
-
-
-'''
-class AskForCommand:
-    def __init__(self, game_id, question, action):
-        self.game_id = int(game_id)
-        self.prompt = question
-        self.action = action
-
-    def ask_for_command(self):
-        pass
-
-
-class YesNoQuestion(AskForCommand):
-    def ask_for_command(self):
-        """Asks user the question given as a parameter. Returns a dictionary with values
-        "yes": Boolean and "finished": Boolean. "yes" tells whether the user answered yes or no
-        to the question and "finished" tells whether the user gave finish command or not.
-        """
-        answer = input(self.prompt).lower
-        while answer not in [yes, no, end_command]:
-            answer = command_to_action(self.game_id, answer)
-        if answer == yes:
-            return {"yes": True, "finished": False}
-        elif answer == no:
-            return {"yes": False, "finished": False}
-        elif answer == end_command:
-            return {"yes": False, "finished": True}
-
-
-class ContinueQuestion(AskForCommand):
-    def ask_for_command(self):
-        """Asks user the question given as a parameter.
-        """
-        answer = input(self.prompt).lower
-        while answer not in [approve, end_command]:
-            answer = command_to_action(self.game_id, answer)
-        if answer == approve:
-            return {"yes": True, "finished": False}
-        elif answer == end_command:
-            return {"yes": False, "finished": True}'''
