@@ -60,12 +60,13 @@ def hole_in_charge(game_id):
 
 def finnair_personnel(game_id):
     """Player can donate 500 euros and get rare sausage"""
+    from Game.commands import input_in_section
     print(f"Finnairin ympäristöedustaja pyytää lahjoitusta. Sen arvo on {finnair_donation}€.")
     current_money = fetch_player_money(game_id)
-    answer = input(f"Haluatko lahjoittaa sen? Sinulla on {current_money}€ tällä hetkellä({yes}/{no}): ").lower()
+    answer = input_in_section(game_id, f"Haluatko lahjoittaa sen? Sinulla on {current_money}€ tällä hetkellä({yes}/{no}): ").lower()
 
     while answer not in [yes, no]:
-        answer = input(f"Älä änkytä!!! {yes}/{no}")
+        answer = input_in_section(game_id, f"Älä änkytä!!! {yes}/{no}")
 
     if answer == yes:
         if current_money >= 500:
@@ -92,13 +93,14 @@ def money_from_garbage():
 def garbage_can(game_id):
     """This is the main carbage can function and it is checkng garbages with its all features (money found, robber,
     hole in charge, finnair personnel"""
+    from Game.commands import input_in_section
     outcome = \
     random.choices(['found_money', 'robber', 'hole_in_charge', 'finnair_personnel'], weights=[70, 10, 10, 10], k=1)[0]
     if outcome == 'found_money':
         print(happy_garbage_can)
         new_money = money_from_garbage()
         print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
-        vastaus = input(
+        vastaus = input_in_section(game_id,
             f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat?  ({yes}/{no}): ").lower()
         tuplataanko(vastaus, new_money, game_id)  # eliaksen tuplaus funktio
     elif outcome == 'robber':

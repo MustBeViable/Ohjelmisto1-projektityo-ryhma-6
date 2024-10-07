@@ -23,11 +23,12 @@ def taxfree(player_money, makkara_id, game_id):
 # Asking do you want to buy makkara from taxfree
 def yes_no_taxfree(game_id):
     """Asks player if he wants to buy airport specific makkara."""
+    from Game.commands import input_in_section
     print(f"Sinulla on {fetch_player_money(game_id)}€ rahaa. Taxfreestä löytyi hieno {search_makkara(game_id)}"
           f" ja se maksaa {sausage_price}€.")
-    taxfree_answer = input(f"Haluatko ostaa sen? ({yes}/{no})")
+    taxfree_answer = input_in_section(game_id, f"Haluatko ostaa sen? ({yes}/{no})")
     while taxfree_answer not in [yes, no]:
-        taxfree_answer = input(f"Haluatko ostaa sen? ({yes}/{no})")
+        taxfree_answer = input_in_section(game_id, f"Haluatko ostaa sen? ({yes}/{no})")
 
     if taxfree_answer == yes:
         taxfree(fetch_player_money(game_id), search_makkara_id(game_id), game_id)
