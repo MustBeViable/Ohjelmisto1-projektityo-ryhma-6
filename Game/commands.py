@@ -6,10 +6,9 @@ from Game.profile import show_profile
 
 
 class Command:
-    def __init__(self, command, action, helptext):
+    def __init__(self, command, action):
         self.command = command
         self.action = action
-        self.helptext = helptext
 
     def execute_action(self, parameter):
         """Executes the action resulting from the command."""
@@ -24,16 +23,16 @@ class CommandWithParameter(Command):
 
 # Basic commands: Commands that can be given at any point of the game.
 basic_commands = [
-    Command(commands_command, give_commands, "Näyttää peruskomennot."),
-    Command(help_command, give_help, "Näyttää pelin ohjeen."),
-    CommandWithParameter(money_command, show_money, "Näyttää rahamääräsi."),
-    CommandWithParameter(makkaras_command, show_makkaras, "Näyttää keräämiesi makkaroiden määrän."),
-    CommandWithParameter(score_command, show_score, "Näyttää pisteesi."),
-    CommandWithParameter(profile_command, show_profile, "Näyttää sijaintisi, rahasi, pisteesi ja makkaroidesi määrän."),
-    CommandWithParameter(hole_command, check_if_any_stolen_makkara, "Voit etsiä Koloa, mikäli Kolovastaava on vienyt makkaroitasi sinne.")
+    Command(commands_command, give_commands),
+    Command(help_command, give_help),
+    CommandWithParameter(money_command, show_money),
+    CommandWithParameter(makkaras_command, show_makkaras),
+    CommandWithParameter(score_command, show_score),
+    CommandWithParameter(profile_command, show_profile),
+    CommandWithParameter(hole_command, check_if_any_stolen_makkara)
 ]
-in_section_end_commands = [Command(end_command, cant_end_now,"Sulkee pelin. Edistyminen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi."),
-                           Command(give_up_command, cant_end_now,"Lopettaa pelin. Luovuttamisen jälkeen et voi enää jatkaa kyseistä pelikertaa.")]
+in_section_end_commands = [Command(end_command, cant_end_now),
+                           Command(give_up_command, cant_end_now)]
 
 in_section_commands = basic_commands + in_section_end_commands
 
