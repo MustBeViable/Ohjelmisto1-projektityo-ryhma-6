@@ -1,31 +1,30 @@
 import time
 
 from Game.Game_ascii_art.airplane_up import airplane_up
+from Game.commands import input_in_section
 from Game.sql_querys.money_function import fetch_player_money, update_player_money
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location, update_player_location, \
     fetch_player_location_name
 from game_texts import yhteys, price_multiplier
 
-def check_player_input():
+def check_player_input(game_id):
     """This function tests if player have given right input."""
-    next_location = input(
+    next_location = input_in_section(game_id,
         "Valitse haluamasi uusi lentokenttä syöttämällä sen järjestysluku(älä syötä yli 20 tai 0 tai pienempi): ")
     while next_location is not int and next_location not in range(1,21):
         try:
             next_location = int(next_location)
         except:
-            next_location = input(
+            next_location = input_in_section(game_id,
                 "Syötit väärin! Valitse uudelleen haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
             continue
         else:
             next_location = int(next_location)
         while next_location not in range(1, 21):
-            next_location = input(
+            next_location = input_in_section(game_id,
                 "Syötit väärin! Valitse uudelleen haluamasi uusi lentokenttä syöttämällä sen järjestysluku: ")
             break
     return next_location
-
-
 
 def airportselection(game_id):
     """Fetch 20 random airports, which will be sorted by distance to player"""
@@ -54,10 +53,10 @@ def airportselection(game_id):
     for i, airport in enumerate(list_of_airport_dictionaries_sorted_by_distance):
         print(f"{i + 1:17.0f}. {airport['country']}: {airport['name']}  ({price_multiplier + i  * price_multiplier}) €)")
     print(f"Sinulla on {money}€. ")
-    next_location = check_player_input()
+    next_location = check_player_input(game_id)
     while money < next_location*price_multiplier:
         print("Rahasi ei riitä tälle kentälle.")
-        next_location = check_player_input()
+        next_location = check_player_input(game_id)
     next_airport = list_of_airport_dictionaries_sorted_by_distance[next_location-1]["ident"]
     price = (next_location)*price_multiplier
     money -= price

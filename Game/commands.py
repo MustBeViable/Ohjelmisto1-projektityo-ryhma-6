@@ -1,9 +1,8 @@
-from Game.actions import give_help, show_money, show_makkaras, cant_end_now, give_commands, show_score, faulty_command
+from Game.actions import give_help, show_money, show_makkaras, cant_end_now, give_commands, show_score, faulty_command, \
+    show_profile
 from Game.check_stolen_makkaras import check_if_any_stolen_makkara
-from Game.game_texts import help_command, yes, no, end_command, makkaras_command, money_command, approve, \
-    give_up_command, commands_command, commands_str, score_command, not_command_str, profile_command, hole_command
-from Game.profile import show_profile
-
+from Game.game_texts import help_command, end_command, makkaras_command, money_command, give_up_command, commands_command, \
+    score_command, profile_command, hole_command
 
 class Command:
     def __init__(self, command, action):
@@ -46,26 +45,6 @@ def execute_basic_command(answer, game_id, list_of_basic_commands):
             return True
     return False
 
-def input_in_section(prompt, game_id):
-    """Used inside sections. Asks for a user input. If the user input is a basic command, calls execute_basic_command
-    and executes the basic action. Asks for an input until it's no longer a basic command.\n
-    Returns the user input."""
-    answer = input(f"{prompt}\n").lower().strip()
-    command_was_basic_command = execute_basic_command(answer, game_id, in_section_commands)
-    if command_was_basic_command:
-        answer = input_in_section(prompt, game_id)
-    return answer
-
-def input_outside_section(prompt, game_id):
-    """Used before sections. Asks for a user input. If the user input is a basic command, calls execute_basic_command
-    and executes the basic action. Asks for an input until it's no longer a basic command and
-    returns the input."""
-    answer = input(prompt).lower()
-    command_was_basic_command = execute_basic_command(answer, game_id, basic_commands)
-    if command_was_basic_command:
-        answer = input_outside_section(prompt, game_id)
-    return answer
-
 def execute_section(question, action, accepted_commands, other_commands, game_id):
     """Asks the user the given question until answered one of the given commands, give-up-command or end-command.
     If the user answers yes, executes the given action. If the user answers no, does nothing.\n
@@ -82,3 +61,25 @@ def execute_section(question, action, accepted_commands, other_commands, game_id
     if answer in accepted_commands:
         action(game_id)
     return {"finish": False, "game over": False}
+
+
+def input_in_section(game_id, prompt):
+    """Used inside sections. Asks for a user input. If the user input is a basic command, calls execute_basic_command
+    and executes the basic action. Asks for an input until it's no longer a basic command.\n
+    Returns the user input."""
+    answer = input(f"{prompt}\n").lower().strip()
+    command_was_basic_command = execute_basic_command(answer, game_id, in_section_commands)
+    if command_was_basic_command:
+        answer = input_in_section(game_id, prompt)
+    return answer
+
+
+def input_outside_section(prompt, game_id):
+    """Used before sections. Asks for a user input. If the user input is a basic command, calls execute_basic_command
+    and executes the basic action. Asks for an input until it's no longer a basic command and
+    returns the input."""
+    answer = input(f"{prompt}\n").lower()
+    command_was_basic_command = execute_basic_command(answer, game_id, basic_commands)
+    if command_was_basic_command:
+        answer = input_outside_section(prompt, game_id)
+    return answer

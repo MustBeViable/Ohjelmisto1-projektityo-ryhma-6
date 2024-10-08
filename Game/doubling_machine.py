@@ -1,8 +1,8 @@
 import random
 
+from Game.commands import input_in_section
 from Game.game_texts import yes, no
 from Game.sql_querys.money_function import fetch_player_money, update_player_money
-
 
 def tuplaus(amount, times_player_have_doubled):
     """This function randomizes a number from 1 to 100 and checks if it's more than 50. If it is player wins.
@@ -29,7 +29,7 @@ def tuplataanko(answer, winnings, game_id):
             winnings = tuplaus(winnings, times_player_have_doubled)
             times_player_have_doubled += 1
             if winnings > 0:
-                answer = input(f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan."
+                answer = input_in_section(game_id, f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan."
                     f" Mitä vastaat? ({yes}/{no}): ").lower()
             else:
                 break
