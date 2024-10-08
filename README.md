@@ -25,7 +25,7 @@ Tiedossa olevat bugit ja ongelmat:
    Korjattaisiin lisäämällä data_base_creationin luontiskriptiin komennot, jotka korjaavat komennot Macille sopiviksi.
    Vaihtoehtoisesti voitaisiin korjata siirtämällä database_creation_senja Game-repoon ja sitä käytettäisiin oletuksena.
 
-Ominaisuudet, joita ei ehditty toteuttaa lainkaan:
+Ominaisuudet, jotka piti toteuttaa, mutta joita ei ehditty:
 
 1. Tietyn maan makkarasta saa enemmän pisteitä, kun sen ostaa ensimmäisen kerran.
 2. Roskiksesta voi löytää mustamakkaran palasia, joista muodostuu kokonainen makkara.
