@@ -21,8 +21,9 @@ Tiedossa olevat bugit ja ongelmat:
 
 4. commands.py-tiedostossa on sekavasti funktioita, mutta niitä ei ehditty järjestää järkevästi circular import -virheiden takia.
 
-5. Pelin rungosta puuttuu paljon kommentteja, koska ne unohtuivat.
-   Korjattaisiin kommentoimalla runko.
+5. Macille sopiva tietokannan luontiskripti on piilossa.
+   Korjattaisiin lisäämällä data_base_creationin luontiskriptiin komennot, jotka korjaavat komennot Macille sopiviksi.
+   Vaihtoehtoisesti voitaisiin korjata siirtämällä database_creation_senja Game-repoon ja sitä käytettäisiin oletuksena.
 
 Ominaisuudet, joita ei ehditty toteuttaa lainkaan:
 
