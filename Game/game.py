@@ -8,6 +8,8 @@ from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras
 from Game.sql_querys.money_function import fetch_player_money
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location_name
 
+# This is the game.
+
 # Get user's screen name:
 username = ask_sign_in_or_up()
 print(f"Tervetuloa {username}!")
@@ -27,12 +29,18 @@ start = input("Paina enter aloittaaksesi pelaamisen.")
 while start != "":
     start = input("Paina enter aloittaaksesi pelaamisen.")
 
+# All game sections.
 sections = [garbage_can_section,
             tax_free_section,
             flight_section]
 
+# {player wants to end game: Boolean, player wants to give game up: Boolean}
 finish_or_give_up = {"finish": False, "game over": False}
 
+# While player doesn't want to finish the game, checks if the section's condition applies.
+# If it doesn't apply, ends the game and prints why the game ended.
+# If the condition does apply, prints section's ascii art and executes the section.
+# After execution checks if the player wants to end the game.
 while not finish_or_give_up["finish"]:
     for section in sections:
         if section.check_condition(game_id):

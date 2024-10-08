@@ -25,7 +25,7 @@ class Section:
             return True
 
 
-garbage_can_section = Section(question=tax_free_question,
+garbage_can_section = Section(question=garbage_can_question,
                               action=garbage_can,
                               approved_answer=[yes],
                               negative_answer=[no],
@@ -34,7 +34,7 @@ garbage_can_section = Section(question=tax_free_question,
                               condition_minimum=1,
                               condition_explanation=money_is_zero_str)
 
-tax_free_section = Section(question=garbage_can_question,
+tax_free_section = Section(question=tax_free_question,
                            action=yes_no_taxfree,
                            approved_answer=[yes],
                            negative_answer=[no],
