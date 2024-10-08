@@ -1,8 +1,10 @@
 from Game.actions import give_help, show_money, show_makkaras, cant_end_now, give_commands, show_score, faulty_command, \
-    show_profile
+    show_profile, show_all_top_lists_id
 from Game.check_stolen_makkaras import check_if_any_stolen_makkara
-from Game.game_texts import help_command, end_command, makkaras_command, money_command, give_up_command, commands_command, \
-    score_command, profile_command, hole_command
+from Game.game_texts import help_command, end_command, makkaras_command, money_command, give_up_command, \
+    commands_command, \
+    score_command, profile_command, hole_command, top_command
+
 
 class Command:
     def __init__(self, command, action):
@@ -20,6 +22,7 @@ class CommandWithParameter(Command):
         action_result = self.action(parameter)
         return action_result
 
+
 # Basic commands: Commands that can be given at any point of the game.
 basic_commands = [
     Command(commands_command, give_commands),
@@ -28,7 +31,8 @@ basic_commands = [
     CommandWithParameter(makkaras_command, show_makkaras),
     CommandWithParameter(score_command, show_score),
     CommandWithParameter(profile_command, show_profile),
-    CommandWithParameter(hole_command, check_if_any_stolen_makkara)
+    CommandWithParameter(hole_command, check_if_any_stolen_makkara),
+    CommandWithParameter(top_command, show_all_top_lists_id)
 ]
 in_section_end_commands = [Command(end_command, cant_end_now),
                            Command(give_up_command, cant_end_now)]
@@ -37,7 +41,7 @@ in_section_commands = basic_commands + in_section_end_commands
 
 
 def execute_basic_command(answer, game_id, list_of_basic_commands):
-    """Checks if the given command is a basic command. If it is, executes the basic
+    """Checks if the given command is a basic command. If it is, executes the
         action and returns True. If it isn't, returns False."""
     for basic_command in list_of_basic_commands:
         if answer == basic_command.command:

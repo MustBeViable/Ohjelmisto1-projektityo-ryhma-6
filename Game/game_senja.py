@@ -1,4 +1,4 @@
-from Game.actions import give_help, show_top, show_profile
+from Game.actions import give_help, show_profile, show_all_top_lists_name
 from Game.choose_game import create_or_choose_game
 from Game.commands import execute_section
 from Game.section import garbage_can_section, tax_free_section, flight_section
@@ -7,14 +7,12 @@ from Game.sql_querys.create_and_end_game import finish_game_in_database
 from Game.sql_querys.fetch_player_makkaras import fetch_player_makkaras
 from Game.sql_querys.money_function import fetch_player_money
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location_name
-from Game.sql_querys.top_5_score_fetch_query import top_5_score_fetch_query
 
 # Get user's screen name:
 username = ask_sign_in_or_up()
 print(f"Tervetuloa {username}!")
 
-show_top(username)
-top_5_score_fetch_query()
+show_all_top_lists_name(username)
 
 # Player chooses whether they want to continue their old game or start a new one. Saves the game_id.
 game_id = create_or_choose_game(username)
@@ -51,5 +49,4 @@ show_profile(game_id)
 if finish_or_give_up["game over"]:
     finish_game_in_database(game_id)
     print(f"Pelisi on lopetettu etkä voi enää jatkaa sitä.")
-show_top(username)
-top_5_score_fetch_query()
+show_all_top_lists_name(username)
