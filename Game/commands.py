@@ -82,7 +82,7 @@ def input_outside_section(prompt, game_id):
     """Used before sections. Asks for a user input. If the user input is a basic command, calls execute_basic_command
     and executes the basic action. Asks for an input until it's no longer a basic command and
     returns the input."""
-    answer = input(f"{prompt}\n").lower()
+    answer = input(f"{prompt}\n").lower().strip()
     command_was_basic_command = execute_basic_command(answer, game_id, basic_commands)
     if command_was_basic_command:
         answer = input_outside_section(prompt, game_id)
