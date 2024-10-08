@@ -27,6 +27,7 @@ makkaras_command = "makkarat"
 score_command = "pisteet"
 profile_command = "profiili"
 hole_command = "kolo"
+top_command = "top"
 give_up_command = "luovuta"
 end_command = "lopeta"
 
@@ -38,7 +39,8 @@ command_and_helptext = {
     makkaras_command: "Näyttää omat makkarasi.",
     score_command: "Näyttää pisteesi.",
     profile_command: "Näyttää sijaintisi, rahasi, pisteesi ja makkaroidesi määrän.",
-    hole_command: "Etsii koloa.",
+    hole_command: "Mikäli Kolovastaava on vienyt makkaroitasi, voit etsiä koloa.",
+    top_command: "Näyttää omien peliesi sekä kaikkien pelaajien top-listat.",
     give_up_command: "Lopettaa pelin. Luovuttamisen jälkeen et voi enää jatkaa kyseistä pelikertaa.",
     end_command: "Sulkee pelin. Edistymisen tallentuu automaattisesti ja voit palata jatkamaan peliä profiilistasi."
 }
@@ -48,7 +50,7 @@ command_and_helptext = {
 give_screen_name_str = f'Anna käyttäjänimi. Voit palata takaisin kirjoittamalla "{cancel_command}".\n'
 sign_in_or_up_str = f'Kirjoita "{sign_in}" jos haluat kirjautua sisään. Kirjoita "{sign_up}" jos haluat luoda uuden käyttäjätunnuksen.\n'
 
-not_command_str = (' ei  ole komento, syötä jokin tunnistettava komento. '
+not_command_str = (' ei  ole komento. '
                    'Komennolla "komennot" näet kaikki peruskomennot. ')
 
 game_instruction_str = (f'PELIN OHJE\n'
@@ -69,9 +71,17 @@ for com in command_and_helptext.keys():
     commands_str += f'{com}: {command_and_helptext[com]}\n'
 
 # Combines all instructions to one manual.
-give_help_str = (f"{game_instruction_str}\n"
+give_help_str = (f"\n"
+                 f"{game_instruction_str}\n"
                  f"{commands_str}\n"
                  f"{game_goal_str}")
+
+tax_free_question = f"Haluatko kaivaa roskista? ({yes}/{no})"
+garbage_can_question = f"Haluatko vierailla Tax Free -myymälässä? ({yes}/{no})"
+airport_selection_question = f"Kävelet kohti lipunmyyntiautomaattia. Kirjoita {approve} nähdäksesi lähtevät lennot."
+
+money_is_zero_str = "Rahasi loppuivat!"
+no_money_for_flight_str = "Rahasi eivät riitä enää lentämiseen. "
 
 yhteys = mysql.connector.connect(
          host='localhost',
