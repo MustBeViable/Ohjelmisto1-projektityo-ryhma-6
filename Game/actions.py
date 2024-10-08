@@ -1,9 +1,12 @@
 from Game.game_texts import give_help_str, commands_str, not_command_str
 from Game.sql_querys.fetch_player_makkaras import player_makkaras_amount
+from Game.sql_querys.fetch_player_screen_name import fetch_player_screen_name
 from Game.sql_querys.money_function import fetch_player_money
 from Game.sql_querys.one_player_own_top_5 import fetch_player_top5_list
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location_name, fetch_player_location
 from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fetch
+from Game.sql_querys.top_5_score_fetch_query import print_all_players_top
+
 
 # Prints the game instruction.
 def give_help():
@@ -44,6 +47,15 @@ def show_top(screen_name):
         for idx, score in enumerate(player_scores):
             print(f"{idx + 1}. {score} pt")
         print("")
+
+def show_all_top_lists_id(game_id):
+    screen_name = fetch_player_screen_name(game_id)
+    show_top(screen_name)
+    print_all_players_top()
+
+def show_all_top_lists_name(screen_name):
+    show_top(screen_name)
+    print_all_players_top()
 
 def faulty_command(command):
     """Prints that the given command doesn't exist."""

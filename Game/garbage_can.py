@@ -58,7 +58,7 @@ def finnair_personnel(game_id):
     from Game.commands import input_in_section
     print(f"Finnairin ympäristöedustaja pyytää lahjoitusta. Sen arvo on {finnair_donation}€.")
     current_money = fetch_player_money(game_id)
-    answer = input_in_section(game_id, f"Haluatko lahjoittaa sen? Sinulla on {current_money}€ tällä hetkellä({yes}/{no}): ").lower()
+    answer = input_in_section(game_id, f"Haluatko antaa lahjoituksen? Sinulla on tällä hetkellä {current_money}€. ({yes}/{no}): ").lower()
 
     while answer not in [yes, no]:
         answer = input_in_section(game_id, f"Älä änkytä!!! {yes}/{no}")
@@ -67,7 +67,7 @@ def finnair_personnel(game_id):
         if current_money >= 500:
             print(
                 f"Onnittelut hyvistä päätöksistä! Pitkäjänteisyytesi ja lahjoitustesi ansiosta olet saanut harvinaisen "
-                f"makkaran, jota kolovastaavakaan ei voi varastaa.")
+                f"makkaran, jota Kolovastaavakaan ei voi varastaa.")
             money = fetch_player_money(game_id)
             money -= finnair_donation
             update_player_money(money, game_id)
@@ -94,7 +94,7 @@ def garbage_can(game_id):
     if outcome == 'found_money':
         print(happy_garbage_can)
         new_money = money_from_garbage()
-        print(f"Onneksi olkoon, löysit rahaa {new_money} €!")
+        print(f"Onneksi olkoon, löysit rahaa {new_money}€!")
         vastaus = input_in_section(game_id,
             f"Roskiksen keiju tarjoaa mahdollisuuden tuplata tämän rahan! Mitä vastaat?  ({yes}/{no}): ").lower()
         tuplataanko(vastaus, new_money, game_id)  # eliaksen tuplaus funktio

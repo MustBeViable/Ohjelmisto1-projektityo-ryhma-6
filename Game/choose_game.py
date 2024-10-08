@@ -3,21 +3,6 @@ from Game.sql_querys.create_and_end_game import create_game, finish_game_in_data
 from Game.sql_querys.fetch_player_makkaras import player_makkaras_amount
 from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player_location_name
 from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fetch
-from game_texts import yhteys
-
-
-def sql_connection(sql_text):
-    kursori = yhteys.cursor()
-    kursori.execute(sql_text)
-    result = kursori.fetchall()
-    return result
-
-# yhteiset komennot, siirretään muualle
-
-def lower_input(prompt):
-    result = input(prompt).lower()
-    return result
-
 
 def continue_or_new_str(game_id):
     """'Haluatko jatkaa keskeneräistä pelikertaasi?

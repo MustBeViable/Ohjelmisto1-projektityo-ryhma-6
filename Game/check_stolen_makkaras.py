@@ -8,8 +8,3 @@ def check_if_any_stolen_makkara(game_id):
         kolo_search(game_id)
     else:
         print("Kololla ei ole sinulle mitään!")
-
-
-
-
-
