@@ -12,16 +12,17 @@ Aika ei riittänyt aivan kaiken tekemään täydelliseksi ja siksi pelissä on k
 
 Tiedossa olevat bugit ja ongelmat:
 
-Kun kolovastaava vie tai palauttaa makkaroita, käyttäjän pisteet eivät muutu. Pisteiden tulisi vähentyä makkaroiden lähtemisen myötä.
+1. Kun kolovastaava vie tai palauttaa makkaroita, käyttäjän pisteet eivät muutu. Pisteiden tulisi vähentyä makkaroiden lähtemisen myötä.
 Korjataan lisäämällä pelaajan pisteiden päivitys funktioihin, jotka päivittävät pelaajan makkaroiden stolen-tilan muutosta.
 
-Uuden komennon luomminen vaatii komennon kirjoittamista manuaalisesti kolmeen eri paikkaan (kaksi kertaa tiedostoon game_texts ja kerran tiedostoon commands).
-Tämmä on hyvin työlästä.
+2. Uuden komennon luomminen vaatii komennon kirjoittamista manuaalisesti kolmeen eri paikkaan (kaksi kertaa tiedostoon game_texts ja kerran tiedostoon commands).
+Tämä on hyvin työlästä.
 Korjattaisiin mahdollisesti lisäämällä helptext comento-olion attribuutiksi. 
 
+3. commands.py-tiedostossa on sekavasti funktioita, mutta niitä ei ehditty järjestää järkevästi circular import -virheiden takia.
 
 Ominaisuudet, joita ei ehditty toteuttaa lainkaan:
 
-Tietyn maan makkarasta saa enemmän pisteitä, kun sen ostaa ensimmäisen kerran.
-Roskiksesta voi löytää mustamakkaran palasia, joista muodostuu kokonainen makkara.
-Pelaaja voi komennolla nähdä luettelon kaikista keräämistään makkaroista.
+1. Tietyn maan makkarasta saa enemmän pisteitä, kun sen ostaa ensimmäisen kerran.
+2. Roskiksesta voi löytää mustamakkaran palasia, joista muodostuu kokonainen makkara.
+3. Pelaaja voi komennolla nähdä luettelon kaikista keräämistään makkaroista.
