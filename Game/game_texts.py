@@ -78,6 +78,7 @@ give_help_str = (f"\n"
 
 garbage_can_question = f"Haluatko kaivaa roskista? ({yes}/{no})"
 tax_free_question = f"Haluatko vierailla Tax Free -myymälässä? ({yes}/{no})"
+
 airport_selection_question = f"Kävelet kohti lipunmyyntiautomaattia. Kirjoita {approve} nähdäksesi lähtevät lennot."
 
 money_is_zero_str = "Rahasi loppuivat!"
