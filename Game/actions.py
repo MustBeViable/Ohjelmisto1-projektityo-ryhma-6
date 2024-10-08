@@ -7,7 +7,6 @@ from Game.sql_querys.player_location_fetch_and_update_querys import fetch_player
 from Game.sql_querys.score_fetch_and_score_update_querys import player_score_fetch
 from Game.sql_querys.top_5_score_fetch_query import print_all_players_top
 
-
 # Prints the game instruction.
 def give_help():
     """Prints the game help text."""
@@ -18,7 +17,7 @@ def give_commands():
     print(commands_str)
 
 def cant_end_now():
-    """Prints that the player can't end the game now."""
+    """Prints that the player can't end the game right now."""
     print("Voit lopettaa ennen roskiksen kaivamista, tax freehen menemistä tai lentojen katselemista. "
           "Tee siis nykyinen valintasi loppuun.")
 
@@ -49,11 +48,13 @@ def show_top(screen_name):
         print("")
 
 def show_all_top_lists_id(game_id):
+    """Prints the top list of all players."""
     screen_name = fetch_player_screen_name(game_id)
     show_top(screen_name)
     print_all_players_top()
 
 def show_all_top_lists_name(screen_name):
+    """Prints player top list and all time top list."""
     show_top(screen_name)
     print_all_players_top()
 
@@ -62,7 +63,7 @@ def faulty_command(command):
     print(f'"{command}"{not_command_str}')
 
 def show_profile(game_id):
-    """This funktion shows player's profile"""
+    """This function shows player's profile"""
     print(f"Sijaintisi on tällä hetkellä lentokentällä: {fetch_player_location_name(game_id)}, ICAO: {fetch_player_location(game_id)}")
     print(f"Sinulla on rahaa {fetch_player_money(game_id)} euroa ja pisteitä {player_score_fetch(game_id)}.")
     print(f"Sinulla on yhteensä makkaroita: {player_makkaras_amount(game_id)} kpl.")
