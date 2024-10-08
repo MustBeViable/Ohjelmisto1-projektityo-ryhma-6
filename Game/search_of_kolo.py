@@ -12,9 +12,9 @@ def kolo_search(game_id):
 
     from Game.commands import input_in_section
 
-    outside_airport = input_in_section(game_id, f"Kirjoita taxi jos haluat ottaa taxin ({taxi_price}€) tai kirjoita uber jos haluat uberin ({uber_price}€).")
+    outside_airport = input_in_section(game_id, f"Tarvitset kulkupelin poistuaksesi lentokentältä. Kirjoita taxi jos haluat ottaa taxin ({taxi_price}€) tai kirjoita uber jos haluat uberin ({uber_price}€).")
     while outside_airport != "taxi" and outside_airport != "uber":
-        outside_airport = input_in_section(game_id, f"Kirjoita taxi jos haluat ottaa taxin ({taxi_price}€) tai kirjoita uber jos haluat uberin ({uber_price}€).")
+        outside_airport = input_in_section(game_id, f"Tarvitset kulkupelin poistuaksesi lentokentältä. Kirjoita taxi jos haluat ottaa taxin ({taxi_price}€) tai kirjoita uber jos haluat uberin ({uber_price}€).")
 
     if outside_airport == "taxi":
         return_player_makkaras(game_id)
