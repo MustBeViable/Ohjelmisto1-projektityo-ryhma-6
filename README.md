@@ -13,13 +13,16 @@ Aika ei riittänyt aivan kaiken tekemään täydelliseksi ja siksi pelissä on k
 Tiedossa olevat bugit ja ongelmat:
 
 1. Kun kolovastaava vie tai palauttaa makkaroita, käyttäjän pisteet eivät muutu. Pisteiden tulisi vähentyä makkaroiden lähtemisen myötä.
-Korjataan lisäämällä pelaajan pisteiden päivitys funktioihin, jotka päivittävät pelaajan makkaroiden stolen-tilan muutosta.
+   Korjataan lisäämällä pelaajan pisteiden päivitys funktioihin, jotka päivittävät pelaajan makkaroiden stolen-tilan muutosta.
 
-2. Uuden komennon luomminen vaatii komennon kirjoittamista manuaalisesti kolmeen eri paikkaan (kaksi kertaa tiedostoon game_texts ja kerran tiedostoon commands).
-Tämä on hyvin työlästä.
-Korjattaisiin mahdollisesti lisäämällä helptext comento-olion attribuutiksi. 
+3. Uuden komennon luomminen vaatii komennon kirjoittamista manuaalisesti kolmeen eri paikkaan (kaksi kertaa tiedostoon game_texts ja kerran tiedostoon commands).
+   Tämä on hyvin työlästä.
+   Korjattaisiin mahdollisesti lisäämällä helptext comento-olion attribuutiksi. 
 
-3. commands.py-tiedostossa on sekavasti funktioita, mutta niitä ei ehditty järjestää järkevästi circular import -virheiden takia.
+4. commands.py-tiedostossa on sekavasti funktioita, mutta niitä ei ehditty järjestää järkevästi circular import -virheiden takia.
+
+5. Pelin rungosta puuttuu paljon kommentteja, koska ne unohtuivat.
+   Korjattaisiin kommentoimalla runko.
 
 Ominaisuudet, joita ei ehditty toteuttaa lainkaan:
 
