@@ -9,7 +9,6 @@ Peliä pelataan terminaalissa.
 
 
 Aika ei riittänyt aivan kaiken tekemään täydelliseksi ja siksi pelissä on kehitettävää.
-
 Tiedossa olevat bugit ja ongelmat:
 
 1. Kun kolovastaava vie tai palauttaa makkaroita, käyttäjän pisteet eivät muutu. Pisteiden tulisi vähentyä makkaroiden lähtemisen myötä.
